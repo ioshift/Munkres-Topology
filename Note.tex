@@ -1,0 +1,3109 @@
+\documentclass[12pt,a4paper]{article}
+\def\ntitle{Topology}
+
+\input{head}
+\begin{document}
+    \pagenumbering{Roman}
+    \maketitle
+    \newpage
+    \tableofcontents    
+    \newpage
+    \pagenumbering{arabic}
+
+    \section{Set Theory and Logic}\addclass{Set Theory and Logic}
+    \begin{thm}\textbf{Axiom of Choice}\hfill
+    
+        Given $\mathcal{A}$ of disjoint nonempty sets, there exists a set $C$ consisting of exactly one element from each element of $\mathcal{A}$.
+    \end{thm}
+    \begin{remark}
+        Equivalently, Given a collection $\mathcal{B}$ of nonempty sets (not necessarily disjoint), there exsits a function
+        $$
+        c: \mathcal{B}\to\bigcup_{B\in\mathcal{B}}B
+        $$
+        such that $c(B)\in B$ for each $B\in\mathcal{B}$.
+    \end{remark}
+    \hfill
+
+    \begin{defi}{Well-ordered}
+        A set $A$ with an order relation $<$ is said to be \textit{\textbf{well-ordered}} if every nonempty subset of $A$ has a smallest element.
+    \end{defi}
+    \begin{remark}
+        A well-ordered set trivially has the least upper bound property. 
+    \end{remark}
+    \begin{remark}
+        It follows that every non-max element in a well-ordered set has an immediate successor. 
+    \end{remark}
+    \begin{thm}\textbf{Well-ordering Principle}\hfill
+    
+        If $A$ is a set, there exists an order relation on $A$ that is well ordered.
+    \end{thm}
+    \begin{cor}
+        There exists an uncountable well-ordered set.
+    \end{cor}
+    \hfill
+
+    \begin{defi}{Section}
+        Let $X$ be a well-ordered set. Given $\alpha\in X$, let $S_\alpha$ denote the set
+        $$
+        S_\alpha=\set{x:x\in X,x<\alpha}
+        $$
+        It is called the \textbf{\textit{section}} of $X$ by $\alpha$.
+    \end{defi}
+    \begin{defi}{Minimal Uncountable Well-ordered Set}\addelement{$S_\Omega$ \& $\bar{S}_\Omega$}
+        There exists a well-ordered set $A$ having the largest element $\Omega$, such that the section $S_\Omega$ of $A$ is uncountable but every other sections of $A$ is countable. We then call $S_\Omega$ a \textbf{\textit{minimal uncountable well-ordered set}}. We denote $A=S_\Omega\cup\set{\Omega}$ by $\bar{S_\Omega}$.
+    \end{defi}
+    \hfill
+    
+
+    
+
+    \begin{thm}\textbf{The Maximum Principle}\hfill
+    
+        Let $A$ be a set and $\prec$ be a strict partial order on $A$. Then there exists a maximal simply ordered subset $B$ of A.
+    \end{thm}
+    \hfill
+    
+    \begin{lemma}\textbf{Zorn's Lemma}\hfill
+    
+        Let $A$ be a set that is strictly partially ordered. If every simply ordered subset of $A$ has an upper bound in $A$, then $A$ has a maximal element.    
+    \end{lemma}
+
+    \newpage
+
+    \section{Topological Spaces and Continuous Functions}\addclass{Topological Spaces and Continuous Functions}
+    \hfill
+    
+    \subsection{Topological Spaces}
+    \begin{defi}{Topology \& Topological Space}
+        A \textit{\textbf{topology}} on a set $X$ is a collection $\topo$ of subsets of $X$ having the following properties
+        \begin{itemize}
+            \item $\emptyset$ and $X$ are in $\topo$
+            \item The arbitrary union of elements of $\topo$ is in $\topo$
+            \item The finite intersection of elements of $\topo$ is in $\topo$
+        \end{itemize}
+        A set $X$ for which a topology $\topo$ has been specified is called a \textit{\textbf{topological space}}.
+    \end{defi}
+    \hfill
+
+    \begin{defi}{Open Set}
+        If $X$ is a topological space with topology $\topo$, we say that a subset $U\subseteq X$ is an \textit{\textbf{open set}} of $X$ if $U\in\topo$
+    \end{defi}
+    \hfill
+
+    \begin{defi}{Discrete Topology \& Indiscrete Topology}
+        If $X$ is any set, then $\topo$ is called the \textit{\textbf{discrete topology}} if 
+        $$
+        \topo=\set{S:S\subseteq X}
+        $$
+        $\topo$ is called the \textit{\textbf{indiscrete topology}}, or the \textit{\textbf{trivial topology}} if
+        $$
+        \topo=\set{\emptyset,X}
+        $$
+    \end{defi}
+    \hfill
+
+    \begin{defi}{Finite Complement}\addelement{$\topo_f$}
+        Let $X$ be a set, let $\topo_f$ be the collection of all subsets $U\subseteq X$ such that $X-U$ either is finite or is all of $X$. Then $\topo_f$ is a topology on $X$, called the \textit{\textbf{finite complement topology}}.
+    \end{defi}
+    \hfill
+
+    \begin{defi}{Finer, Coarser \& Comparable}
+        Suppose $\topo$ and $\topo'$ are two topologies on a given set $X$. If $\topo'\subseteq \topo$, we say that $\topo$ is \textit{\textbf{finer}} than $\topo'$ and that $\topo'$ is \textit{\textbf{coarser}} than $\topo$. We say $\topo$ is \textit{\textbf{comparable}} with $\topo'$ if either $\topo\subseteq\topo'$ or $\topo'\subseteq\topo$.
+    \end{defi}
+    \hfill
+
+    \subsection{Basis for a Topology}
+    \begin{defi}{Basis}\addelement{$\B$}
+        If $X$ is a set, then a \textit{\textbf{basis}} for a topology on $X$ is a collection $\B$ of subsets $B\subseteq X$ such that
+        \begin{itemize}
+            \item For each $x\in X$, there exists $B\in\B$ such that $x\in B$.
+            \item If there are $B_1,B_2\in \B$ such that $x\in B_1$ and $x\in B_2$, then there exists $B_3\in \B$ such that $x\in B_3$ and $B_3\subseteq B_1\cap B_2$.
+        \end{itemize}
+    \end{defi}
+    \hfill
+
+    \begin{defi}{Topology Generated by Basis}
+        If $X$ is a set and $\B$ is a basis, then we define the \textit{\textbf{topology $\topo$ generated by $\B$}} as follows: a subset $U\subseteq X$ such that $U\in\topo$ if for all $x\in U$ there exists $B\in\B$ such that $x\in B$ and $B\subseteq U$.
+    \end{defi}
+    \begin{remark}
+        Note that $\B\subseteq\topo$ always holds.
+    \end{remark}
+    \hfill
+    
+    \begin{eg}
+        Given a set $X$, then $\B$ defined by
+        $$
+        \B=\set{\set{x}:x\in X}
+        $$
+        is a basis for the discrete topology.
+    \end{eg}
+    \hfill
+
+    \begin{prop}
+        Let $X$ be a set, let $\B$ be a basis for a topology $\topo$ on $X$. Then $\topo$ equals the collection of all unions of the elements of $\B$.
+    \end{prop}
+    \begin{remark}
+        It states that every open set $U$ in $X$ can be expressed as a union of basis elements.
+    \end{remark}
+    \hfill
+
+    \begin{prop}
+        Let $X$ be a topological space. Suppose that $\B$ is a collection of open sets of $X$ such that for each open set $U$ of $X$ and each $x\in U$, there is an element $B\in\B$ such that $x\in B\subseteq U$. Then $\B$ is a basis for the topology of $X$.
+    \end{prop}
+    \begin{remark}
+        This helps find the basis given the topology of the set.
+    \end{remark}
+    \begin{remark}
+        A topology may be generated by multiple different basis. In particular, a topology is a base of itself.
+    \end{remark}
+
+    \begin{cor}
+        Let $X$ be a topological space, and $\B$ be a basis for a topology $\topo$ on $X$. Then for all $\B'$ such that $\B\subseteq\B'\subseteq\topo$ we have $\B'$ is a basis for $\topo$.
+    \end{cor}
+    \hfill
+
+    \begin{lemma}
+        Let $\B$ and $\B'$ be bases for the topologies $\topo$ and $\topo'$, respectively, on $X$. Then the following are equivalent:
+        \begin{itemize}
+            \item $T'$ is finer than $T$
+            \item For each $x\in X$ and each basis element $B\in\B$ containing $x$, there is a basis element $B'\in\B'$ such that $x\in B'\subseteq B$.
+        \end{itemize}
+    \end{lemma}
+    \hfill
+
+    \begin{defi}{Standard Topology, Lower Limit Topology \& K-Topology}
+        If $\B$ is the collection of all open intervals in the real line,
+        $$
+        (a,b)=\set{x:a<x<b}
+        $$
+        Then the topology generated by $\B$ is called the \textbf{\textit{standard topology}} on $\R$.
+        \vspace{1em}
+
+        If $\B'$ is the collection of all half-open intervals of the form
+        $$
+        [a,b)=\set{x:a\leq x<b}
+        $$
+        Then the topology generated by $\B'$ is called the \textbf{\textit{lower limit topology}} on $\R$. When $\R$ is given the lower limit topology, we denote it by $\R_l$.
+        \vspace{1em}
+
+        Define $K$ by
+        $$
+        K=\set{\frac{1}{n}:n\in\Z^+}
+        $$
+        and let $\B''$ be the collection of all open intervals $(a,b)$, along with all sets of the form $(a,b)\setminus K$. The topology generated by $\B''$ will be called the \textbf{\textit{K-topology}} on $\R$. When $\R$ is given this topology, we denote it by $\R_K$.
+    \end{defi}
+    \hfill
+
+    \begin{lemma}
+        The topologies of $\R_l$ and $\R_K$ are strictly finer than the standard topology on $\R$, but are not comparable with one another.   
+    \end{lemma}
+    \begin{remark}
+        Notice $(a,b)=\cup_{a<x<b}[a,b)$, thus $R\subsetneq R_l$.
+    \end{remark}
+    \hfill
+
+    \begin{defi}{Subbasis}
+        A \textbf{\textit{subbasis}} $\S$ for a topology on $X$ is a collection of subsets of $X$ whose union equals $X$. The \textit{\textbf{topology generated by the subbasis}} $\S$ is defined to be the collection $\topo$ of all unions of finite intersections of element of $\S$.
+    \end{defi}
+    \begin{remark}
+        The collection $\B$ of all finite intersections of elements of $\S$ is a basis for $\topo$.
+    \end{remark}
+    \hfill
+
+    \subsection{The Order Topology}
+    \begin{defi}{Order Topology}
+        Let $X$ be a set with a simple order relation; assume $X$ has more than one element. Let $\B$ be the collection of all sets of the following types:
+        \begin{itemize}
+            \item All open intervals $(a,b)$ in $X$
+            \item All intervals of the form $[a_0,b)$, where $a_0$ is the smallest element (if any) of $X$.
+            \item All intervals of the form $(a,b_0]$, where $b_0$ is the largest element (if any) of $X$.
+        \end{itemize}
+        The collection $\B$ is a basis for a topology on $X$, which is called the \textit{\textbf{order topology}}.
+    \end{defi}
+    \hfill
+
+    \begin{defi}{Ray}
+        If $X$ is an ordered set, and $a$ is an element of $X$, there are four subsets of $X$ that are called the \textbf{\textit{rays}} determined by $a$. They are the following:
+        $$
+        \begin{aligned}
+            (a,+\infty)&=\set{x:x>a}\\
+            (-\infty,a)&=\set{x:x<a}\\
+            [a,+\infty)&=\set{x:x\geq a}\\
+            (-\infty,a]&=\set{x:x\leq a}
+        \end{aligned}
+        $$
+        Sets of the first two types are called \textit{\textbf{open rays}}, the the last two types are called \textit{\textbf{closed rays}}.
+    \end{defi}
+    \begin{remark}
+        The open rays actually form a subbasis for the order topology on $X$.
+    \end{remark}
+    \hfill
+
+    \begin{defi}{Ordered Square}\addelement{$I_o^2$}
+        Let $I=[0,1]$, then the set $I\times I$ in the dictionary order topology is called the \textbf{\textit{ordered square}}, denoted by $I_o^2$.
+    \end{defi}
+
+    \subsection{The Product Topology on $X\times Y$}
+    \begin{defi}{Product Topology}
+        Let $X$ and $Y$ be topological spaces. The \textbf{\textit{product topology}} $X\times Y$ is the topology having as basis the collection $\B$ of all sets of the form $U\times V$, where $U$ is an open subset of $X$ and $V$ is an open subset of $Y$.
+    \end{defi}
+    \hfill
+
+    \begin{thm}
+        If $\B$ is a basis for the topology of $X$ and $\mathcal{C}$ is a basis for the topology of $Y$, then the collection
+        $$
+        \mathcal{D}=\set{B\times C: B\in\B, C\in\mathcal{C}}
+        $$
+        is a basis for the product topology of $X\times Y$.
+    \end{thm}
+    \hfill
+
+    \begin{defi}{Projection}
+        Let $\pi_1:X\times Y\to X$ be defined by the equation
+        $$
+        \pi_1(x,y)=x
+        $$
+        Let $\pi_2:X\times Y\to Y$ be defined by the equation
+        $$
+        \pi_1(x,y)=y
+        $$
+        The maps $\pi_1$ and $\pi_2$ are called the \textbf{\textit{projections}} of $X\times Y$ onto the first and second factors, respectively.
+    \end{defi}
+    \hfill
+
+    \begin{thm}
+        Suppose the $X$ has the topology $\topo$ and $Y$ has the topology $\topo'$. Then the collection
+        $$
+        \S=\set{\pi_1^{-1}(U):U\in\topo}\cup\set{\pi_2^{-1}(V):V\in\topo'}
+        $$
+        is a subbasis for the product topology on $X\times Y$.
+    \end{thm}
+    \hfill
+
+    \begin{thm}
+        Let $X,Y$ be topological spaces and $A\subset X, B\subset Y$ be nonempty. Then we have
+        $$
+        A\times B\text{ open}\iff A,B\text{ open}
+        $$
+    \end{thm}
+    \begin{remark}
+        It we allow the empty set, then $A=\emptyset,B=\set{0},X=Y=\R$ would be a counterexample.
+    \end{remark}
+
+    \subsection{The Subspace Topology}
+    \begin{defi}{Subspace Topology \& Subspace}
+        Let $X$ be a topological space with topology $\topo$. If $Y$ is a subset of $X$, the collection
+        $$
+        \topo_Y=\set{Y\cap U: U\in\topo}
+        $$
+        is a topology on $Y$, called the \textbf{\textit{subspace topology}}. With this topology, $Y$ is called a \textit{\textbf{subspace}} of $X$
+    \end{defi}
+    \hfill
+
+    \begin{lemma}
+        If $\B$ is a basis for the topology of $X$ then the collection
+        $$
+        \B_Y=\set{B\cap Y:B\in\B}
+        $$
+        is a basis for the subspace topology on $Y$.
+    \end{lemma}
+    \hfill
+    
+    \begin{lemma}
+        Let $Y$ be a subspace of $X$. If $U$ is open in $Y$ and $Y$ is open in $X$, then $U$ is open in $X$.
+    \end{lemma}
+    \hfill
+
+    \begin{thm}
+        If $A$ is a subspace of $X$ and $B$ is a subspace of $Y$, then the product topology on $A\times B$ is the same as the subspace topology on $A\times B$ of $X\times Y$.
+    \end{thm}
+    \hfill
+
+    \begin{eg}
+        Consider the subset $Y=[0,1)\cup\set{2}$ of $\R$ with the order topology. Notice that $\set{2}$ is open in the subspace topology on $y$ but not open in the order topology on $y$.
+    \end{eg}
+    \begin{remark}
+        This is a conterexample proving that \textit{the order topology on $Y$ need not be the same as the subspace topology on $Y$ of $X$}.
+    \end{remark}
+    \hfill
+
+    \begin{defi}{Convex}
+        Given an ordered set $X$, we say a subset $Y$ of $X$ is \textbf{\textit{convex}} in $X$ if $a,b\in Y$ and $a<x<b$ implies $x\in Y$.
+    \end{defi}
+    \begin{remark}
+        Note that intervals and rays are convex in $X$.
+    \end{remark}
+    \hfill
+
+    \begin{thm}
+        Let $X$ be an ordered set in the order topology and $Y\subseteq X$. Then the order topology on $Y$ is contained in the subset topology on $Y$ of $X$. If, further, we have $Y$ is convex in $X$, then the order topology on $Y$ is the same as the subspace topology on $Y$ of $X$. 
+    \end{thm}
+    \begin{proof}
+        Let $S_Y=\set{(a,+\infty):a\in Y}\cup\set{(-\infty,a):a\in Y}$ be the subbasis for the order topology on $Y$, and $S_X=\set{(a,+\infty):a\in X}\cup\set{(-\infty,a):a\in X}$ be the subbasis for the order topology on $X$. Since we have $S_Y\subseteq\set{s\cap Y:s\in S_X}$, which implies that the order topology is contained in the subset topology.
+        \vspace{1em}
+
+        Given $Y$ is convex in $X$. Consider $s\in S_X$, without loss of generality, we assume that $s=(a,+\infty)$ where $a\in X$. If $u<a<v$ for some $u,v\in Y$, then $a\in Y$ due to the convexity of $Y$, which then implies $s\cap Y\in S_Y$. If $a>u$ for all $u\in Y$, then $s\cap Y=\emptyset$; if $a<u$ for all $u\in Y$, then $s\cap Y= Y$. Either case implies that the subset topology is contained in the order topology. 
+    \end{proof}
+    \hfill
+
+    \begin{note}    
+        To avoid ambiguity, whenever $X$ is an ordered set in the order topology and $Y$ is a subset of $X$, we shall assume that $Y$ is given the \textit{\textbf{subspace topology}}.
+    \end{note}
+    \hfill
+
+    \begin{defi}{Open Map}
+        A map $f:X\to Y$ is said to be an \textit{\textbf{open map}} if for every open set $U$ of $X$, the set $f(U)$ is open in $Y$.
+    \end{defi}
+    \begin{ex}
+        Show that the projection function $\pi_1:X\times Y\to X$ and $\pi_2:X\times Y\to Y$ are open maps.
+    \end{ex}
+    \begin{proof}
+        If $U\times V$ is an open set in $X\times Y$, then by definition $U\times V=\bigcup(S\times T)$ where $S$ is open in $X$ and $T$ is open in $Y$. Then we have $\pi_1(U\times V)=\bigcup S$ is open in $X$ and $\pi_2(U\times V)=\bigcup T$ is open in $Y$.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        If $Y$ is a subspace of $X$ and $A$ is a subset of $Y$, then the subspace topology on $A$ of $Y$ is the same as the subspace topology on $A$ of $X$.
+    \end{ex}
+    \begin{proof}
+        Let $\topo_X$ be the topology of $X$ and $\topo_Y=\set{Y\cap U: U\in\topo_X}$ be the subspace topology on $Y$ of $X$. Then it can be proved by noticing that
+        $$
+        \set{A\cap U:U\in\topo_Y}=\set{A\cap Y\cap V: V\in\topo_X}=\set{A\cap V: V\in\topo_X}
+        $$
+    \end{proof}
+    \hfill
+
+    \subsection{Closed Sets and Limit Points}
+    \begin{defi}{Closed}
+        A subset $A$ of a topological space $X$ is said to be \textit{\textbf{closed}} if the set $X-A$ is open.
+    \end{defi}
+    \begin{eg}
+        In the finite complement topology on a set $X$, the closed sets consist of $X$ itself and all finite subsets of $X$.
+    \end{eg}
+    \begin{eg}
+        In the discrete topology on a set $X$, every set is open; it follows that every set is closed.
+    \end{eg}
+    \hfill
+
+    \begin{thm}
+        Let $X$ be a topological space. Then the following conditions hold:
+        \begin{itemize}
+            \item $\emptyset$ and $X$ are closed.
+            \item Arbitarary intersections of closed sets are closed.
+            \item Finite unions of closed sets are closed.
+        \end{itemize}
+    \end{thm}
+    \hfill
+
+    \begin{thm}
+        Let $Y$ be a subspace of $X$. Then a set $A$ is closed in $Y$ if and only if it equals the intersection of a closed set of $X$ with $Y$.
+    \end{thm}
+    \hfill
+
+    \begin{thm}
+        Let $Y$ be a subspace of $X$. If $A$ is closed in $Y$ and $Y$ is closed in $X$, then $A$ is closed in $X$.
+    \end{thm}
+    \begin{proof}
+        Since $A$ is closed in $Y$, then there exists $U\in X$ that is closed in $X$ such that $A=Y\cap U$, since both of $X-U$ and $X-Y$ is open in $X$, then we know that $(X-U)\cup(X-Y)$ is open in $X$, hence $A=Y\cap U=X-(X-U)\cup(X-Y)$ is closed in $X$.
+    \end{proof}
+    \begin{remark}
+        Similarly, if $A$ is open in $Y$ and $Y$ is open in $X$, then $A$ is open in $X$.
+    \end{remark}
+    \hfill
+
+    \begin{defi}{Interior \& Closure}\addelement{$\interior A$ \& $\closure{A}$}
+        Given a subset $A$ of a topological space $X$, the \textbf{\textit{interior}} of $A$, denoted by $\interior A$, is defined as the union of all open sets contained in $A$, and the \textit{\textbf{closure}} of $A$, denoted by $\closure{A}$, is defined as the intersection of all closed sets containing $A$.
+    \end{defi}
+    \begin{remark}
+        Generally, we have $\interior A\subseteq A\subseteq\closure{A}$. If $A$ is open, then $A=\interior A$; while if $A$ is closed, we have $A=\closure{A}$.
+    \end{remark}
+    \hfill
+
+    \begin{thm}
+        Let $Y$ be a subspace of $X$, let $A$ be a subset of $Y$. Let $\closure{A}$ denote the closure of $A$ in $X$. Then the closure of $A$ in $Y$ equals $\closure{A}\cap Y$.
+    \end{thm}
+    \begin{remark}
+        In such a situation, we commonly reserve the notation $\closure{A}$ to stand for the closure of $A$ in $X$.
+    \end{remark}
+    \hfill
+
+    \begin{defi}{Neighborhood}
+        Let $X$ be a topological space. Then we say $U$ is a \textbf{\textit{neighborhood}} of $x$ if $U$ is an open set containing $x$.
+    \end{defi}
+    \hfill
+
+    \begin{thm}
+        Let $A$ be a subset of the topological space $X$. Then
+        \begin{itemize}
+            \item $x\in\closure{A}$ if and only if every neighborhood of $x$ intersects $A$.
+            \item Suppose the topology of $X$ is given by a basis, then $x\in\closure{A}$ if and only if every basis element $B$ containing $x$ intersects $A$.
+        \end{itemize}
+    \end{thm}
+    \hfill
+
+    \begin{defi}{Limit Point}
+        Let $X$ be a topological space, let $A\subseteq X$ and $x\in X$. We say that $x$ is a \textbf{\textit{limit point}} of $A$ if every neighborhood of $x$ intersects $A$ in some point other than $x$ itself.
+    \end{defi}
+    \begin{remark}
+        Alternatively, $x$ is a limit point of $A$ if $x\in\closure{A-\set{x}}$.
+    \end{remark}
+    \hfill
+
+    \begin{thm}
+        Let $A$ be a subset of the topological space $X$; let $A'$ be the set of all limit points of $A$. Then
+        $$
+        \closure{A}=A\cup A'
+        $$
+    \end{thm}
+    \begin{cor}
+        A subset of a topological space is closed if and only if it contains all its limit points.
+    \end{cor}
+    \hfill
+
+    \begin{defi}{Converge}
+        Given a topological space $X$, we say a sequence $\set{a_n}$ \textbf{\textit{converges}} to $a\in X$ if for each neighborhood $U$ of $x$ there exists $N\in\N$ such that $n\geq N$ implies $x_n\in U$.
+    \end{defi}
+    \begin{eg}
+        Consider the topological space $X=\set{1,2,3}$ with topology $\topo=\set{\emptyset,\set{1,2},\set{2},\set{2,3},\set{1,2,3}}$. Consider the constant sequence defined by $a_i=2$, one can prove that the sequence converges to not only to $2$, but also to the point $1$ and $3$.
+    \end{eg}
+    \hfill
+
+    \begin{defi}{Hausdorff Space}
+        A topological space $X$ is called a \textbf{\textit{Hausdorff space}} if for each pair $x_1,x_2$ of distinct points of $X$, there exist neighborhoods $U_1, U_2$ of $x_1,x_2$ respectively, that are disjoint.
+    \end{defi}
+    \hfill
+
+    \begin{thm}\addelement{$T_1$ Axiom}
+        Every finite point set in a Hausdorff space $X$ is closed.
+    \end{thm}
+    \begin{remark}
+        This is called the \textit{\textbf{$T_1$ axiom}}, which is weaker than the Hausdorff condition.
+    \end{remark}
+    \begin{remark}
+        It's equivalent to the condition that every singleton $\set{x}$ is closed.
+    \end{remark}
+    \begin{remark}
+        It follows that taking finite amount of points does not affect the openness of a set.
+    \end{remark}
+    \hfill
+
+    \begin{thm}\label{2.6.18}
+        Let $X$ be a space satisfying the $T_1$ axiom; let $A$ be a subset of $X$. Then the point $x$ is a limit point of $A$ if and only if every neighborhood of $x$ contains infinitely many points of $A$.
+    \end{thm}
+    \begin{proof}
+        The converse side is trivial. Suppose $x$ is a limit point of $A$, if there exists a neighborhood $U$ of $x$ such that $U\cap A$ is finite, then $U\cap (A-\set{x})$ is finite, then $U\cap (A-\set{x})$ is closed, hence $(X-U\cap (A-\set{x}))$ is open in $X$, then $U\cap(X-U\cap (A-\set{x}))$ is a neighborhood of $x$ which does not intersects $A$ in some point other than $x$, which follows that $x$ is not a limit point of $A$. Hence such $U$ does not exist.
+    \end{proof}
+    \hfill
+
+    \begin{thm}
+        If $X$ is a Hausdorff space, then a sequence of points of $X$ converges to at most one point of $X$.
+    \end{thm}
+    \begin{remark}
+        If the sequence $x_n$ of points of the Hausdorff space $X$ converges to $x\in X$, we write $x_n\to x$ and say that $x$ is the limit of the sequence $x_n$.
+    \end{remark}
+    \hfill
+
+    \begin{thm}\hfill
+
+        \begin{itemize}
+            \item Every simply ordered set is a Hausdorff space in the order topology.
+            \item The product of two Hausdorff spaces is a Hausdorff space.
+            \item A subspace of a Hausdorff space is a Hausdorff space. 
+        \end{itemize}
+    \end{thm}
+    \begin{proof}
+        Suppose $X,Y$ are Hausdorff spaces. Let $(x_1,y_1),(x_2,y_2)\in X\times Y$. Without loss of generality, we assume that $y_1\neq y_2$, hence there exsits neighborhoods $y_1\in U_1,y_2\in U_2$ such that $U_1\cap U_2=\emptyset$, let $x_1\in V_1,x_2\in V_2$ be open in $X$, thus $(x_1,y_1)\in V_1\times U_1,(x_2,y_2)\in V_2\times U_2$ are disjoint and open in $X\times Y$. Hence $X\times Y$ is a Hausdorff space. 
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Show that $X$ is Hausdorff if and only if the \textit{\textbf{diagonal}} $\Delta=\set{x\times x: x\in X}$ is closed in $X\times X$.
+    \end{ex}
+    \begin{proof}
+        If $X$ is Hausdorff, let $x,y\in X$ such that $x\neq y$, there exists disjoint open sets $U,V\subseteq X$ such that $x\in U,y\in V$, therefore, $U\times V$ is open in $X\times X$ and does not intersect $\Delta$, which implies that $\Delta$ has no other limit points and thus closed.
+        \vspace{1em}
+
+        If $\Delta$ is closed in $X\times X$. Then for $x,y\in X$ such that $x\neq y$, there exists an open set $U\subseteq X\times X$ that does not intersect $\Delta$, then there is a basis element $M\times N$ such that $(x,y)\in M\times N\subseteq U$. Notice that $M, N$ is open in $X$, and $M\times N$ does not intersect $\Delta$ implying that $M\cap N=\emptyset$, then it follows that $X$ is Hausdorff.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Show the $T_1$ axiom is equivalent to the condition that for each pair of points of $X$, each has a neighborhood not containing the other.
+    \end{ex}
+    \begin{proof}
+        $\implies\!$: Assume $X$ satisfies the $T_1$ axiom, let $x,y\in X$ such that $x\neq y$. Then $X-\set{y}$ and $X-\set{x}$ are neighborhoods required.
+        \vspace{1em}
+
+        $\impliedby\!$: Assume $X$ satisfies the condition. Let $x,y\in X$ such that $x\neq y$. There exists neighborhood $x\in U$ such that $y\notin U$, which implies that $\set{y}$ is closed, and thus $X$ satisfies the $T_1$ axiom.
+    \end{proof}
+    \hfill
+
+    \subsection{Continuous Functions}
+    \begin{defi}{Continuous Function}\label{2.7.1}
+        Let $X$ and $Y$ be topological spaces. A function $f:X\to Y$ is said to be \textit{\textbf{continuous}} if for each open subset $V$ of $Y$, the set $f^{-1}(V)=\set{x\in X:f(x)\in V}$ is an open subset of $X$. 
+    \end{defi}
+    \hfill
+
+    \begin{thm}
+        Let $X$ and $Y$ be topological spaces where $\B$ is the basis of $Y$. Then $f:X\to Y$ is continuous if and only if $f^{-1}(B_\alpha)$ is open for each basis element $B_\alpha$.
+    \end{thm}
+    \begin{thm}
+        Let $X$ and $Y$ be topological spaces where $\S$ is a subbasis of $Y$. Then $f:X\to Y$ is continuous if and only if $f^{-1}(S_\alpha)$ is open for each subbasis element $S_\alpha$.
+    \end{thm}
+    \hfill
+
+    \begin{eg}
+        The continuity of the function $f:\R\to\R$ relative to the standard topology on $\R$ is equivalent to the $\epsilon-\delta$ definition of continuity.
+    \end{eg}
+    \begin{proof}
+        Let $f$ satisfies the $\epsilon-\delta$ definition. Since the collection of open rays forms a subbasis of the standard topology, it suffices to prove that $f^{-1}(R)$ is open for any open ray $R$. WLOG, let $R=(a,+\infty)$. For all $y\in R$ and all $x\in f^{-1}(y)$, let $\epsilon=y-a>0$, we know there exists $\delta_x>0$ such that $\abs{x-t}<\delta_x\implies\abs{f(t)-y}<\epsilon$, which means that
+        $$
+        f^{-1}((a,y+\epsilon))=\bigcup_{x\in f^{-1}(y)}(x-\delta_x,x+\delta_x)
+        $$
+        is open, it follows that $f^{-1}(R)$ is also open.
+
+        The other side is trivially proved.
+    \end{proof}
+    \hfill
+
+    \begin{thm}
+        Let $X$ and $Y$ be topological spaces; let $f:X\to Y$. Then the following are equivalent.
+        \begin{itemize}
+            \item $f$ is continuous.
+            \item For every subset $A$ of $X$, one has $f(\closure{A})\subset\closure{f(A)}$
+            \item For every closed set $B$ of $Y$, the set $f^{-1}(B)$ is closed in $X$.
+            \item For each $x\in X$ and each neighborhood $V$ of $f(x)$, there is a neighborhood $U$ of $x$ such that $f(U)\subset V$.
+        \end{itemize}
+    \end{thm}
+    \begin{remark}
+        For the second point, we have: $f:X\to Y$ is continuous and closed if and only if $f(\closure{A})=\closure{f(A)}$ for each $A\subset X$.
+    \end{remark}
+    \begin{remark}
+        If the fourth point holds for the point $x\in X$, we say that $f$ is continuous at the point $x$.
+    \end{remark}
+    \hfill
+    
+    \begin{defi}{Homeomorphism}
+        Let $X$ and $Y$ be topological spaces, let $f:X\to Y$ be bijection. $f$ is called a \textit{\textbf{homeomorphism}} if both the function $f$ and the inverse function $f^{-1}:Y\to X$ are continuous.
+    \end{defi}
+    \begin{remark}
+        Equivalently, $f:X\to Y$ is a homeomorphism if
+        $$
+        U\text{ is open}\iff f(U)\text{ is open}
+        $$
+    \end{remark}
+    \hfill
+
+    \begin{defi}{Topological Imbedding}
+        Let $f:X\to Y$ be an injective continuous map. Let $Z=f(X)$ be a subspace of $Y$, then $f':X\to Z$ obtained by restricting the range of $f$ is bijective. If $f'$ happens to be a homeomorphism of $X$ with $Z$, we say the map $f:X\to Y$ is a \textbf{\textit{topological imbedding}} of $X$ in $Y$.
+    \end{defi}
+    \begin{remark}
+        In fact, \textbf{\textit{embedding}} is a more widely used terminology with the same definition. 
+    \end{remark}
+    \hfill
+
+    \begin{thm}\label{2.7.8}
+        Let $X,Y,Z$ be topological spaces. Then
+        \begin{itemize}
+            \item (Constant Function) If $f:X\to Y$ maps all of $X$ into the single point $y_0$ of $Y$, then $f$ is continuous.
+            \item (Inclusion) If $A$ is a subspace of $X$, the identity function $\id:A\to X$ is continuous.
+            \item (Composites) If $f:X\to Y$ and $g:Y\to Z$ are continuous, then $g\circ f:X\to Z$ is continuous.
+            \item (Restricting the Domain) If $f:X\to Y$ is continuous, and if $A$ is a subspace of $X$, then the restricted function $f|_A:A\to Y$ is continuous.
+            \item (Restricting or Expanding the Range) Let $f:X\to Y$ be continuous. If $Z$ is a subspace of $Y$ such that $f(X)\subseteq Z\subseteq Y$, then the function $g:X\to Z$ is continuous. If $Z$ is a space having $Y$ as a subspace, then the function $h:X\to Z$ is continuous.
+            \item (Local Formulation of Continuity) The map $f:X\to Y$ is continuous if $X$ can be written as the union of open sets $U_\alpha$ such that the restricted function $f_{U_\alpha}$ is continuous for each $\alpha$.   
+        \end{itemize}
+    \end{thm}
+    \begin{remark}
+        These are methods for constructing continuous functions between topological spaces.
+    \end{remark}
+    \hfill
+
+    \begin{thm}
+        Let $X=A\cup B$ where $A$ and $B$ are closed in $X$. Let $f:A\to Y$ and $g:B\to Y$ be continuous. If $f(x)=g(x)$ for every $x\in A\cap B$, then $f$ and $g$ combine to give a continuous function $h:X\to Y$, defined by
+        $$
+        h(x)=\begin{cases}
+            f(x)&x\in A\\
+            g(x)&x\in B
+        \end{cases}
+        $$
+    \end{thm}
+    \begin{remark}
+        This also holds when both $A$ and $B$ are open, which follows from the Local Formulation of Continuity.
+    \end{remark}
+    \hfill
+
+    \begin{thm}
+        Let $f:A\to X\times Y$ be given by the equation
+        $$
+        f(a)=(f_1(a),f_2(a))
+        $$
+        Then $f$ is continuous if and only if the functions
+        $$
+        f_1:A\to X\aand f_2:A\to Y
+        $$
+        are continuous.
+    \end{thm}
+    \begin{remark}
+        For $f:X\times Y\to A$, it is not true that $f$ is continuous if $f$ is continuous in each variable separately. A counterexample is 
+        $$
+        f(x,y)=\begin{cases}
+            \frac{xy}{x^2+y^2}&(x,y)\neq(0,0)\\
+            0&(x,y)=(0,0)
+        \end{cases}
+        $$
+    \end{remark}
+    \begin{remark}
+        The projection mapping $\pi_Y:X\times Y\to Y$ defined by $\pi(x,y)=y$ is continuous. Hence the map $g:X\times Y\to X\times Y$ defined by
+        $$
+        g(x,y)=(g_1\times g_2)(x,y)=(g_1(x),g_2(y))=(g_1\circ\pi_X,g_2\circ\pi_Y)
+        $$
+        is continuous if and only if $g_1$ and $g_2$ are continuous.
+    \end{remark}
+    \hfill
+
+    \subsection{The Product Topology}
+    \begin{defi}{$J$-tuple}
+        Let $J$ be an index set. Given a set $X$, we define a \textbf{\textit{$J$-tuple}} of elements of $X$ to be a function $\mathbf{x}:J\to X$. If $\alpha\in J$, we often denote the value of $\mathbf{x}$ at $\alpha$ by $x_{\alpha}$ instead of $\mathbf{x}(\alpha)$; we call it the $\alpha$th coordinate of $\mathbf{x}$. We often denote the function $\mathbf{x}$ itself by the symbol $(x_\alpha)_{\alpha\in J}$. We denote the set of all $J$-tuples of elements of $X$ by $X^J$.
+    \end{defi}
+    \hfill
+    
+    \begin{defi}{Projection Mapping}
+        We define 
+        $$
+        \pi_\beta:\prod_{\alpha\in J}X_\alpha\to X_\beta
+        $$
+        be the function assigning to each element of the product space its $\beta$th coordinate, i.e.
+        $$
+        \pi_\beta((x_\alpha)_{\alpha\in J})=x_\beta
+        $$
+        it is called the \textbf{\textit{projection mapping}} associated with the index $\beta$.
+    \end{defi}
+    \hfill
+
+    \begin{defi}{The Box Topology}
+        Let $\set{X_\alpha}_{\alpha\in J}$ be an indexed family of topological spaces. Let us take as a basis for a topology on the product space
+        $$
+        \prod_{\alpha\in J} X_\alpha
+        $$
+        the collection of all sets of the form
+        $$
+        \prod_{\alpha\in J}U_\alpha
+        $$
+        where $U_\alpha$ is open in $X\alpha$. The topology generated by this basis is called \textbf{\textit{the box topology}}.
+    \end{defi}
+    \hfill
+
+    \begin{defi}{Product Topology}
+        Let $S_\beta$ denote the collection
+        $$
+        S_\beta=\set{\pi_{\beta}^{-1}(U_\beta):U_\beta\text{ open in } X_\beta}
+        $$
+        and let $S$ denote the union of these collections 
+        $$
+        S=\bigcup_{\beta\in J}S_\beta
+        $$
+        The topology generated by the subbasis $S$ is called the \textbf{\textit{product topology}}. In this topology $\prod_{\alpha\in J}X_\alpha$ is called a \textbf{\textit{product space}}.
+    \end{defi}
+    \hfill
+
+    \begin{thm}
+        The box topology on $\prod X_\alpha$ has as basis all sets of the form $\prod U_\alpha$, where $U_\alpha$ is open in $X_\alpha$ for each $\alpha$. The product topology on $\prod X_\alpha$ has as basis all sets of the form $\prod U_\alpha$, where $U_\alpha$ is open in $X_\alpha$ for each $\alpha$ and $U_\alpha$ equals $X_\alpha$ except for finitely many values of $\alpha$.
+    \end{thm}
+    \begin{remark}
+        Note that
+        \begin{itemize}
+            \item For finite products $\prod_{\alpha=1}^nX_\alpha$, the two topologies are precisely the same.
+            \item The box topology is finer than the product topology.
+        \end{itemize}
+    \end{remark} 
+    \hfill
+
+    \begin{thm}
+        Suppose the topology on each space $X_\alpha$ is given by a basis $\B_\alpha$. The collection of all sets of the form
+        $$
+        \prod_{\alpha\in J} B_\alpha
+        $$
+        where $B_\alpha\in\B_\alpha$ for each $\alpha$, will serve as a basis for the box topology on $\prod_{\alpha\in J}X_\alpha$.
+
+        The collections of all sets of the same form, where $B_\alpha\in\B_\alpha$ for finitely many indices $\alpha$ and $B_\alpha=X_\alpha$ for all the remaining indices, will serve as a basis for the product topology on $\prod_{\alpha\in J}X_\alpha$.
+    \end{thm}
+    \hfill
+
+    \begin{thm}
+        Let $A_\alpha$ be a subspace of $X_\alpha$, for each $\alpha\in J$. Then $\prod A_\alpha$ is subspace of $\prod X_\alpha$ if both products are given the box topology, or if both products are given the product topology.
+    \end{thm}
+    \hfill
+
+    \begin{thm}
+        If each space $X_\alpha$ is a Hausdorff space, then $\prod X_\alpha$ is a Hausdorff space in both the box and product topologies.
+    \end{thm}
+    \hfill
+
+    \begin{thm}
+        Let $\set{X_\alpha}$ be an indexed family of spaces; let $A_\alpha\subset X_\alpha$ for each $\alpha$. If $\prod X_\alpha$ is given either the product or the box topology, then
+        $$
+        \prod \closure{A_\alpha}=\closure{\prod A_\alpha}
+        $$
+    \end{thm}
+    \hfill
+
+    \begin{thm}
+        Let $f:A\to\prod_{\alpha\in J}X_\alpha$ be given by the equation
+        $$
+        f(a)=(f_\alpha(a))_{\alpha\in J}
+        $$
+        where $f_\alpha:A\to X_\alpha$ for each $\alpha$. Let $\prod X_\alpha$ have the product topology. Then the function $f$ is continuous if and only if each function $f_\alpha$ is continuous.
+    \end{thm}
+    \begin{remark}
+        Define $f:\R\to\R^\N$ by
+        $$
+        f(t)=(t,t,t,\dots)
+        $$
+        Then each coordinate function $f_n(t)=t$ is continuous. If we take the box topology on $\R^\N$, then 
+        $$
+        B=(-1,1)\times\left(-\frac{1}{2},\frac{1}{2}\right)\times\left(-\frac{1}{3},\frac{1}{3}\right)\times\cdots
+        $$
+        is a basis element of $\R^\N$, but $f^{-1}(B)=\set{0}$ is not open in $\R$, hence $f$ is not continuous in this case. 
+    \end{remark}
+    \hfill
+
+    \begin{ex}\label{2.8.11}
+        Define $\R^\infty$ be the subset of $\R^\N$ in which all sequences $(x_1,x_2,\dots)$ have $x_i\neq0$ for only finitely many values of $i$. What is the closure of $\R^\infty$ in $\R^\N$ in the box and product topologies?
+    \end{ex}
+    \begin{sol}
+        For product topology, the closure of $\R^\infty$ is $\R^\N$. For box topology, the closure of $\R^\infty$ is $\R^\infty$ itself.
+    \end{sol}
+    \hfill
+
+    \subsection{The Metric Topology}
+    \begin{defi}{Metric}
+        A \textbf{\textit{metric}} on a set is a function
+        $$
+        d:X\times X\to\R
+        $$
+        that satisfies
+        \begin{itemize}
+            \item $d(x,y)\geq0$ for all $x,y\in X$; equality holds iff $x=y$.
+            \item $d(x,y)=d(y,x)$ for all $x,y\in X$.
+            \item $d(x,y)+d(y,z)\geq d(x,z)$ for all $x,y,z\in X$.
+        \end{itemize}
+    \end{defi}
+    \hfill
+
+    \begin{defi}{$\mathbf{\varepsilon}$-Ball}
+        Given a metric $d$ on $X$. Let $\varepsilon>0$, the $\varepsilon$-ball centered at $x$ is defined by
+        $$
+        B_d(x,\varepsilon)=\set{y\in X:d(x,y)<\varepsilon}
+        $$
+    \end{defi}
+    \hfill
+
+    \begin{defi}{Metric Topology}
+        If $d$ is a metric on a set $X$, then the collection of all $\varepsilon$-balls $B_d(x,\varepsilon)$, for $x\in X$ and $\varepsilon>0$, is a basis for a topology on $X$, called the \textbf{\textit{metric topology}} induced by $d$.
+    \end{defi}
+    \begin{remark}
+        A set $U$ is open in the metric topology induced by $d$ if and only if for each $y\in U$, there exists a $\delta>0$ such that $B_d(y,\delta)\subseteq U$, which is precisely the definition of openness in a metric space.
+    \end{remark}
+    \hfill
+    
+    \begin{eg}
+        Given any set $X$, define metric $d$ on $X$ by 
+        $$
+        d(x,y)=\begin{cases}
+            1 & x\neq y\\
+            0 & x=y
+        \end{cases}
+        $$
+        Every $x\in X$ is open under the metric. The topology it induces is the discrete topology.
+    \end{eg}
+
+    \begin{eg}
+        The standard metric on $\R$ is defined by 
+        $$
+        d(x,y)=\abs{x-y}
+        $$
+        The topology it induces is the same as the order topology.
+    \end{eg}
+    \hfill
+
+    \begin{defi}{Metrizable \& Metric Space}
+        If $X$ is a topological space. $X$ is said to be \textbf{\textit{metrizable}} if there exsits a metric $d$ on $X$ that induces the topology of $X$. A \textbf{\textit{metric space}} is a metrizable space $X$ with a specific metric $d$ that gives the topology of $X$.
+    \end{defi}
+    \hfill
+
+    \begin{defi}{Bounded \& Diameter}
+        Let $X$ be a metric space with metric $d$. A subset $A$ of $X$ is said to be \textbf{\textit{bounded}} if there is $M\in\R$ such that
+        $$
+        d(a_1,a_2)\leq M
+        $$
+        for every $a_1,a_2\in A$. If $A$ is bounded and nonempty, the \textbf{\textit{diameter}} of $A$, is defined to be the number
+        $$
+        \diam A=\sup\set{d(a_1,a_2):a_1,a_2\in A}
+        $$
+    \end{defi}
+    \begin{remark}
+        Boundedness is not determined by the topology but the metric it takes.
+    \end{remark}
+    \hfill
+
+    \begin{defi}{Standard Bounded Metric}
+        Let $X$ be a metric space with metric $d$. Define $\closure{d}:X\times X\to\R$ by
+        $$
+        \closure{d}(x,y)=\min\set{d(x,y),1}
+        $$
+        Then $\closure{d}$ is a metric that induces the same topology as $d$. The metric $\closure{d}$ is called the \textbf{\textit{standard bounded metric}} corresponding to $d$.
+    \end{defi}
+    \hfill
+
+    \begin{defi}{Norm, Euclidean Metric \& Square Metric}
+        Given $\mathbf{x}=(x_1,\dots,x_n)$ in $\R^n$, we define the \textbf{\textit{norm}} of $\mathbf{x}$ by
+        $$
+        \norm{\mathbf{x}}=\sqrt{x_1^2+\cdots+x_n^2}
+        $$
+        We define the \textbf{\textit{euclidean metric}} $d$ on $\R^n$ by
+        $$
+        d(\mathbf{x},\mathbf{y})=\norm{\mathbf{x}-\mathbf{y}}=\sqrt{(x_1-y_1)^2+\cdots+(x_n-y_n)^2}
+        $$
+        We define the \textbf{\textit{square metric}} $\rho$ by
+        $$
+        \rho(x,y)=\max\set{\abs{x_1-y_1},\dots,\abs{x_n-y_n}}
+        $$
+    \end{defi}
+    \hfill
+
+    \begin{lemma}
+        Let $d$ and $d'$ be two metrics on $X$, let $\topo$ and $\topo'$ be the topologies they induce, respectively. Then $\topo'$ is finer than $\topo$ if and only if for each $x\in X$ and each $\varepsilon>0$, there exists $\delta>0$ such that
+        $$
+        B_{d'}(x,\delta)\subseteq B_d(x,\varepsilon)
+        $$
+    \end{lemma}
+    \begin{remark}
+        It follows that the $d$ and $\rho$ induces the same topology since
+        $$
+        B_\rho(\mathbf{x},\varepsilon/\sqrt{n})\subseteq B_d(\mathbf{x},\varepsilon)\subseteq B_\rho(\mathbf{x},\varepsilon)
+        $$
+    \end{remark}
+    \hfill
+
+    \begin{thm}
+        The topologies on $\R^n$ induced by the euclidean metric $d$ and the square metric $\rho$ are the same as the product topology on $\R^n$.
+    \end{thm}
+    \hfill
+
+    \begin{defi}{Uniform Metric \& Uniform topology}
+        Given an index set $J$ and for points $\mathbf{x}=(x_\alpha)_{\alpha\in J}$ and $\mathbf{y}=(y_\alpha)_{\alpha\in J}$ of $\R^J$, we define the metric $\closure{\rho}$ on $\R^J$ by
+        $$
+        \closure{\rho}(\mathbf{x},\mathbf{y})=\sup\set{\closure{d}(x_\alpha,y_\alpha):\alpha\in J}
+        $$
+        where $\closure{d}$ is the standard bounded metric on $\R$. We then call $\closure{\rho}$ the \textbf{\textit{uniform metric}} on $\R^J$, and the topology it induces is called the \textbf{\textit{uniform topology}}.
+    \end{defi}
+    \hfill
+
+    \begin{thm}
+        The uniform topology on $\R^J$ is finer than the product topology and coarser than the box topology. When $J$ is infinite, these three topologies are all different.
+    \end{thm}
+    \begin{proof}
+        Comparing the uniform topology and the product topology:
+        \vspace{0.3em}
+        
+        Given $\mathbf{x}=(x_\alpha)_{\alpha\in J}$ and a product topology basis element $\prod U_\alpha$ containing $\mathbf{x}$. Let $\set{\alpha_1,\dots,\alpha_n}=\set{\alpha:U_\alpha\neq\R}$, then for each $i\in[1,n]$, there exists $\varepsilon_i>0$ such that $B_{\closure{d}}(x_{\alpha_i},\varepsilon_i)\subseteq U_\alpha$. Let $\varepsilon=\min\set{\varepsilon_i:i\in[1,n]}$. We then have $B_{\closure{\rho}}(\mathbf{x},\varepsilon)\subseteq\prod U_{\alpha}$.
+        \vspace{0.3em}
+        
+        Conversely, given $\mathbf{x}\in\R^J$ and a uniform topology basis element $B_{\closure{\rho}}(\mathbf{x},\varepsilon)$. Let $\varepsilon<1$, then for all product topology basis element $B=\prod U_\alpha$, there exists $\beta$ such that $U_{\beta}=\R$, which implies that $\mathbf{y}\in\R^J$ defined by $y_\beta=x_\beta+1$ and $y_\alpha=x_\alpha$ if $\alpha\neq\beta$ is contained in $B$ but not $B_{\closure{\rho}}(\mathbf{x},\varepsilon)$.
+        \vspace{0.3em}
+        
+        Hence the uniform topology is strictly finer than the product topology.
+        \vspace{0.5em}
+
+        Comparing the uniform topology and the box topology:
+        \vspace{0.3em}
+
+        Given $\mathbf{x}\in\R^J$ and a uniform topology basis element $B_{\closure{\rho}}(\mathbf{x},\varepsilon)$, the box topology basis element $\prod U_\alpha$ where $U_\alpha=(x_\alpha-\frac{\varepsilon}{2},x_\alpha+\frac{\varepsilon}{2})$ is contained in $B_{\closure{\rho}}(\mathbf{x},\varepsilon)$.
+        \vspace{0.3em}
+
+        Conversely, given $\mathbf{x}\in\R^\N$ and the box topology basis element $\prod U_i$ where $U_i=(x_i-\frac{1}{i},x_i+\frac{1}{i})$. Then for any uniform topology basis element $B_{\closure{\rho}}(\mathbf{y},\varepsilon)$ containing $\mathbf{x}$, there exists $n$ such that $\frac{1}{n}<\frac{\varepsilon-\closure{\rho}(\mathbf{x},\mathbf{y})}{2}$, which implies the point $\mathbf{z}$ defined by $z_n=x_n+\frac{\varepsilon-\closure{\rho}(\mathbf{x},\mathbf{y})}{2}$ and $z_i=x_i$ for $i\neq n$ is contained in $B_{\closure{\rho}}(\mathbf{y},\varepsilon)$ but not $\prod U_i$.
+    \end{proof}
+    \begin{remark}
+        When $J$ is finite, these three topologies coincide.
+    \end{remark}
+    \begin{remark}\hfill
+    
+        \begin{itemize}
+            \item The basis element of the box topology is the form $\prod U_\alpha$ with no restrictions.
+            \item The basis element of the uniform topology is the form $\prod U_\alpha$ where all $U_\alpha$ is in the same ``size".
+            \item The basis element of the product topology is the form $\prod U_\alpha$ where only finite terms is not the whole space.
+        \end{itemize}
+    \end{remark}
+    \hfill
+
+    \begin{ex}
+        Let $\closure{\rho}$ be the uniform metric on $\R^\N$. Given $\mathbf{x}=(x_1,x_2,\dots)\in\R^\N$ and given $0<\varepsilon<1$, let 
+        $$
+        U(\mathbf{x},\varepsilon)=(x_1-\varepsilon,x_1+\varepsilon)\times\cdots\times(x_n-\varepsilon,x_n+\varepsilon)\times\cdots
+        $$
+        \begin{enumerate}[label=(\alph*)]
+            \item Show that $U(\mathbf{x},\varepsilon)$ is not equal to the $\varepsilon$-ball $B_{\closure{\rho}}(\mathbf{x},\varepsilon)$
+            \begin{proof}
+                Consider $\mathbf{y}=(y_1,y_2,\dots)\in\R^\N$ such that 
+                $$
+                y_n=x_n+\left(1-\frac{1}{2^n}\right)\varepsilon
+                $$
+                Then clearly $\mathbf{y}\in U(\mathbf{x},\varepsilon)$. However, notice
+                $$
+                \closure{\rho}(\mathbf{x},\mathbf{y})=\sup\set{\closure{d}(x_n,y_n)}=\sup\set{\left(1-\frac{1}{2^n}\right)\varepsilon}=\varepsilon
+                $$
+                it follows that $\mathbf{y}\notin B_{\closure{\rho}}(\mathbf{x},\varepsilon)$
+            \end{proof}
+            \item Show that $U(\mathbf{x},\varepsilon)$ is not even open in the uniform topology.
+            \begin{proof}
+                Consider $\mathbf{y}$ be defined in $(a)$. Let a uniform topology basis element $B_{\closure{\rho}}(\mathbf{z},\delta)$ contains $\mathbf{y}$. We have $\closure{\rho}(\mathbf{y},\mathbf{z})<\delta$. Let $d=\frac{1}{2}(\delta-\closure{\rho}(\mathbf{y},\mathbf{z}))$, let $\mathbf{u}=\set{y_1+d,y_2+d,\dots}$. Notice 
+                $$
+                \closure{d}(z_i,u_i)\leq\abs{z_i-y_i-d}\leq\abs{z_i-y_i}+d\leq\closure{\rho}(\mathbf{y},\mathbf{z})+\frac{1}{2}(\delta-\closure{\rho}(\mathbf{y},\mathbf{z}))\leq\delta-d
+                $$
+                Hence
+                $$
+                \closure{\rho}(\mathbf{z},\mathbf{u})=\sup\set{\closure{d}(z_i,u_i)}<\delta
+                $$
+                Therefore, $\mathbf{u}\in B_{\closure{\rho}}(\mathbf{z},\delta)$ but clearly not in $U(\mathbf{x},\varepsilon)$. Hence $B_{\closure{\rho}}(\mathbf{z},\delta)$ is not a subset of $U(\mathbf{x},\varepsilon)$, and thus $U(\mathbf{x},\varepsilon)$ is not open.
+            \end{proof}
+            \item Show that
+            $$
+            B_{\closure{\rho}}(\mathbf{x},\varepsilon)=\bigcup_{\delta<\varepsilon} U(\mathbf{x},\delta)
+            $$
+            \begin{proof}
+                Let $\mathbf{y}\in U(\mathbf{x},\mathbf{\delta})$ for some $\delta<\varepsilon$, then $\abs{y_n-x_n}<\delta$ for all $n\in\N^*$, which implies
+                $$
+                \closure{\rho}(\mathbf{x},\mathbf{y})=\sup\set{\closure{d}(x_n,y_n)}\leq\delta<\varepsilon\implies \mathbf{y}\in B_{\closure{\rho}}(\mathbf{x},\varepsilon)
+                $$
+
+                Conversely, let $\mathbf{y}\in B_{\closure{\rho}}(\mathbf{x},\varepsilon)$, let $\delta=\closure{\rho}(\mathbf{x},\mathbf{y})<\varepsilon$, we have
+                $$
+                \sup\set{\closure{d}(x_n,y_n)}=\delta\implies \abs{y_n-x_n}\leq\delta<\frac{\delta+\varepsilon}{2}\;\forall n\in\N^*
+                $$
+                It follows that
+                
+                $$\mathbf{y}\in U\left(\mathbf{x},\frac{\delta+\varepsilon}{2}\right)$$
+            \end{proof}
+        \end{enumerate}
+    \end{ex}
+    \hfill
+
+    \begin{thm}\label{2.9.15}
+        Let $\closure{d}(a,b)=\min\set{\abs{a-b},1}$ be the standard bounded metric on $\R$. If $\mathbf{x}$ and $\mathbf{y}$ are two points of $\R^\N$, define
+        $$
+        D(\mathbf{x},\mathbf{y})=\sup\set{\frac{\closure{d}(x_i,y_i)}{i}}
+        $$
+        Then $D$ is a metric that induces the product topology on $\R^\N$. 
+    \end{thm}
+    \begin{remark}
+        For $\mathbf{y}\in B_{D}(\mathbf{x},\varepsilon)$, let $N=\ceil{\frac{1}{\varepsilon}}$, then for $n>N$, we have
+        $$
+        \frac{\closure{d}(x_n,y_n)}{n}<\varepsilon\iff \closure{d}(x_n,y_n)<n\varepsilon\iff \closure{d}(x_n,y_n)\leq1\iff y_n\in\R
+        $$
+    \end{remark}
+    \hfill
+
+    \begin{thm}\label{2.9.16}
+        Let $f:X\to Y$; let $X$ and $Y$ be metrizable with metrics $d_X$ and $d_Y$, respectively. Then $f$ is continuous if and only if given $x\in X$ and $\varepsilon>0$, there exists $\delta>0$ such that
+        $$
+        d_X(x,y)<\delta\implies d_{Y}(f(X),f(Y))<\varepsilon
+        $$
+    \end{thm}
+    \begin{remark}
+        Note that continuity in topological space is defined by any open set has an open preimage, as stated in \hyperref[2.7.1]{Definition 2.7.1}.
+    \end{remark}
+    \hfill
+
+    \begin{lemma}\textbf{The Sequence Lemma}\hfill
+
+        Let $X$ be a topological space; let $A\subseteq X$. If there is a sequence of points of $A$ converging to $x$, then $x\in\closure{A}$; the converse holds if $X$ is metrizable.
+    \end{lemma}
+    \begin{remark}
+        If $X$ is not metrizable, then the Fort Space is a counterexample in which no sequence converges to $x$.
+    \end{remark}
+    \hfill
+
+    \begin{thm}
+        Let $f:X\to Y$. If $f$ is continuous, then for every convergent sequence $x_n\to x$ in $X$, we have $f(x_n)\to f(x)$. The converse holds if $X$ is metrizable.
+    \end{thm}
+    \begin{remark}
+        Here the condition of metrizability actually requires the space to satisfy the first countability axiom.
+    \end{remark}
+    \hfill
+
+    \begin{defi}{Countable Basis \& First Countability Axiom}
+        A space $X$ is said to have a \textbf{\textit{countable basis}} at point $x\in X$ if there is a countable collection $\set{U_n}_{n\in\Z^+}$ of neighborhoods of $x$ such that any neighborhood $U$ of $x$ we have $x\in U_n\subset U$ for some $n$. 
+
+        A space $X$ that has a countable basis at each of its points is said to satisfy the \textbf{\textit{first countability axiom}}.
+    \end{defi}
+
+    \begin{thm}
+        If $X$ is a topological space, and if $f,g:X\to\R$ are continuous functions, then $f+g$, $f-g$ and $f\cdot g$ are continuous. If $g\neq0$ for all $x$, then $f/g$ is continuous. 
+    \end{thm}
+    \hfill
+
+    \begin{defi}{Uniform Convergence}
+        Let $f_n:X\to Y$ be a sequence of functions from the set $X$ to the metric space $Y$. Let $d$ be the metric for $Y$. We say that the sequence $(f_n)$ \textbf{\textit{converges uniformly}} to the function $f:X\to Y$ if given $\varepsilon>0$, there exists $N>0$ such that
+        $$
+        n>N\implies d(f_n(x),f(x))<\varepsilon 
+        $$
+        for all $x\in X$.
+    \end{defi}
+    \hfill
+
+    \begin{thm}\textbf{Uniform limit theorem}\hfill
+
+        Let $f_n:X\to Y$ be a sequence of continuous functions from the topological space $X$ to the metric space $Y$. If $(f_n)$ converges uniformly to $f$, then $f$ is continuous.        
+    \end{thm}
+    \hfill
+
+    \begin{eg}\hfill
+        \begin{itemize}
+            \item $\R^\N$ in the box topology is not metrizable.
+            \begin{proof}
+                We will show that $\R^\N$ in the box topology does not satisfy the sequence lemma.
+
+                Let $A=(0,1)^\N$ and $x=(0,0,0,\dots)\in\closure{A}$, if $(a_n)$ converges to $x$ where $a_n=(x_{1n},x_{2n},\dots)$, then $(-x_{11},x_{11})\times(-x_{22},x_{22})\times\cdots$ is a neighborhood of $x$ containing no element of the sequence $(a_n)$. Hence no sequence converges to $x$ and the sequence lemma fails.
+            \end{proof}
+            \item $\R^J$ with uncountable $J$ in the product topology is not metrizable.
+            \begin{proof}
+                We will show that $\R^J$ in the product topology does not satisfy the sequence lemma.
+
+                Let $A$ be the subset of $\R^J$ consisting of points $(x_\alpha)$ such that $x_\alpha=1$ for all but finitely many values of $\alpha$. It can be proved that $x=(0,0,0,\dots)$ lies in $\closure{A}$. However, for a sequence $(a_n)$ of points in $A$, there must be $\beta$ such that the $\beta$th coordinate each of $a_n$ is $1$, implying that they do not converge to $x$. 
+            \end{proof}
+        \end{itemize}        
+    \end{eg}
+    \hfill
+    
+    \begin{ex}\addelement{Isometric Imbedding}
+        Let $X$ and $Y$ be metric spaces with metrics $d_X$ and $d_Y$, respectively. Define $f:X\to Y$ such that for any pair of points $x_1,x_2\in X$
+        $$
+        d_Y(f(x_1),f(x_2))=d_X(x_1,x_2)
+        $$
+        Show that $f$ is an imbedding. It is called the \textit{\textbf{isometric imbedding}} of X in $Y$.
+    \end{ex}
+    \begin{proof}
+        For $x_1\neq x_2$, we have
+        $$
+        d_Y(f(x_1),f(x_2))=d_X(x_1,x_2)>0\implies f(x_1)\neq f(x_2)
+        $$
+        then $f$ is injective.
+
+        Since we have
+        $$
+        d_X(x_1,x_2)<\varepsilon\iff d_Y(f(x_1),f(x_2))<\varepsilon
+        $$
+        then \hyperref[2.9.16]{Theorem 2.9.16} implies that $f$ is homeomorphism, hence $f$ is an imbedding. 
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Show that $\R_l$ and the ordered square satisfy the first countability axiom.
+    \end{ex}
+    \begin{proof}
+        Recall that $\R_l$ is the topological space $\R$ with basis $\mathcal{B}=\set{[a,b)}$, the ordered square is the set $I^2=[0,1]\times[0,1]$ with the dictionary order topology.
+        \vspace{0.5em}
+
+        Let $x\in\R_l$, one can varify that $\set{[x3,x+\frac{1}{n}): n\in \Z^+}$ is a countable basis at $x$. Hence $\R_l$ is first countable.
+        \vspace{0.5em}
+
+        Let $(x,y)\in I^2$. If $y\in(0,1)$, then $\set{((x,y-\frac{1}{n}),(x,y+\frac{1}{n})):n\in\Z^+}$ is a countable basis at $x$. If $y=0$, then $\set{((x-\frac{1}{n},y),(x,y+\frac{1}{n})):n\in\Z^+}$ is a countable basis at $x$. If $y=1$, then $\set{((x,y-\frac{1}{n}),(x+\frac{1}{n},y)):n\in\Z^+}$ is a countable basis at $x$. Hence $I^2$ is first countable.
+    \end{proof}
+    \hfill
+
+    \subsection{The Quotient Topology}
+    \begin{defi}{Quotient Map}
+        Let $X$ and $Y$ be topological spaces, let $p:X\to Y$ be a surjective map. The map $p$ is said to be a \textbf{\textit{quotient map}} provided a subset $U$ of $Y$ is open in $Y$ if and only if $p^{-1}(U)$ is open in $X$. 
+    \end{defi}
+    \begin{remark}
+        Equivalently, $p$ is a quotient map if we require both $U$ and $p^{-1}(U)$ to be closed. 
+    \end{remark}
+    \begin{remark}
+        It's easy to check that $p\circ q$ is a quotient map provided that $p$ and $q$ are quotient maps.
+    \end{remark}
+    \hfill
+
+    \begin{defi}{Saturated}
+        A subset $C$ of $X$ is \textbf{\textit{saturated}} with respect to $p$ defined above if for all $c\in C$ and $x\in X$, we have
+        $$
+        p(c)=p(x)\implies x\in C
+        $$
+        Or, equivalently, if
+        $$
+        C=p^{-1}(p(C))
+        $$
+    \end{defi}
+    \begin{remark}
+        For any $U\subset Y$, $f^{-1}(U)$ is saturated.
+    \end{remark}
+    \begin{remark}
+        $A$ is saturated with respect to $p: X\to Y$ if and only if $\exists U\subseteq Y$ such that $A=p^{-1}(U)$.
+    \end{remark}
+    \begin{remark}
+        $p$ is a quotient map $\iff$ $p$ is surjective, continuous and maps every saturated open sets of $X$ to open sets of $Y$.
+    \end{remark}
+    \hfill
+
+    \begin{defi}{Open Map \& Closed Map}
+        Let $f:X\to Y$ be a map. Then $f$ is an \textbf{\textit{open}} map if for all $U$ open in $X$, $f(U)$ is open in $Y$. $f$ is a \textbf{\textit{closed map}} if for all $V$ closed in $X$, $f(V)$ is closed in $Y$. 
+    \end{defi}
+    \begin{remark}
+        If $f$ is bijective, then $f$ is an open map iff $f$ is a closed map.  
+    \end{remark}
+    \begin{remark}
+        If $p:X\to Y$ is a surjective continuous map that is either open or closed, then $p$ is a quotient map.
+    \end{remark}
+    \hfill
+
+    \begin{defi}{Quotient Topology}
+        If $X$ is a topological space and $A$ is a set and if $p:X\to A$ is a surjective map, then there exists exactly one topology $\topo$ on $A$ relative to which $p$ is a quotient map; it is called the \textbf{\textit{quotient topology}} induced by $p$.
+    \end{defi}
+    \hfill
+
+    \begin{defi}{Quotient Space}
+        Let $X$ be a topological space, and let $X^*$ be a partition of $X$ into disjoint subsets whose union is $X$. Let $p:X\to X^*$ be the surjective map that carries each point of $X$ to the element of $X^*$ containing it. In the quotient topology induced by $p$, the space $X^*$ is called a \textbf{\textit{quotient space}} of $X$.
+    \end{defi}
+    \begin{remark}
+        We can understand the partition $X^*$ of $X$ as defining a equivalence relation on $X$. $X^*$ is also called an \textit{identification space} or a \textit{decomposition space}.
+    \end{remark}
+    \begin{remark}
+        Each equivalence relation determines a quotient space of $X$.
+    \end{remark}
+    \begin{remark}
+        Let $X^*$ be a partition of $X$ in the quotient topology. Then $U\subset X^*$ is open in $X^*$ if and only if
+        $$
+        V=\bigcup_{A\in U}A
+        $$
+        is open in $X$.
+    \end{remark}
+    \hfill
+
+    \begin{thm}
+        Let $p:X\to Y$ be a quotient map; let $A$ be a subspace of $X$ that is saturated with respect to $p$; let $q:A\to p(A)$ defined by $q=p\res{A}$. Then
+        \begin{itemize}
+            \item If $A$ is either open or closed in $X$, then $q$ is a quotient map.
+            \item If $p$ is either an open map or a closed map, then $q$ is a quotient map.
+        \end{itemize}
+    \end{thm}
+    \begin{proof}
+        The fourth point in \hyperref[2.7.8]{Theorem 2.7.8} implies the continuity of $q$. For the other side, $\forall U\subset p(A)$,
+        $$
+        \begin{aligned}
+            &q^{-1}(U)\text{ open in }A
+            \\(*)\quad\implies&p^{-1}(U)=q^{-1}(U)\text{ open in }X
+            \\\implies&U\text{ open in }p(A)
+        \end{aligned}
+        $$
+        where $(*)$ holds if $A$ is open in $X$. Moreover, $\forall U\subset p(A)$,
+        $$
+        \begin{aligned}
+            &q^{-1}(U)\text{ open in }A
+            \\\implies& \exists V\text{ open in }X,q^{-1}(U)\cap A
+            \\(**)\quad\implies& p(V)\text{ open in }Y
+            \\\implies& q(V)\cap p(A)=U\text{ open in }p(A)
+        \end{aligned}
+        $$
+        where $(**)$ holds if $p$ is an open map.
+    \end{proof}
+    \hfill
+
+    \begin{thm}\textbf{{Universal Property of Quotient Maps}}\hfill
+    
+        Let $p:X\to Y$ be a quotient map. Let $Z$ be a space and let $g:X\to Z$ be a map that is constant on each set $p^{-1}(\set{y})$ for $y\in Y$. Then $g$ induces a map $f:Y\to Z$ such that $f\circ p=g$. The induced map $f$ is continuous if and only if $g$ is continuous; $f$ is a quotient map if and only if $g$ is a quotient map.
+    \end{thm}
+    \begin{cor}
+        Let $g:X\to Z$ be a surjective continuous map. Let $X^*$ be the following collection of subsets of $X$:
+        $$
+        X^*=\set{g^{-1}(\set{z}):z\in Z}
+        $$
+        Give $X^*$ the quotient topology. Then
+        \begin{itemize}
+            \item The map $g$ induces a bijective continuous map $f:X^*\to Z$, which is a homeomorphism if and only if $g$ is a quotient map. 
+            \item If $Z$ is Hausdorff, so if $X^*$.
+        \end{itemize}
+    \end{cor}
+    \hfill
+
+    \begin{eg}
+        \textit{The product of two quotient maps need not be a quotient map.}
+        
+        Let $X=\R$ and $X^*$ be the quotient space obtained from $X$ by identifying the subset $Z^+$ to a point $b$; let $p:X\to X^*$ be the quotient map. Let $i:\Q\to\Q$ be the identify map. Then 
+        $$
+        p\times i: X\times \Q\to X^*\times\Q
+        $$
+        is not a quotient map.
+    \end{eg}
+    \hfill
+
+    \begin{ex}
+        Let $p:X\to Y$ be a continuous map. Show that if there is a continuous map $f:Y\to X$ such that $p\circ f$ equals the identity map of $Y$, then $p$ is a quotient map.
+    \end{ex}
+    \begin{proof}
+        For all $y\in Y$, $p(f(y))=y$ implies that $p$ is surjective. If $C\in X$ is saturated and open, then
+        $$
+        C=p^{-1}(p(C))\implies f^{-1}(C)=f^{-1}(p^{-1}(p(C)))=p(C)
+        $$
+        $f$ is continuous implies that $p(C)$ is open. Hence $p$ is a quotient map.
+    \end{proof}
+    \hfill
+
+    \begin{ex}\addelement{Retraction}
+        If $A\subseteq X$, a \textbf{\textit{retraction}} of $X$ onto $A$ is a continuous map $r: X\to A$ such that $r(a)=a$ for each $a\in A$. Show that a retraction is a quotient map.
+    \end{ex}
+    \begin{proof}
+        We know a retraction $r: X\to A$ is surjective and continuous. For all $U\subseteq A$ such that $r^{-1}(U)$ is open, notice that, for all $x\in A\setminus U$, $r(x)=x\implies x\notin r^{-1}(U)$, hence $U=r^{-1}(U)\cap A$ is open. Therefore, $r$ is a quotient map.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Let $p:X\to Y$ be an open map. Show that if $A$ is open in $X$, then the map $q: A\to p(A)$ obtained by restricting $p$ is an open map.
+    \end{ex}
+    \begin{remark}
+        For all $U\subset A$ open in $A$, since $A$ is open in $X$, then there exists $V\subset X$ open in $X$ such that $U=A\cap V$. Then $U$ is open in $X$, and thus $q(U)=p(U)$ is open in $Y$, thus open in $p(A)$.
+    \end{remark}
+    \hfill
+
+    \begin{ex}
+        Recall that $\R_K$ denotes the real line in the $K$-topology. Let $Y$ be the quotient space obtained from $\R_K$ by collapsing the set $K$ to a point $t$. Let $p:\R_K\to Y$ be the quotient map.
+        \begin{enumerate}
+            \item Show that $Y$ satisfies the $T_1$ axiom, but is not Hausdorff.
+            \begin{proof}
+                Let $x\in Y$. If $x\neq t$, then $Y\setminus\set{x}$ is open since $p^{-1}(Y\setminus\set{x})=\R\setminus\set{x}$ is open. If $x=t$, then $Y\setminus\set{x}$ is open since $p^{-1}(Y\setminus\set{x})=\R\setminus K$ is open. Therefore, $Y$ satisfies the $T_1$ axiom.
+                \vspace{1em}
+
+                Consider $0,t\in Y$ and $U,V\subset Y$ be neighborhoods of $0$ and $t$, respectively. Since $p$ is a quotient map, then $p^{-1}(U)$ is a neighborhood of $0$ in $\R_K$, which must contains points $\frac{1}{n}$ for sufficient large $n$, thus $p^{-1}(U)\cap p^{-1}(V)\neq\emptyset\implies U\cap V\neq\emptyset$. Hence $Y$ is not Hausdorff.
+            \end{proof}
+            \item Show that $p\times p:\R_K\times \R_K\to Y\times Y$ is not a quotient map.
+            \begin{proof}
+                Let $r=p\times p$, consider the sets $U=\set{(x,y)\in Y\times Y:x\neq y}$ and $V=\set{(x,y)\in\R_K\times\R_K:p(x)\neq p(y)}$, we have $V=r^{-1}(U)$. 
+                \vspace{1em}
+                
+                $V$ is open. Let $(x,y)\in V$, without loss of generality, we assume $x\notin K$, and assume $\abs{x-y}=2d$. Let $A=(x-d,x+d)\setminus K$ and $B=(y-d,y+d)$ be both open, hence $(x,y)\in A\times B\subset V$ implying $V$ is open.
+                \vspace{0.5em}
+                
+                $U$ is not open. Consider $(0,t)\in U$, any neighborhood $W$ of $(0,t)$ must contains a basis element $T\times S$ containing $(0,t)$, where $T$ and $S$ are neighborhoods of $0,t$, respectively. However, the argument above shows that $T$ and $S$ are not disjoint, hence is not fully contained in $U$. Hence $U$ is not open.
+            \end{proof}
+        \end{enumerate}
+    \end{ex}
+    \hfill
+    
+    \subsection{Topological Groups}
+    \begin{defi}{Topological Group}
+        A \textbf{\textit{topological group}} $G$ is a group that is also a topological space satisfying the $T_1$ axiom, such that $f:G\times G\to G$ with $f(x,y)=x\cdot y$ and $g:G\to G$ with $g(x)=x^{-1}$ are continuous maps.
+    \end{defi}
+    \begin{remark}
+        The well-acknowledged definition of a topological group does not include the $T_1$ axiom. Take any non-singleton group $G$ with the indiscrete topology $\set{\emptyset,G}$, we know that multiplication and inversion are continuous, so $G$ is a topological group in the usual sense, but it is not $T_1$.
+    \end{remark}
+    \hfill
+
+    \begin{thm}
+        Let $H$ be a subspace of $G$. If $H$ is a subgroup of $G$, then both $H$ and $\closure{H}$ are topological groups.
+    \end{thm}
+
+    \begin{ex}
+        Let $H$ denote a group that is also a topological space satisfying the $T_1$ axiom. Show that $H$ is a topological group if and only if the map $h:H\times H\to H$ sending $x\times y$ into $x\cdot y^{-1}$ is continuous.
+    \end{ex}
+    \begin{proof}
+        Define $f(x,y)=xy$, $g(x)=x^{-1}$, let $i(x)=e, \id(x)=x, \Delta(x)=(x,x)$ be continuous. 
+
+        Suppose $H$ is a topological group. Then $f$ and $g$ are continuous, then $h$ is continuous since
+        $$
+        h=f\circ(\id\times g)
+        $$
+
+        Suppose $h$ is continuous. Then $f$ and $g$ are continuous since
+        $$
+        g=h\circ(i\times\id)\circ\Delta\aand f=h\circ(\id\times g)
+        $$
+        It follows that $H$ is a topological group.
+    \end{proof}
+    \hfill
+
+    \begin{ex}\addelement{Homogeneous Space}\label{2.11.4}
+        A topological space $G$ is called a \textbf{\textit{homogeneous space}} if for every pair $x,y\in G$, there exists a homeomorphism of $G$ onto itself that carries $x$ to $y$. 
+
+        Let $G$ be a topological group and $\alpha\in G$. Show that the maps $f_\alpha,g_\alpha:G\to G$ defined by
+        $$
+        f_\alpha(x)=\alpha\cdot x\aand g_\alpha(x)=x\cdot\alpha
+        $$
+        are homeomorphisms of $G$. It follows that $G$ is a homogeneous space.
+    \end{ex}
+    \begin{proof}
+        Let $p(x,y)=x\cdot y, q_\alpha(x)=\alpha, \Delta(x)=(x,x)$ be continuous. Since $G$ is a topological group, then $p$ is continuous, then $f_\alpha(x)$ is continuous since
+        $$
+        f_\alpha(x)=p\circ(q_\alpha\times\id)\circ\Delta
+        $$
+        So is $f_\alpha^{-1}=f_{\alpha^{-1}}$. Therefore, since $f$ is bijective, continuous and has continuous inverse, we know $f$ is a homeomorphism. The same argument applies on $g$.
+    \end{proof}
+    \hfill
+
+    \begin{ex}\label{2.11.5}
+        Let $H$ be a subgroup of $G$. For all $x\in G$, we define $xH=\set{x\cdot h: h\in H}$; this set is called a \textbf{\textit{left coset}} of $H$ in $G$. Let $G/H$ denote the collection of left cosets of $H$ in $G$; it is a partition of $G$. Give $G/H$ the quotient topology.
+        \begin{enumerate}
+            \item Show that if $\alpha\in G$, the map $f_\alpha$ defined in \hyperref[2.11.4]{Exercise 2.11.4} induces a homeomorphism of $G/H$ carrying $xH$ to $(\alpha\cdot x)H$. Conclude that $G/H$ is a homogeneous space.
+            \begin{proof}
+                For $\alpha\in G$, define $f_\alpha:G/H\to G/H$ by
+                $$
+                f_\alpha(xH)=\alpha xH
+                $$
+                Let $p:G\to G/H$ be the quotient map $p(x)=xH$, $L_\alpha:G\to G$ be the left translation $L_\alpha(x)=\alpha\cdot x$. Then 
+                $$
+                f_\alpha\circ p=p\circ L_\alpha
+                $$
+                implies that $f_\alpha$ is continuous. Similarly, $f_{\alpha^{-1}}=f_{\alpha}^{-1}$ is continuous. Therefore, $f_\alpha$ is homeomorphism. It follows that $G/H$ is a homogeneous space.
+            \end{proof}
+            \item Show that if $H$ is a closed set in the topology of $G$, then one-point sets are closed in $G/H$.
+            \begin{proof}
+                Let $\alpha\in G$, then $\alpha H\in G/H$. Since the left translation $L_\alpha$ mapping $H$ to $\alpha H$ is a homeomorphism, then $H$ is closed implies $\alpha H$ is closed in $G$, then $\alpha H$ is closed in $G/H$. 
+            \end{proof}
+            \item Show that the quotient map $p:G\to G/H$ is open.
+            \begin{proof}
+                Let $U\subset G$ be open. Since for $h\in H$, the translation $R_h(x)=x\cdot h$ is a homeomorphism, then
+                $$
+                R_h(U)=Uh=\set{uh:u\in U}
+                $$
+                is open. It follows that
+                $$
+                \bigcup_{h\in H}R_h(U)=UH=\set{uh:u\in U,h\in H}
+                $$
+                is open. Then $p(U)$ is open since 
+                $$
+                p^{-1}(p(U))=\bigcup_{h\in H}R_h(U)
+                $$
+                Hence $p$ is open.
+            \end{proof}
+            \item Show that if $H$ is closed and is a normal subgroup of $G$, then $G/H$ is a topological group.
+            \begin{proof}
+                Since $H\normal G$, then $G/H$ is isomorphic to a subgroup of $G$, then is a topological group.
+            \end{proof}
+        \end{enumerate}
+    \end{ex}
+    \hfill
+
+    \begin{ex}\addelement{Regularity Axiom}
+        For $A,B\subset G$, we denote $A\cdot B=\set{a\cdot b:a\in A,b\in B}$ and $A^{-1}=\set{a^{-1}:a\in A}$.
+        \begin{enumerate}\label{2.11.6}
+            \item A neighborhood $V$ of the identity element $e$ is said to be \textbf{\textit{symmetric}} if $V=V^{-1}$. If $U$ is a neighborhood of $e$, show that there is a symmetric neighborhood $V$ of $e$ such that $V\cdot V\subset U$.
+            \begin{proof}
+                 Since $f(a,b,c,d)=ab^{-1}cd^{-1}$ is continuous and $U$ is a neighborhood of $e$, then there exists a neighborhood $W$ of $e$ such that 
+                 $$
+                 f(W\times W\times W\times W)=W\cdot W^{-1}\cdot W\cdot W^{-1}\subset U
+                 $$
+                 Then let $V=W\cdot W^{-1}$, $V$ is a symmetric neighborhood of $e$ such that $V\cdot V\subset U$.
+            \end{proof}
+            \begin{remark}
+                Existance of $W$: $f^{-1}(U)$ is open in $G^4$ thus containing a basis element $G_1\times G_2\times G_3\times G_4$ which contains $e$, hence taking $W=G_1\cap G_2\cap G_3\cap G_4$ would work. 
+            \end{remark}
+            \begin{remark}
+                $V$ is open since $V=W\cdot W^{-1}=\bigcup Ww^{-1}$.
+            \end{remark}
+            
+            \item Show that $G$ is Hausdorff. In fact, show that if $x\neq y$, there is a neighborhood $V$ of $e$ such that $V\cdot x$ and $V\cdot y$ are disjoint.
+            \begin{proof}
+                Since $G$ satisfies the $T_1$ axiom, then $U=G\setminus\set{yx^{-1}}$ is open, then $(a)$ tells there exists a symmetric neighborhood $V$ of $e$ such that $V\cdot V\subset U$. Since for $v_1,v_2\in V$,
+                $$
+                v_1x=v_2y\iff v_2^{-1}v_1=yx^{-1}
+                $$
+                Since $V$ is symmetric, 
+                $$
+                v_2^{-1}v_1\in V\cdot V\subset U\implies v_2^{-1}v_1\neq yx^{-1}
+                $$
+                Therefore, $V\cdot x$ and $V\cdot y$ are disjoint.
+            \end{proof}
+            \item Show that $G$ satisfies the following separation axiom, which is called the \textbf{\textit{regularity axiom}}: Given a closed set $A$ and a point $x\notin A$, there exist disjoint open sets containing $A$ and $x$, respectively.
+            \begin{proof}
+                It suffices to prove that there exists a neighborhood $V$ of $e$ such that $V\cdot x$ and $V\cdot A$ are disjoint, just changing $U=(G\setminus A)x^{-1}$ in $(b)$, noticing $U$ is open since $G\setminus A$ is open. 
+            \end{proof}
+            \item Let $H$ be a subgroup of $G$ that is closed in the topology of $G$; let $p:G\to G/H$ be the quotient map. Show that $G/H$ satisfies the regularity axiom.
+            \begin{proof}
+                Let $A\subset G$, $B=\set{aH:a\in A}\subset G/H$ be closed in $G/H$ and $xH\notin B$. Then we know $AH=\set{ah:a\in A,h\in H}=p^{-1}(B)$ is also closed in $G$. $(c)$ tells that there exists a neighborhood $V$ of $e$ such that $V\cdot x$ and $V\cdot AH$ are disjoint.
+
+                We know $V\cdot x$ and $VAH$ are open, then $p(Vx)$ and $p(VAH)$ are open since $p$ is an open map.
+
+                We know $xH\in p(Vx)$ and $B\subset p(VAH)$ by taking $e\in V$.
+
+                If there are $uH\in p(Vx)\cap p(VAH)$, then
+                $$
+                uh_1=v_1xh_2,uh_3=v_2ah_4\implies v_1xh_2h_1^{-1}=v_2ah_4h_3^{-1}\implies v_1x\in VAH
+                $$
+                which contradicts to $V\cdot x$ and $V\cdot AH$ are disjoint, hence $p(Vx)$ and $p(VAH)$ are disjoint neighborhood of $xH$ and $B$, respectively.
+            \end{proof}
+            \begin{remark}
+                The closedness of $H$ is not used in the proof of this statement. In fact, it only implies that $G/H$ satisfies the $T_1$ axiom; together with the regularity axiom, one can show that $G/H$ is regular. 
+            \end{remark}
+        \end{enumerate}
+    \end{ex}
+
+    \newpage
+    \section{Connectedness and Compactness}\addclass{Connectedness and Compactness}
+    \subsection{Connected Spaces}
+    \begin{defi}{Separation \& Connected}
+        Let $X$ be a topological space. A \textbf{\textit{separation}} of $X$ is a pair $U,V$ of disjoint nonempty open subsets of $X$ whose union is $X$. The space $X$ is said to be \textbf{\textit{connected}} if there does not exist a separation of $X$.
+    \end{defi}
+    \begin{remark}
+        Equivalently, A space $X$ is connected if and only if the only subsets of $X$ that are both open and closed in $X$ are the empty set and $X$ itself. 
+    \end{remark}
+    \hfill
+
+    \begin{lemma}
+        If $Y$ is a subspace of $X$, then a pair of disjoint nonempty sets $A$ and $B$ is a separation of $Y$ if neither of them contains a limit point of the other.
+    \end{lemma}
+    \begin{remark}
+        If $Y=U\cup V$ is disconnected in $X$, then $U$ and $V$ are open and closed in $Y$. Furthermore, if $Y$ is open in $X$ then $U$ and $V$ are open in $X$; if $Y$ is closed in $X$ then $U$ and $V$ are closed in $X$.
+    \end{remark}
+    \hfill
+
+    \begin{eg}\hfill
+    
+        \begin{itemize}
+            \item Let $X$ be a space in the indiscrete topology. Then $X$ is connected.
+            \item Let $Y=[-1,0)\cup(0,1]\subset\R$, then $Y$ is not connected.
+            \item $Q$ is not connected.
+        \end{itemize}
+    \end{eg}
+    \hfill
+
+    \begin{lemma}
+        If sets $C$ and $D$ form a separation of $X$, and if $Y$ is connected subspace of $X$, then $Y$ lies entirely within either $C$ or $D$.
+    \end{lemma}
+    \hfill
+
+    \begin{thm}
+        The union of a collection of connected subspaces of $X$ that have a point in common is connected.
+    \end{thm}
+    \hfill
+
+    \begin{thm}
+        Let $A$ be a connected subspace of $X$. If $A\subset B\subset\closure{A}$, then $B$ is also connected.
+    \end{thm}
+    \hfill
+
+    \begin{thm}
+        The image of a connected space under a continuous map is connected.
+    \end{thm}
+    \hfill
+
+    \begin{thm}
+        A finite cartesian product of connected spaces is connected.
+    \end{thm}
+    \begin{remark}
+        The statement fails for infinite product, \hyperref[3.1.15]{Exercise 3.1.15} is a typical example.
+    \end{remark}
+    \hfill
+
+    \begin{ex}
+        Let $\set{A_n}$ be a sequence of connected subspaces of $X$, such that $A_n\cap A_{n+1}\neq\emptyset$ for all $n$. Show that $A=\cup A_n$ is connected.
+    \end{ex}
+    \begin{proof}
+        Suppose $A$ is not connected where $B,C$ is a separation of $A$. Since $A_n\subset A$ for all $n$, then they all lie entirely within either $B$ or $C$. Induction implies that they all lie in the same set, then one of $B$ and $C$ is empty, which leads to contradiction.  
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Let $\set{A_\alpha}$ be a collection of connected subspaces of $X$; let $A$ be a connected subspace of $X$. Show that if $A\cap A_\alpha\neq\emptyset$ for all $\alpha$, then $B=A\cup(\bigcup A_\alpha)$ is connected.
+    \end{ex}
+    \begin{proof}
+        If $C,D$ is a separation of $B$, then $A$ lies entirely within $C$ or $D$, then any $A_\alpha$ lies in the same set as $A$, hence either $C$ or $D$ is empty, leading to contradiction.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Show that if $X$ is an infinite set, it is connected in the finite complement topology.
+    \end{ex}
+    \begin{proof}
+        For all open $Y\subsetneq X$ such that $Y\neq\emptyset$, the complement of $Y$ is finite and not empty, which is not open in $X$, hence $Y$ is not closed in $X$ and thus $X$ is connected.
+    \end{proof}
+    \hfill
+
+    \begin{ex}\addelement{Totally Disconnected}
+        A space is \textbf{\textit{totally disconnected}} if its only connected subspaces are one-point sets. Show that if $X$ has the discrete topology, then $X$ is totally disconnected.
+    \end{ex}
+    \begin{proof}
+        If $Y\subset X$ contains point $x,y$, then $\set{x},Y\setminus\set{x}$ is a separation of $Y$, which means $Y$ is not connected, thus only one-point sets are connected.
+    \end{proof}
+    \begin{remark}
+        Notice that $X=\Q$ in the usual topology is also totally disconnected, so the converse is not true.
+    \end{remark}
+    \hfill
+
+    \begin{ex}\addelement{Boundary}\addelement{$\Bd$}
+        If $A\subset X$, we define the \textbf{\textit{boundary}} of $A$ by
+        $$
+        \Bd A=\closure{A}\cap\closure{(X-A)}
+        $$
+
+        Show that if $C$ is a connected subspace of $X$ that intersects both $A$ and $X-A$, then $C$ intersects $\Bd A$.
+    \end{ex}
+    \begin{proof}
+        Suppose $C\cap\Bd A=\emptyset$, then $C\cap A=(C\cap\interior A)\cup(C\cap\Bd A\cap A)=(C\cap\interior A)$ is open in $C$ and non-empty; similarly, $C\cap(X-A)$ is also open in $C$ and non-empty, hence $C\cap A,C\cap(X-A)$ is a separation of $C$, contradicting to that $C$ is connected.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Let $A\subsetneq X,B\subsetneq Y$. If $X$ and $Y$ are connected, show that 
+        $$
+        (X\times Y)-(A\times B)
+        $$
+        is connected.
+    \end{ex}
+    \begin{proof}
+        Pick $x_0\in X-A, y_0\in Y-B$. Then we know $x_0\times Y$ is connected, $X\times y_0$ is connected; it follows that $(x_0\times Y)\cup (X\times y_0)$ is connected. Therefore, for any $x\in X-A$, $(x\times Y)\cup (x_0\times Y)\cup (X\times y_0)$ is connected; for any $y\in Y-B$, $(X\times y)\cup (x_0\times Y)\cup (X\times y_0)$ is connected. Hence, sharing the point $(x_0,y_0)$ in common, we know that
+        $$
+        (X\times Y)-(A\times B)=\bigcup_{x\in X-A}(x\times Y\cup x_0\times Y\cup X\times y_0)\cup\bigcup_{y\in Y-B}(X\times y\cup x_0\times Y\cup X\times y_0)
+        $$
+        is connected.
+    \end{proof}
+    \hfill
+
+    \begin{ex}\hfill\label{3.1.15}
+        \begin{itemize}
+            \item Show that $\R^\omega$ is not connected in the box topology.
+            \begin{proof}
+                Consider $A\subset\R^\omega$ consisting of all bounded sequences of real numbers, and $B$ consisting of all unbounded sequences. For any $a\in\R^\omega$, define a neighborhood of $a$ by 
+                $$
+                U=(a_1-1,a_1+1)\times (a_2-1,a_2+1)\times\cdots
+                $$
+                Then $U\subset A$ if $a\in A$, and $U\subset B$ if $a\in B$. It follows that $A$ and $B$ are open and thus is a pair of separation of $\R^\omega$.
+                
+            \end{proof}
+            \item Show that $\R^\omega$ is connected in the product topology.
+            \begin{proof}
+                Let $\bar{\R}^n$ denote the subspace of $\R^\omega$ consisting of all sequences $x=(x_1,x_2,\dots)$ such that $x_i=0$ for $i>n$. Notice that $\bar{\R}^n$ is homemorphic to $\R^n$, thus is connected. Sharing the point $0$ in common, we know that $\R^\infty=\bigcup\bar{\R}^n$ is connected. We know from \hyperref[2.8.11]{Exercise 2.8.11} that $\R^\omega$ is the closure of $\R^\infty$ in the product topology, thus is connected.
+            \end{proof}
+            \item Show that $\R^\omega$ is not connected in the uniform topology.
+            \begin{proof}
+                Same method as the box topology.
+            \end{proof}
+        \end{itemize}
+    \end{ex}
+    \hfill
+
+    \begin{ex}
+        Let $p:X\to Y$ be a quotient map. Show that if each set $p^{-1}({y})$ is connected, and if $Y$ is connected, then $X$ is connected.
+    \end{ex}
+    \begin{proof}
+        Suppose $X$ is not connected with separation $A,B$. For each $y\in Y$, since $p^{-1}({y})$ is a connected subspace of $X$, then it lies entirely within $A$ or $B$. Then $Y=C\cup D$ where $C=\set{p^{-1}({y})\subset A: y\in Y}$ and $D=\set{p^{-1}({y})\subset B: y\in Y}$. Since $A=p^{-1}(C)$ and $B=p^{-1}(D)$, we know that $C,D$ are open and non-empty, thus forming a separation of $Y$, contradicting to $Y$ is connected.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Let $Y\subset X$, let $X$ and $Y$ be connected. Show that if $A$ and $B$ form a separation of $X-Y$, then $Y\cup A$ and $Y\cup B$ are connected.
+    \end{ex}
+    \begin{proof}
+        Suppose that $Y\cup A$ is not connected with separation $C,D$, then $Y$, as a connected subspace of $Y\cup A$, lies entirely in $C$ or $D$.
+        
+        Suppose $Y\subset C$. Since $D$ is open in $Y\cup A$, there is $E\in B$ such that $D\cup E$ is open in $X$; since $D$ is open in $A$ and $A$ is open in $A\cup B$, hence $D$ is open in $A\cup B$, then there is $F\in Y$ such that $D\cup F$ is open in $X$. Therefore, $D=(D\cup E)\cap(D\cup F)$ is open in $X$. Moreover, notice that $C$ does not contain any limit point of $D$, and $B$ does not contain any limit point of $D\subset A$, hence $D$ contains all its limit points, implying that $D$ is closed. Therefore, $D$, as a non-empty proper subspace of $X$, is open and closed, which implies that $X$ is disconnected, contradiction.
+    \end{proof}
+
+    \hfill
+
+    \subsection{Connected Subspaces of the Real Line}
+    \begin{defi}{Linear Continuum}
+        A simply ordered set $L$ having more than one element is called a \textbf{\textit{linear continuum}} if the following hold
+        \begin{itemize}
+            \item $L$ has the least upper bound property.
+            \item If $x<y$, there exists $z$ such that $x<z<y$.
+        \end{itemize}
+    \end{defi}
+    \hfill
+
+    \begin{thm}
+        If $L$ is a linear continuum in the order topology, then $L$ is connected, and so are the intervals and rays in $L$.
+    \end{thm}
+    
+    \begin{cor}
+        The real line $\R$ is connected and so are intervals and rays in $\R$.
+    \end{cor}
+    \hfill
+
+    \begin{thm}\textbf{Intermediate value theorem}\hfill
+    
+        Let $f:X\to Y$ be a continuous map, where $X$ is a connected space and $Y$ is an ordered set in the order topology. If $a$ and $b$ are two points of $X$ and if $r\in Y$ satisfying $f(a)<r<f(b)$, then there exists $c\in X$ such that $f(c)=r$.
+    \end{thm}
+    \hfill
+
+    \begin{ex}
+        If $X$ is a well-ordered set, then $X\times [0,1)$ is a linear continuum in the dictionary order.
+    \end{ex}
+    \begin{proof}
+        Let $T\subset X\times [0,1)$. Let $S$ be the set of upper bounds of $T$. Let $r$ be the smallest first coordinate element in $S$, $r$ exists since $X$ is well-ordered. Let $T\cap\set{r}\times[0,1)= \set{r}\times Q$. If $Q=\emptyset$ then $(r,0)$ is the LUB of $T$; if $Q\neq\emptyset$ then $Q$ has a LUB $q$ in $[0,1)$, implying that $(r,q)$ is the LUB of $T$.
+
+
+        Let $(a,b)\prec(c,d)\in X\times [0,1)$. If $b<d$, then there exists $e\in [0,1)$ such that $b<e<d$ thus $(a,b)\prec(a,e)\prec(c,d)$. If $a<c$, then $b<\frac{b+1}{2}<1$ implies that $(a,b)\prec(a,\frac{b+1}{2})\prec(c,d)$. Hence there must be an element between $(a,b)$ and $(c,d)$.
+
+        In conclusion, $X\times [0,1)$ is a linear continuum.
+    \end{proof}
+    \hfill
+
+    \begin{defi}{Path \& Path Connected}
+        Given points $x$ and $y$ of the space $X$, a \textbf{\textit{path}} in $X$ from $x$ to $y$ is a continuous map $f:[a,b]\to X$, such that $f(a)=x$ and $f(b)=y$. A space $X$ is said to be \textit{\textbf{path connected}} if every pair of points of $X$ can be joined by a path in $X$.
+    \end{defi}
+    \hfill
+
+    \begin{eg}\hfill\addelement{Topologist's Sine Curve}
+    
+        \begin{itemize}
+            \item The ordered square $I^2_o$ is connected but not path connected.
+            \item Define $S\in\R^2$ by
+            $$
+            S=\set{\left(x, \sin\left(\frac{1}{x}\right)\right):x\in(0,1]}
+            $$
+            We then call its closure $\closure{S}$ \textbf{\textit{topologist's sine curve}}, which is connected but not path connected.
+            \begin{remark}
+                In fact, we have
+                $$
+                \closure{S}=S\cup(\set{0}\times[-1,1])
+                $$
+            \end{remark}
+        \end{itemize}
+    \end{eg}
+    \hfill
+
+    \subsection{Components and Local Connectedness}
+    \begin{defi}{Components}
+        Given $X$, define an equivalence relation on $X$ by setting $x\sim y$ if there is a connected subspace of $X$ containing both $x$ and $y$. The equivalence classes are called the \textbf{\textit{components}} of $X$.
+    \end{defi}
+    \begin{remark}
+        Each component of a space $X$ is closed in $X$ since the closure of a connected space is connected. If $X$ has only finite many components, then each component is also open in $X$, since its complement is a finite union of closed sets.
+    \end{remark}
+    \hfill
+
+    \begin{thm}
+        The components of $X$ are connected disjoint subspaces of $X$ whose union is $X$, such that each nonempty connected subspaces of $X$ intersects only one of them.   
+    \end{thm}
+    \hfill
+
+    \begin{defi}{Path Components}
+        We define another equivalence relation on the space $X$ by defining $x\sim y$ if there is a path in $X$ from $x$ to $y$. The equivalence classes are called the \textbf{\textit{path components}} of $X$.
+    \end{defi}
+    \hfill
+
+    \begin{thm}
+        The path components of $X$ are path-connected disjoint subspaces of $X$ whose union is $X$, such that each nonempty path-connected subspace of $X$ intersects only one of them.
+    \end{thm}
+    \hfill
+
+    \begin{eg}
+        The Topologist's sine curve has a single component itself, and two path components: $S$ and $\set{0}\times[-1,1]$.
+    \end{eg}
+    \hfill
+
+    \begin{defi}{Locally Connected \& Locally Path Connected}
+        A space $X$ is said to be \textbf{\textit{locally connected at $x$}} if for every neighborhood $U$ of $x$, there is a connected neighborhood $V$ of $x$ contained in $U$. If $X$ is locally connected at each of its points, it is said to be \textbf{\textit{locally connected}}.
+
+        A space $X$ is said to be \textbf{\textit{locally path connected at $x$}} if for every neighborhood $U$ of $x$, there is a path-connected neighborhood $V$ of $x$ contained in $U$. If $X$ is locally path connected at each of its points, it is said to be \textbf{\textit{locally path connected}}.
+    \end{defi}
+    \hfill
+
+    \begin{eg}
+        Connectedness and local connectedness don't imply each other.
+        \begin{itemize}
+            \item $[-1,0)\cup(0,1]\in\R$ is not connected but locally connected.
+            \item The topologist's sine curve $\closure{S}$ is connected but not locally connected.
+            \item $\Q$ is neither connected nor locally connected. 
+        \end{itemize}
+    \end{eg}
+    \hfill
+
+    \begin{thm}
+        A space $X$ is locally connected if and only if for every open set $U$ of $X$, each component of $U$ is open in $X$.
+    \end{thm}
+    \hfill
+
+    \begin{thm}
+        A space $X$ is locally path connected if and only if for every open set $U$ of $X$, each path component of $U$ is open in $X$.
+    \end{thm}
+    \hfill
+
+    \begin{thm}
+        If $X$ is a topological space, each path component of $X$ lies in a component of $X$. If $X$ is locally path connected, then the components and the path components of $X$ are the same.
+    \end{thm}
+    \begin{remark}
+        Each topological space can be divided into components. Each component can be divided into path components. Locally path connectedness imply the openness of path components, making any path component be both open and closed in the component, thus being the whole set.
+    \end{remark}
+
+    \subsection{Compact Spaces}
+    \begin{defi}{Cover \& Open Cover}
+        A collection $\mathcal{A}$ of subsets of a space is said to \textbf{cover} $X$, or to be a \textbf{covering} of $X$, if the union of the elements of $\mathcal{A}$ is equal to $X$. It is called an \textbf{open covering} of $X$ if its elements are open subsets of $X$.
+    \end{defi}
+    \hfill
+    
+    \begin{defi}{Compact}
+        A space $X$ is said to be \textbf{compact} if every open covering $\mathcal{A}$ of $X$ contains a finite subcollection that also covers $X$.
+    \end{defi}
+    \hfill
+
+    \begin{lemma}
+        Let $Y$ be a subspace of $X$. Then $Y$ is compact if and only if every covering of $Y$ by sets open in $X$ contains a finite subcollection covering $Y$.
+    \end{lemma}
+    \hfill
+
+    \begin{thm}
+        Every closed subspace of a compact space is compact.
+    \end{thm}
+    \hfill
+
+    \begin{thm}
+        Every compact subspace of a Hausdorff space is closed.
+    \end{thm}
+    \begin{proof}
+        Let $Y$ be a compact subspace of the Hausdorff space $X$.
+
+        For any $x_0\in X\setminus Y$, for all $y\in Y$, there exists disjoint neighborhoods $U_y$ and $V_y$ of $x_0$ and $y$, respectively. Since $\set{V_y:y\in Y}$ is an open covering of $Y$, there is a finite covering $V=\bigcup V_{y_i}$ of $Y$, then $U=\bigcap U_{y_i}$ is a neighborhood of $x_0$ which is disjoint from $V$, then disjoint from $Y$. Hence $X\setminus Y$ is open.  
+    \end{proof}
+
+    \begin{lemma}\label{3.4.6}
+        In particular, if $Y$ is a compact subspace of the Hausdorff space $X$ and $x_0\in X\setminus Y$, then there exists disjoint open sets $U$ and $V$ of $X$ containing $x_0$ and $Y$, respectively.
+    \end{lemma}
+    \hfill
+
+    \begin{thm}
+        The image of a compact space under a continuous map is compact.
+    \end{thm}
+    \hfill
+
+    \begin{thm}
+        Let $f:X\to Y$ be a bijective continuous function. If $X$ is compact and $Y$ is Hausdorff, then $f$ is a homeomorphism.
+    \end{thm}
+    \begin{proof}
+        Let $A$ be closed in $X$, then $A$ is compact, then $f(A)$ is compact, implying that $f(A)$ is closed in $Y$.
+    \end{proof}
+    \begin{remark}
+        Via a continuous map, the image of a compact space is compact. Via an injective continuous map, the preimage of a Hausdorff space is Hausdorff.
+    \end{remark}
+    \hfill
+
+    \begin{lemma}\label{3.4.9}
+        Consider the product space $X\times Y$, where $Y$ is compact. If $N$ is an open set of $X\times Y$ containing the slice $x_0\times Y$ of $X\times Y$, then $N$ contains some tube $W\times Y$ about $x_0\times Y$, where $W$ is a neighborhood of $x_0$ in $X$.
+    \end{lemma}
+    \begin{thm}
+        The product of finitely many compact spaces is compact.
+    \end{thm}
+    \begin{remark}\textbf{(Tychonoff Theorem)} 
+        The product of infinitely many compact spaces is compact.
+    \end{remark}
+    \hfill
+
+    \begin{defi}{Finite Intersection Property}
+        A collection $\mathcal{C}$ of subsets of $X$ is said to have the \textbf{finite intersection property} if for every finite subcollection
+        $$
+        \set{C_1,\dots,C_n}
+        $$
+        of $\mathcal{C}$, the intersection $C_1\cap\cdots\cap C_n$ is nonempty.
+    \end{defi}
+    \begin{thm}\label{3.4.12}
+        Let $X$ be a topological space. Then $X$ is compact if and only if for every collection $\mathcal{C}$ of closed subsets in $X$ having the finite intersection property, the intersection $\cap_{C\in\mathcal{C}}C$ of all the elements of $\mathcal{C}$ is nonempty.
+    \end{thm}
+    \begin{proof}
+        Given a collection $\mathcal{A}$ of subsets of $X$, let
+        $$
+        C=\set{X\setminus A:A\in\mathcal{A}}
+        $$
+        One can prove that
+        \begin{itemize}
+            \item $\mathcal{A}$ is a collection of open sets if and only if $\mathcal{C}$ is a collection of closed sets
+            \item The collection $\mathcal{A}$ covers $X$ if and only if the intersection $\cap_{C\in\mathcal{C}}C$ of all the elements of $\mathcal{C}$ is empty
+            \item The finite subcollection $\set{A_1,\dots,A_n}$ of $\mathcal{A}$ covers $X$ if and only if the intersection of the corresponding elements $C_i=X\setminus A_i$ of $\mathcal{C}$ is empty.
+        \end{itemize}
+        Then the statement follows by taking the contrapositive.
+    \end{proof}
+    \hfill
+
+    \begin{ex}\hfill
+
+        \begin{itemize}
+            \item Show that in the finite complement topology on $\R$, every subspace is compact.
+            \begin{proof}
+                Let $X$ be a topological space with finite complement topology. Let $\mathcal{A}$ be an open covering of $X$. Pick nonempty $A\in\mathcal{A}$ with $X\setminus A=\set{x_1,\dots,x_n}$. Since $\mathcal{A}$ covers $X$, then for each $i$ there exists $A_i$ containing $x_i$, thus $\set{A,A_1,\dots,A_n}\subset\mathcal{A}$ is a finite subcovering of $X$.
+            \end{proof}
+            \item If $\R$ has the topology consisting of all sets $A$ such that $\R\setminus A$ is either countable or all of $\R$, is $[0,1]$ a compact subspace?
+            \begin{sol}
+                $[0,1]$ is not compact. Let $C_i=\set{\frac{1}{n}:i\mid n}$. Then $\mathcal{C}=\set{C_i:i\in\N}$ is a collection of closed sets in $[0,1]$ having the finite intersection property, while $\cap_{i\in\N} C_i=\emptyset$. Hence $[0,1]$ is not compact.
+            \end{sol}
+        \end{itemize}
+    \end{ex}
+    \hfill
+
+    \begin{ex}
+        Show that every compact subspace of a metric space is closed and bounded. Find a metric space in which not every closed bounded subspace is compact.
+    \end{ex}
+    \begin{proof}
+        If $X$ is compact, then there is a finite subcovering $B'$ of the open cover $\set{B_(x,1):x\in X}$.  Since each element in $B'$ is bounded and $\abs{B'}<\infty$, then $X$ is covered by a finite union of bounded subsets, implying that $X$ is bounded.
+
+        Since every metric space is Hausdorff, then every compact subspace of a metric space is closed.
+
+        Consider an infinite set $X$ with the discrete metric. $X$ itself is closed and bounded, but $\set{\set{x}:x\in X}$ is an open covering of $X$ without any finite subcovering.
+    \end{proof}
+    \hfill
+    
+    \begin{ex}\label{3.4.15}
+        Let $A$ and $B$ be disjoint compact subspaces of the Hausdorff space $X$. Show that there exist disjoint open sets $V$ and $U$ containing $A$ and $B$, respectively. 
+    \end{ex}
+    \begin{proof}
+        For all $x\in A$, \hyperref[3.4.6]{Lemma 3.4.6} tells there exists disjoint open sets $V_x$ and $U_x$ containing $x$ and $B$, respectively. Since $\set{V_x:x\in A}$ is an open covering of $A$, then there exists a finite subcovering $V_1\cup\cdots\cup V_n=V\supset A$. Correspondingly, let $U=U_1\cap\cdots\cap U_n\supset B$, then $V$ and $U$ are disjoint open sets containing $A$ and $B$, respectively.
+    \end{proof}
+    \begin{remark}
+        It follows that every compact Hausdorff space is normal.
+    \end{remark}
+    \hfill
+
+    \begin{ex}
+        Show that if $Y$ is compact, then the projection $\pi_1:X\times Y\to X$ is a closed map.
+    \end{ex}
+    \begin{proof}
+        Let $A\subset X\times Y$ be closed. For any $x_0\in X\setminus\pi_1(A)$, since $X\times Y\setminus A$ is an open set containing $x_0\times Y$, \hyperref[3.4.9]{Lemma 3.4.9} tells that there exists some tube $W\times Y$ about $x_0\times Y$ contained in $X\times Y\setminus A$, therefore, the neighborhood $W$ of $x_0$ is contained in $X\setminus\pi_1(A)$, hence $\pi_1(A)$ is closed.  
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Let $f:X\to Y$, let $Y$ be compact Hausdorff. Then $f$ is continuous if and only if the \textbf{graph} of $f$,
+        $$
+        G_f=\set{(x,f(x)):x\in X}
+        $$
+        is closed in $X\times Y$.
+    \end{ex}
+    \begin{proof}
+        Suppose $G_f$ is closed in $X\times Y$, let $V$ be open in $Y$. Then $X\times V$ is open in $X\times Y$, then $G_f\cap X\times (Y\setminus V)$ is closed in $X\times Y$. The previous exercise tells that $\pi_1(G_f\cap X\times (Y\setminus V))=X\setminus f^{-1}(V)$ is closed in $X$, implying that $f^{-1}(V)$ is open in $X$, hence $f$ is continuous.
+
+        Suppose that $f$ is continuous. Let $(x,y)\in X\times Y$ be such that $y\neq f(x)$. Since $Y$ is Hausdorff, then there exsits disjoint neighborhoods $U$ and $V$ of $y$ and $f(x)$, respectively. We know that $f^{-1}(V)$ is open. Therefore, $f^{-1}(V)\times U$ is a neighborhood of $(x,y)$ not intersecting $G_f$, which implies that $G_f$ is closed.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Let $A$ and $B$ be subspaces of $X$ and $Y$, respectively; let $N$ be an open set in $X\times Y$ containing $A\times B$. If $A$ and $B$ are compact, then there exist open sets $U$ and $V$ in $X$ and $Y$, respectively, such that 
+        $$
+        A\times B\subset U\times V\subset N
+        $$
+    \end{ex}
+    \begin{proof}
+        For each $x\in A,y\in B$, since $N$ is a neighborhood of $(x,y)$, there is a basis element $U_{x,y}\times V_{x,y}\subset N$ containing $(x,y)$.
+        
+        Since $x\times B$ is homeomorphic to $B$, we know it is compact, then the open cover $\set{U_{x,y}\times V_{x,y}:y\in B}$ contains a finite subcover $\set{U_{x,y_i}\times V_{x,y_i}:i\in[1,n]}$. Let $U_x=\cap U_{x,y_i}, V_x=\cup V_{x,y_i}$, it follows that $U_x\times V_x\subset N$ is a neighborhood of $x\times B$. Since $A\times B$ is compact, then the open cover $\set{U_x\times V_x:x\in A}$ contains a finite subcover $\set{U_{x_i}\times V_{x_i}:i\in[1,m]}$. Let $U=\cup U_{x_i},V=\cap V_{x_i}$, it follows that
+        $$
+        A\times B\subset U\times V\subset N
+        $$
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Let $X$ be a compact Hausdorff space. Let $\mathcal{A}$ be a collection of closed connected subsets of $X$ that is simply ordered by proper inclusion. Then
+        $$
+        Y=\cap_{A\in\mathcal{A}}A
+        $$
+        is connected.
+    \end{ex}
+    \begin{proof}
+        Suppose $Y=C\cup D$ is disconnected. 
+
+        Since $Y$ is a intersection of closed subsets, we know $Y$ is closed. Then $C$ and $D$ are closed in $X$, thus being compact. Therefore, \hyperref[3.4.15]{Exercise 3.4.15} tells that there exists disjoint open sets $U$ and $V$ containing $C$ and $D$, respectively.        
+        
+        For all $A\in\mathcal{A}$, $A$ is connected then $A\setminus(U\cup V)$ is non-empty, since otherwise $A\cap U$ and $A\cap V$ would be a pair of separation of $A$; $A$ is closed and $U\cup V$ is open, implying that $A\setminus(U\cup V)$ is closed. 
+
+        It follows that $A\setminus(U\cup V)$ is a collection of closed subsets having the finite intersection property and
+        $$
+        \bigcap_{A\in\mathcal{A}}(A\setminus(U\cup V))=\emptyset
+        $$
+        which by \hyperref[3.4.12]{Theorem 3.4.12} implies that $X$ is not compact, contradiction. Hence $Y$ is connected.  
+    \end{proof}
+    \hfill
+
+    \begin{ex}\addelement{Perfect Map}\label{3.4.20}
+        Let $p:X\to Y$ be a closed continuous surjective map such that $p^{-1}(\set{y})$ is compact for each $y\in Y$. Such map is called a \textbf{\textit{perfect map}}. Show that if $Y$ is compact, then $X$ is compact.
+    \end{ex}
+    \begin{proof}
+        Let $y\in Y$, if $U\subset X$ is an open set contianing $p^{-1}(\set{y})$, then $p(X\setminus U)$ is closed in $Y$, then $W=Y\setminus p(X\setminus U)$ is a neighborhood of $y$ such that $p^{-1}(W)$ is contained in $U$.
+
+        Let $\mathcal{C}$ be an open covering of $X$. For each $y\in Y$, since $p^{-1}(\set{y})$ is compact in $X$, then there exists a finite subcovering $\mathcal{C}_y$ of $p^{-1}(\set{y})$. Therefore, there exists a neighborhood $W_y$ of $y$ such that $p^{-1}(W_y)$ is covered by $\mathcal{C}_y$. Since all $W_y$ form an open covering of $Y$, there exists a finite subcovering $Y=\cup W_{y_i}$ of $Y$. Therefore, $\mathcal{C}_{y_i}$ is a finite subcovering of $X$ since
+        $$
+        \bigcup_i\bigcup_{C\in \mathcal{C}_{y_i}} \mathcal{C}_{y_i}\supset\bigcup p^{-1}(W_{y_i})=p^{-1}(\cup W_{y_i})=p^{-1}(Y)=X
+        $$
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Let $G$ be a topological group.
+        \begin{itemize}
+            \item Let $A$ and $B$ be subspaces of $G$. If $A$ is closed and $B$ is compact, show $A\cdot B$ is closed.
+            \begin{proof}
+                Let $c\in G\setminus (A\cdot B)$. Since $B$ is compact, we know $B^{-1}$ is compact. Define $g:G\times B^{-1}\to G$ by $g(x,y)=x\cdot y$ be a continuous map. Then $G\setminus A$ is open implying that $N=g^{-1}(G\setminus A)$ is open. Obviously $\set{c}\times B^{-1}\subset N$, then by \hyperref[3.4.9]{Tube Lemma} there is a neighborhood $W$ of $c$ such that $W\times B^{-1}\subset N$. Therefore,
+                $$
+                g(W\times B^{-1})\subset g(N)=G\setminus A\implies W\subset G\setminus (A\cdot B)
+                $$
+                Hence $A\cdot B$ is closed.
+            \end{proof}
+            \item Let $H$ be a subgroup of $G$; let $p:G\to G/H$ be the quotient map. If $H$ is compact, show that $p$ is a closed map.
+            \begin{proof}
+                Let $A\subset G$ be closed. Then $A\cdot H$ is closed since $H$ is compact. Then $p(A)=\set{aH:a\in A}$ is closed since $p^{-1}(\set{aH:a\in A})=A\cdot H$.
+            \end{proof}
+            \item Let $H$ be a compact subgroup of $G$. Show that if $G/H$ is compact, then $G$ is compact.
+            \begin{proof}
+                Let $p:G\to G/H$ be the quotient map. Since $H$ is compact, we know that $p$ is closed, continuous and surjective. Moreover, for each $xH\in G/H$, $p^{-1}(xH)=\set{xh:h\in H}$ is homeomorphic to $H$, which is compact. It follows that $p$ is a perfect map. Therefore, \hyperref[3.4.20]{Exercise 3.4.20} tells that $G/H$ is compact implying that $G$ is compact.
+            \end{proof}
+        \end{itemize}
+    \end{ex}
+    \hfill
+
+    \subsection{Compact Subspaces of the Real Line}
+    \begin{thm}
+        Let $X$ be a simply ordered set having the least upper bound property. In the order topology, each closed interval in $X$ is compact.
+    \end{thm}
+    \begin{remark}
+        The proof is kind of an induction.
+    \end{remark}
+    \begin{cor}
+        Every closed interval in $\R$ is compact.
+    \end{cor}
+    \hfill
+    
+    \begin{cor}
+        Every closed and bounded subset of $\R$ is compact.
+    \end{cor}
+    \begin{proof}
+        The case of $\emptyset$ is trivial.
+        
+        Let $K\subset\R$ be nonempty, closed and bounded. Let $\mathcal{C}$ be an open covering of $K$. Since $K$ is bounded, then let $a,b$ be the greatest lower bound and least upper bound, respectively. Since $K$ is closed, we know $a,b\in K$. Therefore, $S=[a,b]\cap(\R\setminus K)=(a,b)\cap(\R\setminus K)$ is open in $\R$. It follows that $\mathcal{D}=\mathcal{C}\cup\set{S}$ is an open covering of the compact interval $[a,b]$. Then there is a finite subcovering $\mathcal{E}$, which follows that $\mathcal{E}\setminus\set{S}$ is a finite subcovering of $K$. Hence $K$ is compact.
+    \end{proof}
+    \begin{remark}
+        In fact, this is trivial by recalling that \textit{any closed subspace of a compact space is compact}.
+    \end{remark}
+    \hfill
+
+    \begin{thm}
+        A subspace $A$ of $\R^n$ is compact if and only if it is closed and is bounded in the euclidean metric $d$ or the square metric $\rho$.
+    \end{thm}
+    \hfill
+
+    \begin{thm}
+        Let $S$ be an ordered set in the order topology. Then $S$ is compact if and only if $S$ has the least upper bound property and possesses both a least element and a greatest element.
+    \end{thm}
+
+    \begin{thm}\textbf{{Extreme Value Theorem}}\hfill
+
+        Let $f:X\to Y$ be continuous, where $Y$ is an ordered set in the order topology. If $X$ is compact, then there exist points $c$ and $d$ in $X$ such that $f(c)\leq f(x)\leq f(d)$ for every $x\in X$.
+    \end{thm}
+    \hfill
+
+    \begin{defi}{Distance from $x$ to $A$}
+        Let $(X,d)$ be a metric space; let $A$ be a nonempty subset of $X$. For each $x\in X$, we define the distance from $x$ to $A$ by the equation
+        $$
+        d(x,A)=\inf\set{d(x,a):a\in A}
+        $$
+    \end{defi}
+    \hfill
+
+    \begin{lemma}\textbf{The Lebesgue number lemma}\hfill
+    
+        Let $\mathcal{A}$ be an open covering of the metric space $(X,d)$. If $X$ is compact, there is a $\delta>0$ such that for each subset of $X$ having diameter less than $\delta$, there exists an element of $\mathcal{A}$ containing it.
+    \end{lemma}
+    \begin{remark}\addelement{Lebesgue Number}
+        The number $\delta$ is called a \textbf{\textit{Lebesgue number}} for the covering $\mathcal{A}$.
+    \end{remark}
+    \hfill
+
+    \begin{thm}
+        Let $f:X\to Y$ be a continuous map of the compact metric space $(X,d_X)$ to the metric space $(Y,d_Y)$. Then $f$ is uniformly continuous.
+    \end{thm}
+    \hfill
+
+    \begin{defi}{Isolated Point}
+        If $X$ is a space, a point $x$ of $X$ is said to be an \textit{\textbf{isolated point}} of $X$ if $\set{x}$ is open in $X$
+    \end{defi}
+    \hfill
+
+    \begin{thm}
+        Let $X$ be a nonempty compact Hausdorff space. If $X$ has no isolated points, then $X$ is uncountable.
+    \end{thm}
+    \begin{cor}
+        Every closed interval in $\R$ is uncountable.
+    \end{cor}
+    \hfill
+
+    \begin{ex}
+        Prove that if $X$ is an ordered set in which every closed interval is compact, then $X$ has the least upper bound property.
+    \end{ex}
+    \begin{proof}
+        Let $S$ be nonempty and bounded above in $X$ which does not have a least upper bound. Let $b$ be an upper bound of $S$, let $K$ be the set of upper bounds of $S$ less or equal to $b$.
+        
+        Notice that $K$ is closed. This is because if there is $x\in X$ which is a limit point of $K$ not in $K$, then there is $s\in S$ such that $x<s$, which implies that the neighborhood $(-\infty,s)$ of $x$ contains an element of $K$, a contradiction.
+
+        Then $K$ is closed in the closed interval $[s,b]$ where $s\in S$, thus being compact. Since $K$ does not have a least element, then $\set{(k,\infty):k\in K}$ is an open covering of $K$ with a finite subcovering $\set{(k_i,\infty):i\in[1,n]}$. Let $k_j$ be the smallest in all $k_i$ for $i\in[1,n]$, then we know $k_j$ is not covered by the subcovering, a contradiction.
+
+        Therefore, $X$ must have the least upper bound property.
+    \end{proof}
+    \hfill
+
+    \begin{ex}\addelement{Cantor Set}
+        Let $A_0=[0,1]\subset\R$. Define $A_n$ inductively by 
+        $$
+        A_n=A_{n-1}-\bigcup_{k=0}^\infty\left(\frac{1+3k}{3^n},\frac{2+3k}{3^n}\right)
+        $$
+        The intersection
+        $$
+        C=\bigcap_{n\in\Z_+}A_n
+        $$
+        is called the \textit{\textbf{Cantor set}}.
+        \begin{itemize}
+            \item Show that $C$ is totally disconnected.
+            \begin{proof}
+                Let $K\subset C$ be a subset with $\abs{K}>1$. Let $a,b\in K$ such that $a<b$. Let $n$ be such that $b-a>\frac{1}{3^n}$, then there exist $k$ such that $a\leq\frac{1+3k}{3^n}<\frac{2+3k}{3^n}\leq b$, then $(-\infty,\frac{1+2k}{2\cdot 3^{n-1}})$ and $(\frac{1+2k}{2\cdot 3^{n-1}},\infty)$ form a separation of $K$.
+            \end{proof}
+            \item Show that $C$ is compact.
+            \begin{proof}
+                Let $t\in[0,1]\setminus C$, then there exists $k,n$ such that $t\in(\frac{1+3k}{3^n},\frac{2+3k}{3^n})$, hence $(\frac{1+3k}{3^n},\frac{2+3k}{3^n})$ is a neighborhood of $t$ not intersecting $C$. Hence $C$ is closed. Obviously $C$ is bounded, then $C$ is compact.
+            \end{proof}
+            \item Show that $C$ has no isolated points.
+            \begin{proof}
+                Let $x\in C$, given $\varepsilon>0$, there exists $n$ such that $\varepsilon>3^n$, then consider $x\in A_n$, $x$ must lie in some $I_n$ with length $3^n$, implying that $(x-\varepsilon,x+\varepsilon)$ must contains a endpoint $y\neq x$ which lies in $C$. Hence $\set{x}$ is not open in $C$.
+            \end{proof}
+            \item Conclude that $C$ is uncountable.
+            \begin{proof}
+                We have shown that $C$ is a nonempty compact Hausdorff space. Since $C$ has no isolated points, then $C$ is uncountable.
+            \end{proof}
+        \end{itemize}
+    \end{ex}
+    \hfill
+
+    \subsection{Limit Point Compactness}
+    \begin{defi}{Limit Point Compact}
+        A space $X$ is said to be \textbf{\textit{limit point compact}} if every infinite subset of $X$ has a limit point.
+    \end{defi}
+    \hfill
+
+    \begin{thm}
+        Compactness implies limit point compactness, but not conversely.
+    \end{thm}
+    \begin{proof}
+        Suppose $X$ is compact. Suppose there is an infinite subset $K\subset X$ with no limit points. It follows that $K$ is closed in $X$, then $K$ is compact. However, for each $k\in K$, there is a neighborhood $N_k$ not intersecting $K\setminus\set{k}$, implying that the open covering $\set{N_k:k\in K}$ does not have a finite subcovering, a contradiction. Hence $X$ is limit point compactness.
+    \end{proof}
+    \hfill
+
+    \begin{eg}
+        Let $Y=\set{a,b}$ with topology $\topo=\set{\emptyset,Y}$. Then the space $X=\Z\times Y$ is limit point compact, since every set containing $(n,a)$ must have a limit point $(n,b)$. However, $X$ is not compact, since the open cover $\set{\set{n}\times Y:n\in\Z}$ does not have a finite subcover.
+    \end{eg}
+    \hfill
+
+    \begin{eg}
+        Consider the minimal uncountable well-ordered set $S_\Omega$, in the order topology. Then $S_\Omega$ is limit point compact but not compact.
+    \end{eg}
+    \hfill
+
+    \begin{defi}{Sequentially Compact}
+        Let $X$ be a topological space. $X$ is said to be \textbf{\textit{sequentially compact}} if every sequence of points of $X$ has a convergent subsequence.
+    \end{defi}
+    \hfill
+
+    \begin{thm}\label{3.6.6}
+        Let $X$ be a metrizable space. Then the following are equivalent:
+        \begin{itemize}
+            \item $X$ is compact.
+            \item $X$ is limit point compact.
+            \item $X$ is sequentially compact.
+        \end{itemize}
+    \end{thm}
+    \hfill
+
+    \begin{ex}\addelement{Countably Compact}
+        A space $X$ is said to be \textbf{\textit{countably compact}} if every countable open covering of $X$ contains a finite subcollection that covers $X$. Show that for a $T_1$ space $X$, countable compactness is equivalent to limit point compactness.
+    \end{ex}
+    \begin{proof}
+        Suppose $X$ is countably compact. Assume there is an infinite subset $K$ of $X$ with no limit points. Hence for each $x\in K$, we have $\set{x}$ is open in $K$. Then pick a sequence $\set{x_n}_{n\in\Z^+}$ of $K$, for each $n\in\Z^+$, there exists a neighborhood $U_n$ such that $U_n\cap K=\set{x_n}$; there also exists an open set $U_0$ such that $U_0\cap K=K\setminus\set{x_n:n\in\Z^+}$. Therefore, $\set{U_n:n\in\N}\cup\set{X\setminus K}$ is a countable open cover of $X$ with no finite subcover. Therefore, assumption fails and thus $X$ is limit point compact.
+        
+        Suppose $X$ is not countably compact. Then there exists a countable open covering $\set{U_n:n\in\Z^+}$ of $X$ containing no finite subcollection. Then for each $n\in\Z^+$, $V_n=X\setminus(U_1\cup\cdots\cup U_n)$ is nonempty, we then pick $x_n\in V_n$. If $x$ is a limit point of $\set{x_n:n\in\Z^+}$, since $x$ must be contained in $U_t$ for some $t\in\Z^+$, we notice $U_t\cap\set{x_n:n\in\Z^+}\subset\set{x_n:n<t}$ is finite, which contradicts to \hyperref[2.6.18]{Theorem 2.6.18} which states that each neighborhood of $x$ must intersect infinitely many points of the set. Hence $X$ is not limit point compact.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Show that $X$ is countably compact if and only if every nested sequence $C_1\supset C_2\supset\cdots$ of closed nonempty sets of $X$ has a nonempty intersection.
+    \end{ex}
+    \begin{proof}
+        If there is a nested sequence $C_1\supset C_2\supset\cdots$ of closed nonempty sets of $X$ such that $\cap C_n=\emptyset$. Then $\set{X\setminus C_n:n\in\Z^+}$ is a countable open cover of $X$ with no finite subcover. So $X$ is not countably compact.
+
+        If $X$ is not countably compact. Then there exists a countable open covering $\set{U_n:n\in\Z^+}$ of $X$ containing no finite subcollection. Let $C_i=X\setminus\cup_{n\leq i}U_n$, then we have $C_1\supset C_2\supset\cdots$ and $\cap C_n=\emptyset$.
+    \end{proof}
+    \hfill
+
+    \begin{ex}\addelement{Isometry}
+        Let $(X,d)$ be a metric space. If $f:X\to X$ satisfies the condition
+        $$
+        d(f(x),f(y))=d(x,y)
+        $$
+        for all $x\in X$, then $f$ is called a \textbf{\textit{isometry}} of $X$. Show that if $f$ is an isometry and $X$ is compact, then $f$ is bijective and hence a homeomorphism.
+    \end{ex}
+    \begin{proof}
+        Let $U\subset f(X)$ be open. Let $t\in f^{-1}(U)$, then there is a neighborhood $N_\delta(f(t))$ of $f(t)$ contained in $U$. It follows that $N_\delta(t)$ is a neighborhood of $t$ contained in $f^{-1}(U)$ by definition of $f$. Hence $f$ is continuous.
+        
+        For $x\neq y$, notice 
+        $$
+        d(f(x),f(y))=d(x,y)\neq 0\implies f(x)\neq f(y)
+        $$
+        Hence $f$ is injective.
+
+        Suppose there is $a\in X$ such that $a\notin f(X)$. Since $X$ is compact and $f$ is continuous, then $f(X)$ is compact. Since $X$ is metrizable and thus Hausdorff, we know $f(X)$ is closed in $X$. Therefore, there is $\varepsilon>0$ such that $N_\varepsilon(a)\cap f(X)=\emptyset$. Define the sequence $\set{x_n}$ in $X$ by $x_1=a$ and $x_{n+1}=f(x_n)$ inductively. It follows that for all $m>n$, we have
+        $$
+        d(x_n,x_m)=d(x_1,x_{m-n+1})=d(a,f(x_{m-n}))>\varepsilon
+        $$
+        It follows that the infinite sequence $\set{x_n}$ has no limit point, contradicting to that $X$ is compact and thus limit point compact by \hyperref[3.6.6]{Theorem 3.6.6}. Therefore, $f$ is surjective.
+
+        Hence $f$ is bijective. By noticing that 
+        $$
+        d(f^{-1}(x),f^{-1}(y))=d(x,y)
+        $$
+        One can prove that $f^{-1}$ is also continuous using similar methods. Therefore, $f$ is a homeomorphism. 
+    \end{proof}
+    \hfill
+
+    \begin{ex}\addelement{Shrinking Map \& Contraction}\addelement{Fixed Point}
+        Let $(X,d)$ be a metric space. If $f$ satisfies the condition
+        $$
+        d(f(x), f(y))<d(x,y)
+        $$
+        for all $x,y\in X$ with $x\neq y$, then $f$ is called a \textbf{\textit{shrinking map}}. If there is a number $\alpha<1$ such that
+        $$
+        d(f(x),f(y))\leq \alpha d(x,y)
+        $$
+        for all $x,y\in X$, then $f$ is called a \textbf{\textit{contraction}}. A \textbf{\textit{fixed point}} of $f$ is a point $x$ such that $f(x)=x$.
+        \begin{itemize}
+            \item If $f$ is a contraction and $X$ is compact, show $f$ has a unique fixed point.
+            \begin{proof}
+                Since $X$ is compact Hausdorff space. Then $f^{n}(X)$ is nonempty and closed for all $n\in \N$. Hence the intersection $A=\cap_{n\in\N}f^{n}(X)$ is nonempty. Let $p,q\in A$; for all $m\in\N$, since $p,q\in f^{m}(X)$, there are $u,v\in X$ such that $p=f^m(u),q=f^m(v)$, then
+                $$
+                d(u,v)\geq \alpha^{-m}d(p,q)
+                $$
+                but $X$ is bounded, it follows that 
+                $$
+                d(p,q)=0\implies p=q
+                $$
+                Hence $A$ only contains one point $p$. Therefore
+                $$
+                p\in A\implies f(p)\in A\implies p=f(p)
+                $$
+                Hence $p$ is a fixed point of $f$.
+                
+                If $q$ is a fixed point of $f$, then $q=f^{(n)}(q)$ for all $n\in\N$, implying that $q\in A$, which proves the uniqueness of the fixed points of $f$.
+            \end{proof}
+            \item Show more generally that if $f$ is a shrinking map and $X$ is compact, then $f$ has a unique fixed point.
+            \begin{proof}
+                The same argument proves that $A=\cap_{n\in\N}f^{n}(X)$ is nonempty.
+                
+                Let $x\in A$, for any $n\in\N$, pick $x_n$ such that $x=f^{n+1}(x_n)$, consider the sequence $\set{y_n}$ defined by $y_n=f^n(x_n)$. Since $X$ is compact and thus limit point compact, we know there is a limit point $a\in X$ of the infinite set $\set{y_n}$.
+
+                For all $m\in\N$, we know $y_k\in f^m(X)$ for $k\geq m$. Notice that $a$ is a limit point of the set $\set{y_n}_{n\geq m}$. Then $a$ is a limit point of the closed set $f^{m}(X)$, implying that $a\in f^{m}(X)$. It follows that $a\in A$. Given $\varepsilon>0$, there is $y_n$ such that $d(y_n,a)<\varepsilon$. It follows that
+                $$
+                d(x,f(a))=d(f(y_n),f(a))<d(y_n,a)<\varepsilon
+                $$
+                Hence $x=f(a)$.
+                
+                Therefore, $A\subset f(A)$. Trivially we have $f(A)\subset A$, hence $A=f(A)$.
+
+                If $\diam A=d>0$, then for all $p\neq q\in A$, 
+                $$
+                d(f(p),f(q))<d(p,q)\leq d\implies \diam f(A)<d=\diam A
+                $$
+                
+                The strict inequality is due to the fact that $A$ is closed and thus compact, which means that it can always attain the maximum when calculating its diameter. It follows that $\diam A=\diam f(A)=0$, then $A$ contains only one point $p$, which is the unique fixed point of $f$.
+            \end{proof}
+        \end{itemize}
+    \end{ex}
+    \hfill
+
+    \subsection{Local Compactness}
+    \begin{defi}{Locally Compact}
+        A space $X$ is said to be \textbf{\textit{locally compact at $x$}}  if there is some compact subspace $C$ of $X$ that contains a neighborhood of $x$. If $X$ is locally compact at each of its points, $X$ is said to be \textbf{\textit{locally compact}}.
+    \end{defi}
+    \hfill
+    
+    \begin{eg}\hfill
+    
+        \begin{itemize}
+            \item $\R^n$ is locally compact.
+            \item $\R^\omega$ in the product topology is not locally compact, since none of its basis elements are contained in compact subspaces.
+            \item Every simply ordered set $X$ having the least upper bound property is locally compact.
+            \item Every space equipped with the discrete topology is locally compact. While a space equipped with the discrete topology is compact if and only if it is finite.
+        \end{itemize}
+    \end{eg}
+    \hfill
+
+    \begin{thm}
+        Let $X$ be a space. Then $X$ is locally compact Hausdorff if and only if there exists a space $Y$ satisfying the following conditions:
+        \begin{itemize}
+            \item $X$ is a subspace of $Y$.
+            \item The set $Y\setminus X$ consisting of a single point.
+            \item $Y$ is a compact Hausdorff space.
+        \end{itemize}
+        If $Y$ and $Y'$ are two spaces satisfying these conditions, then there is a homeomorphism of $Y$ with $Y'$ that equals the identity map on $X$.
+    \end{thm}
+    \begin{remark}
+        Given $X$, open sets in $Y$ are exactly the open sets in $X$ and the complement of compact sets in $X$.
+    \end{remark}
+    \begin{remark}
+        If $X$ is not compact, then $X$ is not closed in $Y$, implying that the joining point is a limit point of $X$.
+    \end{remark}
+    \hfill
+
+    \begin{defi}{Compactification \& One-point Compactification}
+        If $Y$ is a compact Hausdorff space and $X$ is a proper subspace of $Y$ whose closure equals $Y$, then $Y$ is said to be a \textbf{\textit{compactification}} of $X$. If $Y\setminus X$ equals a single point, then $Y$ is called the \textbf{\textit{one-point compactification}} of $X$.
+    \end{defi}
+    \begin{remark}
+        By previous theorem, $X$ has a one-point compactification $Y$ if and only if $X$ is a locally compact Hausdorff space.
+    \end{remark}
+    \hfill
+
+    \begin{thm}
+        Let $X$ be a Hausdorff space. Then $X$ is locally compact if and only if given $x\in X$ and given a neighborhood $U$ of $x$, there is a neighborhood $V$ of $x$ such that $\closure{V}$ is compact and $\closure{V}\subset U$.
+    \end{thm}
+    \begin{cor}
+        Let $X$ be locally compact Hausdorff; let $A$ be a subspace of $X$. If $A$ is closed in $X$ or open in $X$, then $A$ is locally compact.
+    \end{cor}
+    \begin{cor}
+        A space $X$ is homeomorphic to an open subspace of a compact Hausdorff space if and only if $X$ is locally compact Hausdorff.
+    \end{cor}
+    \hfill
+
+    \begin{thm}
+        If $X_1$ and $X_2$ are homeomorphic locally compact Hausdorff spaces, then their one-point compactifications are homeomorphic.
+    \end{thm}
+    \hfill
+
+    \begin{ex}
+        Show that the rationals $\Q$ are not locally compact.
+    \end{ex}
+    \begin{proof}
+        For $0\in\Q$. Let $C\subset\Q$ contain a neighborhood of $0$, it follows that there is $\varepsilon>0$ such that $(-\varepsilon,\varepsilon)\cap\Q \subset C$. Notice any $r\in(-\varepsilon,\varepsilon)\setminus\Q$ is a limit point of $C$ not in $C$, hence $C$ is not closed in $\R$, thus not compact.
+    \end{proof}
+    \hfill
+
+    \begin{ex}\label{3.7.10}
+        Let $X$ be a locally compact space. If $f:X\to Y$ is continuous, does it follow that $f(X)$ is locally compact? What if $f$ is both continuous and open?
+    \end{ex}
+    \begin{proof}
+        Case 1: $f$ is continuous. Let $X=\Q$ with the discrete topology, $Y=\Q$ with the standard topology. Then the identity map $f$ is continuous, and $X$ is locally compact while $Y$ is not. 
+
+        Case 2: $f$ is both continuous and open. Let $x\in X$ then $f(x)\in f(X)$. There is $x\subset C\subset D\subset X$ where $C$ is compact and $D$ is open in $X$. Since $f$ is continuous, then $f(C)$ is compact. Since $f$ is open, then $f(D)$ is open in $f(X)$. It follows that $f(X)$ is locally compact.
+    \end{proof}
+    \hfill
+    
+    \begin{ex}
+        Show that if $G$ is a locally compact topological group and $H$ is a subgroup, then $G/H$ is locally compact.
+    \end{ex}
+    \begin{proof}
+        Let $p:G\to G/H$ be the quotient map defined by $p(\alpha)=\alpha H$, then $p$ is continuous and \hyperref[2.11.5]{Exercise 2.11.5(c)} shows that $p$ is open. It follows from \hyperref[3.7.10]{Exercise 3.7.10} that $G/H$ is locally compact.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Show that if $X$ is a Hausdorff space that is locally compact at the point $x$, then for each neighborhood $U$ of $x$, there is a neighborhood $K$ of $x$ such that $\closure{K}$ is compact and $\closure{K}\subset U$.
+    \end{ex}
+    \begin{proof}
+        Since $X$ is locally compact at $x$, then there is $x\in C\subset D\subset X$ where $C$ is open in $X$ and $D$ is compact.
+        
+        Let $U$ be a neighborhood of $x$, then $U\cap C$ is open in $X$ and thus open in $D$. It follows that $D\setminus(U\cap C)$ is closed in $D$ and thus compact. Then \hyperref[3.4.6]{Lemma 3.4.6} tells that there are disjoint neighborhoods $V$ and $W$ of $x$ and $D\setminus(U\cap C)$, respectively. 
+
+        Let $K=V\cap U\cap C$ be a neighborhood of $x$ disjoint from $W$, then $K\subset D\setminus W$. Notice $D\setminus W=D\cap(X\setminus W)$ is closed in $X$, it follows that $\closure{K}\subset D\setminus W\subset U$. Moreover, since $\closure{K}\subset D$ is closed in $D$, we have $\closure{K}$ is compact.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Prove the following
+        \begin{itemize}
+            \item If $p:X\to Y$ is a quotient map and if $Z$ is a locally compact Hausdorff space, then the map
+            $$
+            \pi=p\times i_z: X\times Z\to Y\times Z
+            $$
+            is a quotient map.
+            \begin{proof}
+                Let $A\subset Y\times Z$ such that $\pi^{-1}(A)\subset X\times Z$ is open. For all $(x,y)\in \pi^{-1}(A)$, there is a basis element $U_1\times V\subset \pi^{-1}(A)$ containing $(x,y)$. Since $Z$ is locally compact Hausdorff space, there is a neighborhood $W$ of $y$ such that $\closure{W}$ is compact and $\closure{W}\subset V$.
+                
+                Given $U_i\times \closure{W}\subset \pi^{-1}(A)$. For each $x\in p^{-1}(p(U_i))$, by the \hyperref[3.4.9]{Tube Lemma}, there is a neighborhood $W'$ of $x$ such that $W'\times \closure{W}\subset\pi^{-1}(A)$. We then define $U_{i+1}=\cup W'$ inductively. Let $U=\cup U_i$, then $U\times W$ is a saturated neighborhood of $(x,y)$ contained in $\pi^{-1}(A)$. It follows that $p(U)\times W$ is a neighborhood of $\pi(x,y)$ contained in $A$. Hence $A$ is open.
+
+                Let $A\subset Y\times Z$ be open and $\pi(x,y)\in A$ be covered by the neighborhood $U\times V\subset A$. Notice that $p^{-1}(U)\times V\subset \pi^{-1}(A)$ is a neighborhood of $(x,y)$, hence $\pi^{-1}(A)$ is open.
+                
+                Therefore, $\pi$ is a quotient map.
+            \end{proof}
+            \item Let $p:A\to B$ and $q:C\to D$ be quotient maps. If $B$ and $C$ are locally compact Hausdorff spaces, then $\pi=p\times q:A\times C\to B\times D$ is a quotient map.
+            \begin{proof}
+                Since $C$ is locally compact, we know
+                $$
+                p\times i_C:A\times C\to B\times C
+                $$
+                is a quotient map.
+
+                Since $B$ is locally compact, we know
+                $$
+                i_B\times q:B\times C\to B\times D
+                $$
+                is a quotient map.
+
+                It follows that 
+                $$
+                \pi=p\times q = (i_B\times q)\circ (p\times i_C)
+                $$
+                is a quotient map.
+            \end{proof}
+        \end{itemize}
+    \end{ex}
+    \hfill
+
+    \subsection{Nets}
+    \begin{defi}{Partial Order}
+        A relation $\preceq$ on a set $A$ is called a partial order if the following conditions hold:
+        \begin{itemize}
+            \item Reflexivity: $\alpha\preceq\alpha$ for all $\alpha$.
+            \item Antisymmetry: If $\alpha\preceq\beta$ and $\beta\preceq\alpha$, then $\alpha=\beta$.
+            \item Transitivity: If $\alpha\preceq\beta$ and $\beta\preceq\gamma$, then $\alpha\preceq\gamma$.
+        \end{itemize}
+    \end{defi}
+    \hfill
+
+    \begin{defi}{Directed Set}
+        A directed set $J$ is a set with a partial order $\preceq$ such that for each pair $\alpha,\beta$ of elements of $J$, there exists an element $\gamma\in J$ such that $\alpha\preceq\gamma$ and $\beta\preceq\gamma$.
+    \end{defi}
+
+    \begin{eg}
+        The following are directed sets:
+        \begin{itemize}
+            \item Any simply ordered set under the relation $\leq$.
+            \item The collection of all subsets of a set $S$, partially ordered by inclusion.
+            \item A collection $\mathcal{A}$ of subsets of $S$ that is closed under finite intersections, partially ordered by reverse inclusion.
+            \item The collection of all closed subsets of a space $X$, partially ordered by inclusion.
+        \end{itemize}
+    \end{eg}
+    \hfill
+
+    \begin{defi}{Cofinal}
+        A subset $K$ of $J$ is said to be \textbf{\textit{cofinal}} in $J$ if for each $\alpha\in J$, there exists $\beta\in K$ such that $\alpha\preceq\beta$.
+    \end{defi}
+    
+    \begin{thm}
+        If $J$ is a directed set and $K$ is cofinal in $J$, then $K$ is a directed set.
+    \end{thm}
+    \begin{proof}
+        For all $\alpha,\beta\in K\subset J$, there is $\gamma\in J$ such that $\alpha\preceq\gamma$ and $\beta\preceq\gamma$. Since $K$ is cofinal in $J$, there exists $\pi\in K$ such that $\gamma\preceq\pi$. It follows that $\alpha\preceq\pi$ and $\beta\preceq\pi$, then $K$ is a directed set.
+    \end{proof}
+    \hfill
+
+    \begin{defi}{Net}
+        Let $X$ be a topological space. A \textbf{\textit{net}} in $X$ is a function $f$ from a directed set $J$ into $X$. If $\alpha\in J$, we usually denote $f(\alpha)$ by $x_\alpha$. We denote the net $f$ itself by the symbol $(x_\alpha)_{\alpha\in J}$.
+
+        The net $(x_\alpha)$ is said to \textbf{\textit{converge}} to the point $x\in X$ (written $x_\alpha\to x$) if for each neighborhood $U$ of $x$, there exists $\alpha\in J$ such that
+        $$
+        \alpha\preceq\beta\implies x_\beta\in U
+        $$
+    \end{defi}
+    \begin{remark}
+        When $J=\Z^+$, the net reduces to a sequence.
+    \end{remark}
+    \hfill
+
+    \begin{ex}
+        Show that if $X$ is Hausdorff, a net in $X$ converges to at most one point.
+    \end{ex}
+    \begin{proof}
+        Suppose $(x_\alpha)_{\alpha\in J}$ is a net in $X$ which converges to $x\neq y\in X$. Since $X$ is Hausdorff, there exists disjoint neighborhood $U$ and $V$ of $x$ and $y$, respectively. Since $(x_\alpha)\to x$ and $(x_\alpha)\to y$, there exist $\alpha_1,\alpha_2\in J$ such that
+        $$
+        \begin{aligned}
+            \alpha_1\preceq\beta\implies x_\beta\in U\\
+            \alpha_2\preceq\beta\implies x_\beta\in V
+        \end{aligned}
+        $$
+        Since $J$ is a directed set, there is $\gamma\in J$ such that $\alpha_1\preceq\gamma$ and $\alpha_2\preceq\gamma$. It follows that $x_\gamma\in U$ and $x_\gamma\in V$, which contradicts $U\cap V=\emptyset$. Hence $x=y$.
+    \end{proof}
+    \hfill
+
+    \begin{thm}
+        Let $A\subset X$, then $x\in\closure{A}$ if and only if there is a net of points of $A$ converging to $x$.
+    \end{thm}
+    \begin{proof}
+        Let $x\in\closure{A}$. Let $J$ be the collection of neighborhoods of $x$, partially ordered by reverse inclusion. Since $x\in \closure{A}$, for each $\alpha\in J$, there is a point $x_\alpha\in A\cap \alpha$. Then the net $(x_\alpha)$ converges to $x$.
+
+        Let $(x_\alpha)$ be a net converging to $x$. For every neighborhood $U$ of $x$, there exists $\alpha$ such that $x\in U\cap A\implies U\cap A\neq\emptyset$. It follows that $x\in\closure{A}$.
+    \end{proof}
+    \hfill
+
+    \begin{thm}
+        Let $f:X\to Y$. Then $f$ is continuous if and only if for every convergent net $(x_\alpha)$ in $X$, say converging to $x$, the net $(f(x_\alpha))$ converges to $f(x)$.
+    \end{thm}
+    \hfill
+
+    \begin{defi}{Subnet}
+        Let $f:J\to X$ be a net in $X$; let $f(\alpha)=x_\alpha$. If $K$ is a directed set and $g:K\to J$ is a function such that
+        \begin{itemize}
+            \item $i\preceq j\implies g(i)\preceq g(j)$
+            \item $g(K)$ is cofinal in $J$
+        \end{itemize}
+        then the composite function $f\circ g:K\to X$ is called a \textbf{\textit{subnet}} of $x_\alpha$.
+    \end{defi}
+    \begin{thm}
+        If the net $(x_\alpha)$ converges to $x$, so does any subnet of $(x_\alpha)$.
+    \end{thm}
+    \hfill
+
+    \begin{defi}{Accumulation Point}
+        Let $(x_\alpha)_{\alpha\in J}$ be a net in $X$. We say that $x$ is an \textbf{\textit{accumulation point}} of the net $(x_\alpha)$ if for each neighborhood $U$ of $x$, the set $\set{\alpha\in J:x_\alpha\in U}$ is confinal in $J$.
+    \end{defi}
+    \begin{lemma}\label{3.8.13}
+        The net $(x_\alpha)$ has the point $x$ as an accumualation point if and only if some subnet of $(x_\alpha)$ converges to $x$.
+    \end{lemma}
+    \hfill
+
+    \begin{thm}\label{3.8.14}
+        $X$ is compact if and only if every net in $X$ has a convergent subnet.
+    \end{thm}
+    \begin{proof}
+        \hyperref[3.8.13]{Lemma 3.8.13} tells that a net in $X$ has a convergent subnet iff it has an accumulation point.
+        
+        $\implies:$ Let $X$ be compact, $(x_\alpha)_{\alpha\in J}$ be a net in $X$. Let $B_\alpha=\set{x_\beta:\alpha\preceq\beta}$. Notice $\set{B_\alpha}$ has the finite intersection property. It follows that $\set{\closure{B_\alpha}}$ is a collection of closed subsets in $X$, having the finite intersection property. Hence $x\in \cap \closure{B_\alpha}$ for some $x\in X$. It follows that for all neighborhood $U$ of $x$ and all $\alpha\in J$, $U\cap B_\alpha\neq\emptyset$. Hence $x$ is an accumulation point of $(x_\alpha)$.
+
+        $\impliedby:$ Suppose any net in $X$ has an accumulation point. Let $\mathcal{C}$ be a collection of closed subsets in $X$ having the finite intersection property, let $J$ be all finite intersections of elements of $\mathcal{C}$, partially ordered by reverse inclusion. Then $J$ is a directed set. Define a net $(x_\alpha)_{\alpha\in J}$ in $X$ satisfying $x_\alpha\in \alpha$ with an accumulation point $x$. It follows that for all $\alpha\in J$, for all neighborhood $U$ of $x$, $U$ contains $x_\beta$ such that $\beta\subset \alpha$, hence $U\cap \alpha\neq\emptyset$ and thus $x$ is a limit point of $\alpha$. Notice $\alpha$, as a finite intersections of closed subsets, is closed in $X$, we then have $x\in \alpha$. Therefore, $x\in\cap_{\alpha\in J}\alpha$, which implies the intersection of all elements of $\mathcal{C}$ is nonempty. Hence $X$ is compact. 
+    \end{proof}
+    \hfill
+
+    \newpage
+    \section{Countability and Separation Axioms}\addclass{Countability and Separation Axioms}
+    \hfill
+
+
+    \begin{note}
+        \hyperref[3.8.14]{Theorem 3.8.14} tells that $X$ is compact iff every net in $X$ has a convergent subnet. While \hyperref[3.6.6]{Theorem 3.6.6} tells that a \textit{metrizable} space $X$d is compact iff every sequence in $X$ has a convergent subsequence, degrading a net to a sequence. This has something to do with the countability axiom.
+    \end{note}
+    \hfill
+
+    \subsection{The Countability Axioms}
+    \begin{defi}{Countable Basis \& First Countability Axiom}
+        A space $X$ is said to have a \textbf{\textit{countable basis}} at $x$ if there is a countable collection $\mathcal{B}$ of neighborhoods of $x$ such that each neighborhood of $x$ contains at least one of the elements of $\mathcal{B}$.
+
+        A space that has a countable basis at each of its points is said to satisfy the \textbf{\textit{first countability axiom}}, or to be \textit{\textbf{first-countable}}.
+    \end{defi}
+    \begin{remark}
+        Trivially, any metrizable space is first-countable.
+    \end{remark}
+    \hfill
+
+    \begin{thm}
+        Let $X$ be a topological space.
+        \begin{itemize}
+            \item Let $A$ be a subset of $X$. If there is a sequence of points of $A$ converging to $x$, then $x\in\closure{A}$, the converse holds if $X$ is first-countable.
+            \item Let $f:X\to Y$. If $f$ is continuous, then for every convergent sequence $x_n\to x$ in $X$, the sequence $f(x_n)$ converges to $f(x)$. The converse holds if $X$ is first-countable.
+        \end{itemize}
+    \end{thm}
+    \hfill
+
+    \begin{defi}{Second Countability Axiom}
+        If a space $X$ has a countable basis for its topology, then $X$ is said to satisfy the \textbf{\textit{second countability axiom}}, or to be \textbf{\textit{second-countable}}.
+    \end{defi}
+    \begin{remark}
+        In other words, it requires the existence of a countable collection $\mathcal{B}$ of open sets in $X$ such that each open set $U\subset X$ can be written as a union of sets in $\mathcal{B}$.
+    \end{remark}
+    \begin{remark}
+        We can make an analogy of the relationship between first countability and second countability as the relationship between pointwise continuity and uniform continuity: first countability picks the neighborhood structure $\mathcal{B}_x$ depending on the $x$ you specify; second countability has a single neighborhood structure which holds for all $x$.
+    \end{remark}
+
+    \begin{thm}
+        If a space $X$ is second countable, then it's first-countable.
+    \end{thm}
+    \begin{proof}
+        Let $\mathcal{B}$ be a countable basis of $X$. For each $x\in X$, $\mathcal{C}=\set{B\in\mathcal{B}:x\in B}$ is a countable basis at $x$ since for each neighborhood $U$ of $x$, it can be written as a union of sets in $\mathcal{B}$, thus containing an element of $\mathcal{C}$.
+    \end{proof}
+    \begin{remark}
+        The first countability is equivalent to the second countability in a countable space.
+    \end{remark}
+    \hfill
+
+    \begin{thm}
+        A subspace of a first-countable space is first-countable, and a countable product of first-countable spaces is first-countable.
+        
+        A subspace of a second-countable space is second-countable, and a countable product of second-countable spaces is second-countable.
+    \end{thm}
+    \hfill
+
+    \begin{defi}{Dense}
+        A subset $A$ of a space $X$ is said to be \textbf{\textit{dense}} in $X$ if $\closure{A}=X$.
+    \end{defi}
+    \hfill
+
+    \begin{thm}
+        Suppose that $X$ has a countable basis. Then
+        \begin{itemize}
+            \item Every open covering of $X$ contains a countable subcollection covering $X$.
+            \item There exists a countable subset of $X$ that is dense in $X$.
+        \end{itemize}
+    \end{thm}
+    \begin{remark}
+        Actually, these two properties are sometimes taken as alternative countability axioms, as defined in \hyperref[4.1.8]{Definition 4.1.8}.
+    \end{remark}
+    \hfill
+
+    \begin{defi}{Lindel\"of Space \& Separable Space}\label{4.1.8}
+        A space for which every open covering contains a countable subcovering is called a \textbf{\textit{Lindel\"of space}}.
+
+        A space having a countable dense subset is said to be \textbf{\textit{separable}}.
+    \end{defi}
+    \begin{remark}
+        These two axioms are equivalent to the second countability axiom when the space is metrizable.
+    \end{remark}
+    \hfill
+
+    \begin{eg}\hfill
+    
+        \begin{itemize}\addelement{Sorgenfrey Plane}
+            \item The space $\R_l$ satisfies all the countability axioms but the second.
+            \item The \textbf{\textit{Sorgenfrey plane}} $\R_l^2$ is a product of two Lindel\"of spaces, but not Lindel\"of itself.
+            \item The ordered square $I_o^2$ is Lindel\"of since it's compact. However, its subspace $A=I\times(0,1)$ is not Lindel\"of.
+        \end{itemize}        
+    \end{eg}
+    \hfill
+
+    \begin{ex}\hfill\label{4.1.10}
+
+        \begin{itemize}
+            \item Show that every metrizable space with a countable dense subset has a countable basis.
+            \begin{proof}
+                Let $X$ be metrizable, let $S=\set{x_n:n\in\Z^+}$ be the countable dense subset of $X$. Then $T=\set{B(x_n,\frac{1}{m}):n,m\in\Z^+}$ is countable. For all $x\in X=\closure{S}$, a neighborhood $U$ of $x$ contains a basis element $B(x,\varepsilon)$. Let $m=\ceil{\frac{2}{\varepsilon}}$, it follows that $B(x,\frac{1}{m})$ contains a point $x_t\in S$, and thus we have
+                $$
+                x\in B\left(x_t,\frac{1}{m}\right)\subset U
+                $$
+                which proves that $T$ is a countable basis of $X$.
+            \end{proof}
+            \item Show that every metrizable Lindel\"of space has a countable basis.
+            \begin{proof}
+                Let $X$ be a metrizable Lindel\"of space, then for each $m\in\Z^+$, $\mathcal{B}_m=\set{B(x,\frac{1}{m}):x\in X}$ is an open cover of $X$, with a countable subcover $\mathcal{B}_m'=\set{B(x_{m,n},\frac{1}{m}):n\in\Z^+}$ of $X$. Let $\mathcal{C}=\set{B(x_{m,n},\frac{1}{m}):n,m\in\Z^+}$ be countable. For all $x\in X$, a neighborhood $U$ of $x$ contains a basis element $B(x,\varepsilon)$. Let $m=\ceil{\frac{2}{\varepsilon}}$, it follows that $x$ is covered by $B(x_{m,n},\frac{1}{m})$ for some $n$. Hence we have
+                $$
+                x\in B\left(x_{m,n},\frac{1}{m}\right)\subset U
+                $$
+                which proves that $\mathcal{C}$ is a countable basis of $X$.
+            \end{proof}
+        \end{itemize}
+    \end{ex}
+    \hfill
+
+    \begin{ex}
+        If every open cover of a topological space $X$ by basis elements has a countable subcover, then $X$ is Lindel\"of.
+    \end{ex}
+    \begin{proof}
+        Let $\mathcal{C}$ be an open cover of $X$. Then each $C\in\mathcal{C}$ is a union of basis elements, denoted by
+        $$
+        C=\bigcup_{B\in U_C}B
+        $$
+        It follows that $\cup U_C$ is an open cover of $X$ by basis elements, with a countable subcover $\mathcal{B}=\set{B_n:n\in\Z^+}$. For qach $B_n\in\mathcal{B}$, there exists a $C_n\in\mathcal{C}$ such that $B_n\subset C_n$. It follows that $\set{C_n}$ is a countable subcover, and thus $X$ is Lindel\"of.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Show that if $X$ has a countable basis $\set{B_n}$, then every basis $\mathcal{C}$ for $X$ contains a countable basis for $X$.
+    \end{ex}
+    \begin{proof}
+        For each $n\in\Z^+$, there exists $\mathcal{C}_n\subset\mathcal{C}$ such that $B_n=\cup_{C\in\mathcal{C}_n} C$. Since $X$ is second countable, we know $B_n$ is second-countable, then $B_n$ is Lindel\"of, which implies that the open cover $\mathcal{C}_n$ has a countable subcover $\mathcal{C'}_n$. One can prove that $\cup\mathcal{C'}_n$ is a countable basis for $X$.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Let $X$ have a countable basis; let $A$ be an uncountable subset of $X$. Show that uncountably many points of $A$ are limit points of $A$.
+    \end{ex}
+    \begin{proof}
+        Let $K$ be the set of limit points of $A$. For each $x\in A\setminus K$, there exists a neighborhood $U$ of $x$ such that $U\cap A=\set{x}$. It follows that $\set{x}$ is open in $A$, thus being a basis element of $A$. Since $X$ has a countable basis, then $A$ has a countable basis. Therefore, $A\setminus K$ is countable and $K\supset A\setminus(A\setminus K)$ is uncountable.   
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Which of our four countability axioms does $S_\Omega$ satisfy? What about $\bar{S}_\Omega$
+    \end{ex}
+    \begin{proof}
+        First-Countablity: Let $s$ be the smallest element in $S_\Omega$. Pick $t>s$ in $S_\Omega$, then $\set{(-\infty,y):y\leq t}$ is a countable basis at $s$. Let $s<k<\Omega$, there is $t\in(k,\Omega)$, then $\set{(x,y):s\leq x<k,k<y\leq t}$ is a countable basis at $k$. Therefore, $S_\Omega$ is first countable. 
+
+        Suppose $\mathcal{C}$ is a countable basis at $\Omega$ in $\bar{S}_{\Omega}$. For each $C\in\mathcal{C}$, it has a smallest element $m_C$. Since $U=\cup(-\infty,m_C)$ is countable, there is $s\in S_\Omega\setminus U$, then $(s,\infty)$ is a neighborhood of $\Omega$ not containing any element $C\in\mathcal{C}$ since $m_C\in C\setminus(s,\infty)$, which leads to a contradiction. Therefore, $\bar{S}_{\Omega}$ is not first countable.
+        \vspace{1em}
+
+        Separablility: Suppose $K\subset S_\Omega$ is countable and dense in $S_\Omega$. Let $s\in S_\Omega\setminus\cup_{k\in K}(-\infty,k)$, then $(s,\infty)$ is an open set not intersecting $K$, contradicting to $K$ being dense in $S_\Omega$. Therefore, $S_\Omega$ and $\bar{S}_\Omega$ are not separable.  
+        \vspace{1em}
+
+        Lindel\"of: $\mathcal{C}=\set{(-\infty,x):x\in S_\Omega}$ is an open cover of $S_\Omega$ without a countable subcover, since a countable union of elements in $\mathcal{C}$ is countable, not covering $S_\Omega$. Therefore, $S_\Omega$ is not Lindel\"of. 
+
+        For all open cover $\mathcal{C}$ of $\bar{S}_\Omega$. Let $C_\Omega\in\mathcal{C}$ contains $\Omega$. Then $C_\Omega$ must contain a basis element $(m,\infty)$ containing $\Omega$. For each $x\in(-\infty,m)$, there is a $C_x\in\mathcal{C}$ containing $x$. It follows that $\set{C_x:x\in(-\infty,m)\cup\set{\Omega}}$ is a countable subcover of $\bar{S}_\Omega$. Therefore, $\bar{S}_\Omega$ is Lindel\"of.
+        \vspace{1em}
+        
+        Second-Countability: $S_\Omega$ and $\bar{S}_{\Omega}$ are not second-countable since they are not separable.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Which of our four countability axioms does $\R^\omega$ in the uniform topology satisfy?
+    \end{ex}
+    \begin{proof}
+        First Countability: Since $\R^\omega$ in the uniform topology is metrizable, it is then first countable.
+
+        Separablility: Suppose $K\subset\R^\omega$ is dense in $\R^\omega$. Let $S=\set{(s_1,s_2,\dots):s_i\in\set{0,1}}$ be uncountable. For each $x\in S$, $B(x,\frac{1}{2})$ contains an element $k_x\in K$. For all $x\neq y\in S$, we have $\bar{\rho}(x,y)=1$, thus $k_x\neq k_y$. It follows that $f:S\to K$ mapping $x$ to $k_x$ is injective. Hence $K$ is uncountable and $\R^\omega$ is not separable.
+
+        Lindel\"of: Consider $\mathcal{C}=\set{B(x,\frac{1}{2}):x\in\R^\omega}$ is an open cover of $\R^\omega$. Let $\mathcal{B}=\set{B(x_n,\frac{1}{2}):n\in\Z^+}\subset\mathcal{C}$ be a countable subset. For each $n\in\Z^+$, let $x_n=(r_{1,n},r_{2,n},\dots)$, then $(r_{1,1}+\frac{1}{2},r_{2,2}+\frac{1}{2},\dots)$ is not covered by $\mathcal{B}$, which implies that $\R^\omega$ is not Lindel\"of.
+
+        Second Countablility: $\R^\omega$ is not second countable since it's not separable.
+    \end{proof}
+    \begin{remark}
+        Since $\R^\omega$ is metrizable, the other three axioms are essentially equivalent.
+    \end{remark}
+    \hfill    
+
+    \begin{ex}
+        Let $A$ be a closed subspace of $X$. Show that if $X$ is Lindel\"of, then $A$ is Lindel\"of. Show by example that if $X$ has a countable dense subset, $A$ need not have a countable dense subset.
+    \end{ex}
+    \begin{proof}
+        Let $X$ be Lindel\"of and $A\subset X$ be closed. Let $\mathcal{C}$ be an open cover of $A$ and $K_C$ open in $X$ with $K_C\cap A=C$. Then $\set{(X\setminus A)\cup K_C:C\in\mathcal{C}}$ is an open cover of $X$, which leads to a countable subcover $\set{(X\setminus A)\cup K_{C_n}}$. It follows that $\set{C_n}$ is a countable subcover of $A$, thus $A$ is Lindel\"of.
+
+        Consider the Sorgenfrey plane $\R_l^2$, in which $\Q^2$ is a countable dense subset. Let $L=\set{(x,-x):x\in\R_l}$ be a closed subset. Since $[x,x+a)\times[-x,-x+a)$ for $x\in\R_l$ and $a>0$ intersects $L$ at a single point $(x,-x)$, we know $L$ is in the discrete topology, thus the only dense subset of $L$ is itself. Therefore, $L$ is not separable. 
+    \end{proof}
+    \hfill
+
+    \begin{thm}\hfill
+    
+        \begin{itemize}
+            \item The image of a Lindel\"of space under a continuous map is Lindel\"of.
+            \item The image of a separable space under a continuous map is separable.
+            \item The image of a first countable space under a continuous open map is first countable.
+            \item The image of a second countable space under a continuous open map is second countable.
+        \end{itemize}
+    \end{thm}
+    \hfill
+
+    \begin{ex}
+        Give $\R^I$ the uniform metric where $I=[0,1]$. Let $\cont(I,\R)$ be the subspace consisting of continuous functions. Show that $\cont(I, \R)$ has a countable dense subset, and therefore a countable basis.
+    \end{ex}
+    \begin{proof}
+        Let $K$ be the set of functions in $\cont(I,\R)$ whose graphs consists of finitely many line segments with rational end points. Trivially, $K$ is countable. Then for all $f\in\cont(I,\R)$, we know $f$ is uniformly continuous on $[0,1]$. Therefore, given $\varepsilon>0$, there is $\delta>0$ such that $\abs{x-y}\leq\delta\implies \abs{f(x)-f(y)}<\frac{\varepsilon}{3}$. Let $N=\ceil{\frac{1}{\delta}}$, for each $0\leq i \leq N$, denote $v_i=f(\frac{i}{n})$, there exists $u_i\in\Q$ such that $\abs{u_i-v_i}<\frac{\varepsilon}{4}$ since $\Q$ is dense in $\R$. Define $g(x)\in K$ whose graph consists of line segments with end points $(\frac{i}{N},u_i)$ for $0\leq i \leq N$. For all $x\in[0,1]$, let $\frac{i}{N}\leq x\leq\frac{i+1}{N}$, then we have
+        $$
+        \begin{aligned}
+            \abs{f(x)-g(x)}
+            &\leq\frac{1}{2}(\abs{f(x)-v_i}+\abs{g(x)-v_i}+\abs{f(x)-v_{i+1}}+\abs{g(x)-v_{i+1}})\\
+            &\leq\frac{1}{2}\left(\frac{2}{3}\varepsilon+\abs{g(x)-v_i}+\abs{g(x)-v_{i+1}}\right)\\
+            &\leq\frac{1}{2}\left(\frac{2}{3}\varepsilon+\abs{g(x)-u_i}+\abs{v_i-u_i}+\abs{g(x)-u_{i+1}}+\abs{v_{i+1}-u_{i+1}}\right)\\
+            &=\frac{1}{2}\left(\frac{2}{3}\varepsilon+\abs{u_i-u_{i+1}}+\abs{v_i-u_i}+\abs{v_{i+1}-u_{i+1}}\right)\\
+            &\leq\frac{1}{2}\left(\frac{2}{3}\varepsilon+2\abs{v_{i}-u_i}+2\abs{v_{i+1}-u_{i+1}}+\abs{v_{i}-v_{i+1}}\right)\\
+            &\leq\varepsilon
+        \end{aligned}
+        $$
+        It follows that $K$ is dense in $\cont(I,\R)$.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Show that if $J$ has cardinality greater than $\mathcal{P}(\Z^+)$, then the product space $\R^J$ does not have a countable dense subset.
+    \end{ex}
+    \begin{proof}
+        If $D$ is dense in $\R^J$, let $f:J\to \mathcal{P}(D)$ be defined by the equation $f(\alpha)=D\cap\pi_{\alpha}^{-1}((a,b))=\set{g\in D:g(\alpha)\in(a,b)}$ for fixed $a,b\in\R$. If $\alpha\neq\beta\in J$, since $D$ is dense in $\R^J$, then $K=D\cap\pi_{\alpha}^{-1}((a,b))\cap\pi_{\beta}^{-1}((b,\infty))$ is nonempty, notice that $K\subset f(\alpha)$ while $K\cap f(\beta)=\emptyset$, we have $f(\alpha)\neq f(\beta)$. Therefore, $f$ is injective. It follows that $\card(\mathcal{P}(D))\geq\card(J)>\card(\mathcal{P}(\Z^+))$, and thus $D$ is not countable.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Let $G$ be a first-countable topological group. Show that if $G$ has a countable dense subset, or is Lindel\"of, then $G$ has a countable basis.
+    \end{ex}
+    \begin{proof}
+        Let $\set{B_n}$ be a countable basis at $e$.
+
+        If $D$ is a countable dense subset of $G$, then $\set{dB_n:d\in D}$ is countable. Let $g\in G$ and $U$ be a neighborhood of $g$.
+        
+        Since $f_\alpha(x)=\alpha x$ is continuous for fixed $\alpha$, we know $g^{-1}U$ is a neighborhood of $e$. Since $h(x,y)=x^{-1}y$ is continous, we know $h^{-1}(g^{-1}U)$ is open, containing a basis element $G_1\times G_2$, let $V=G_1\cap G_2$, containing the basis element $B_n$ at $e$, we have $h(B_n\times B_n)=B_n^{-1}B_n\subset g^{-1}U$. It follows that $gB_n^{-1}B_n$ is a neighborhood of $g$ contained in $U$. Since $D$ is dense, there is $d\in gB_n^{-1}\cap D$, it follows that $g\in dB_n$, and that $dB_n\subset gB_n^{-1}B_n\subset U$. Hence $\set{dB_n}$ is a countable basis.
+
+        If $D$ is Lindel\"of, then for each $n\in\Z^+$, since $\set{gB_n:g\in G}$ is an open cover of $G$, there is countable $C_n\subset G$ such that $K_n=\set{cB_n:c\in C_n}$ is a countable subcover. We know that $\bigcup K_n$ is countable.
+
+        Given $g\in G$ and $U$ a neighborhood of $g$. Similarly, there is $B_n$ such that $B_n^{-1}B_n\subset g^{-1}U$. Pick $c\in C_n$ such that $g\in cB_n$, we know $c\in gB_n^{-1}$ and then $cB_n\subset gB_n^{-1}B_n\subset U$. Hence $\bigcup K_n$ is a countable basis.
+    \end{proof}
+    \begin{remark}
+        The existence of basis element $B_n$ can be proved using \hyperref[2.11.6]{Exercise 2.11.6 (a)}: There is a symmetric neighborhood $V$ of $e$ such that $V\cdot V\subset g^{-1}U$, then there is a basis element $B_n$ contained in $V$ such that $B_n^{-1}B_n\subset V^{-1}V=VV\subset g^{-1}U$. 
+    \end{remark}
+    \hfill
+
+    \subsection{The Separation Axioms}
+    \begin{defi}{Regular \& Normal}
+        Suppose that one-point sets are closed in $X$. Then $X$ is said to be \textbf{\textit{regular}} if for each pair consisting of a point $x$ and a closed set $B$ disjoint from $x$, there exists disjoint open sets containing $x$ and $B$, respectively.
+
+        The space $X$ is said to be \textbf{\textit{normal}} if for each pair of $A,B$ of disjoint closed sets of $X$, there exist disjoint open sets containing $A$ and $B$, respectively.
+    \end{defi}
+    \begin{remark}
+        By definition, both regularity and normality include the $T_1$ axiom. It is clear that a regular space is Hausdorff, and that a normal space is regular.
+    \end{remark}
+    \hfill
+
+    \begin{lemma}\label{4.2.2}
+        Let $X$ be a topological space. Let one-point sets in $X$ be closed.
+        \begin{itemize}
+            \item $X$ is regular if and only if given a point $x$ of $X$ and a neighborhood $U$ of $x$, there is a neighborhood $V$ of $x$ such that $\closure{V}\subset U$.
+            \item $X$ is normal if and only if given a closed set $A$ and an open set $U$ containing $A$, there is an open set $V$ containing $A$ such that $\closure{V}\subset U$.
+        \end{itemize}
+    \end{lemma}
+    \hfill
+
+    \begin{thm}\hfill
+    
+        \begin{itemize}
+            \item A subspace of a Hausdorff space is Hausdorff; a product of Hausdorff spaces is Hausdorff.
+            \item A subspace of a regular space is regular; a product of regular spaces is regular.
+        \end{itemize}
+    \end{thm}
+    \hfill
+
+    \begin{eg}\hfill
+    
+        \begin{itemize}
+            \item $\R_K$ is Hausdorff but not regular.
+            \item $\R_l$ is normal but $\R^2_l$ is not normal (but regular by the previous theorem).
+        \end{itemize}
+    \end{eg}
+    \hfill
+
+    \begin{ex}
+        Show that if $X$ is regular, every pair of points of $X$ have neighborhoods whose closures are disjoint.
+    \end{ex}
+    \begin{proof}
+        Since $X$ is regular, we know $X$ is Hausdorff, then for $x\neq y\in X$, there are disjoint neighborhoods $U_x,U_y$ of $x,y$, respectively. Then by \hyperref[4.2.2]{Lemma 4.2.2}, there are neighborhoods $V_x,V_y$ of $x,y$, respectively, such that $\bar{V_x}\subset U_x$ and $\bar{V_y}\subset U_y$, as required.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Show that if $X$ is normal, every pair of disjoint closed sets have neighborhoods whose closure are disjoint.
+    \end{ex}
+    \begin{proof}
+        Trivial by \hyperref[4.2.2]{Lemma 4.2.2}.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Show that every order topology is regular.
+    \end{ex}
+    \begin{proof}
+        Trivially, every one-point set is closed. Given $X$ with the order topology and $x\in X$. Let $U$ be a neighborhood of $x$.
+        
+        Case 1: $x=\min X$, then there is a basis element $[x,a)$ contained in $U$. If $[x,a)=\set{x}$, then $\set{x}$ is a neighborhood of $x$ such that $\closure{\set{x}}\subset U$ since for all $y>x$ we have $y\in(x,\infty)$. If there is $b\in(x,a)$, then $[x,b)$ is a neighborhood of $x$ such that $\closure{[x,b)}\subset U$ since for all $y>b$ we have $y\in(b,\infty)$.
+
+        Case 2: $x=\max X$, then we can find a neighborhood $V$ of $x$ whose closure is contained in $U$ by similar argument.
+
+        Case 3: $x$ is neither the greatest nor the least element in $X$, then there is a basis element $(a,b)$ containing $x$ contained in $U$. If $(a,b)=\set{x}$, then $\set{x}$ is a neighborhood of $x$ such that $\closure{\set{x}}\subset U$. If $x=\min((a,b))\neq\max((a,b))$, then there is $c\in (x,b)$, then $[x,c)$ is a neighborhood of $x$ such that $\closure{[x,c)}\subset U$. If $x=\max((a,b))\neq\min((a,b))$, then there is $d\in (a,x)$, then $(d,x]$ is a neighborhood of $x$ such that $\closure{(d,x]}\subset U$. If there is $c<x<d$ such that $c,d\in(a,b)$, then $(c,d)$ is a neighborhood of $x$ such that $\closure{(c,d)}\subset U$.
+
+        In conclusion, $X$ is regular.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Let $X$ and $X'$ denote a single set under two topologies $\topo$ and $\topo'$, respectively; assume that $\topo'\supset\topo$. If one of the spaces is Hausdorff (or regular, or normal), what does that imply about the other?
+    \end{ex}
+    \begin{proof}
+        We can not imply from $X'$ is Hausdorff (or regular, or normal) that $X$ holds the same property. One can state a counterexample by picking a non-singleton Hausdorff (or regular, or normal) space $X'$ and letting $X$ with the indiscrete topology. Since indiscrete topology is not $T_1$, it is not Hausdorff, regular, or normal.
+        
+        \textit{If $X$ is Hausdorff, then $X'$ is Hausdorff}: For $x\neq y\in X$, there are disjoint neighborhoods $U_x,U_y$ of $x,y$, respectively. Since $U_x,U_y\in \topo'$, then for $x\neq y\in X'$, $U_x$ and $U_y$ are disjoint neighborhoods of $x,y$, respectively.
+
+        \textit{If $X$ is regular, then $X'$ is not necessarily regular}: Let $X=\R$, $X'=\R_K$, then $X$ is regular but $X'$ is not.
+
+        \textit{If $X$ is normal, then $X'$ is not necessarily normal}: Let $X=\R^2$, $X'=\R^2_l$, then $X$ is normal but $X'$ is not.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Let $f,g:X\to Y$ be continuous; assume that $Y$ is Hausdorff. Show that $K=\set{x\in X:f(x)=g(x)}$ is closed in $X$.
+    \end{ex}
+    \begin{proof}
+        Let $x\in X\setminus K$, then $f(x)\neq g(x)$. Since $Y$ is Hausdorff, there are disjoint neighborhoods $U,V$ of $f(x),g(x)$, respectively. It follows that $f^{-1}(U),g^{-1}(V)$ are neighborhoods of $x$, then $W=f^{-1}(U)\cap g^{-1}(V)$ is a neighborhood of $x$. For all $y\in W$, we have $f(y)\in U$ and $g(y)\in V$, it follows that
+        $$
+        U\cap V=\emptyset\implies f(y)\neq g(y)\implies y\notin K
+        $$
+        Therefore, $W\cap K=\emptyset$ and thus $K$ is closed.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Let $p:X\to Y$ be a closed continuous surjective map. Show that if $X$ is normal, then so is $Y$.
+    \end{ex}
+    \begin{proof}
+        Since $X$ is normal, we know $X$ is $T_1$, it follows that $Y$ is $T_1$ since $p$ is a closed surjective map.
+        
+        Let $A\subset Y$ be closed, let $U\supset A$ be open. Since $p$ is continuous, then $p^{-1}(A)$ is closed in $X$ and $p^{-1}(U)$ is open in $X$, then there is $V\supset p^{-1}(A)$ open in $X$ such that $\bar{V}\subset p^{-1}(U)$. Let $W=Y\setminus p(X\setminus V)$ be an open set containing $A$. Since $p$ is closed, then $\closure{p(V)}\subset p(\closure{V})$, it follows that 
+        $$
+        p^{-1}(W)\subset V\implies W\subset p(V)\implies \bar{W}\subset\closure{p(V)}\subset p(\closure{V})\subset p(p^{-1}(U))=U
+        $$
+        Hence $Y$ is normal.        
+    \end{proof}
+    \begin{remark}
+        In fact, $p$ is continuous and closed, implying that $p(\closure{V})=\closure{p(V)}$.
+    \end{remark}
+    \hfill
+
+    \begin{ex}
+        Let $p:X\to Y$ be a perfect map, as defined in \hyperref[3.4.20]{Exercise 3.4.20}. Show that
+        \begin{itemize}
+            \item if $X$ is Hausdorff, then so is $Y$.
+            \begin{proof}
+                For $x\neq y\in Y$, $p^{-1}(\set{x})$ and $p^{-1}(\set{y})$ are disjoint compact subsets of the Hausdorff space $X$, then \hyperref[3.4.15]{Exercise 3.4.15} implies the existence of disjoint open sets $V$ and $U$ containing $p^{-1}(\set{x})$ and $p^{-1}(\set{y})$, respectively. Therefore, $Y\setminus p(X\setminus V)$ and $Y\setminus p(X\setminus U)$ are disjoint neighborhoods of $x$ and $y$, respectively. Hence $Y$ is Hausdorff. 
+            \end{proof}
+            \item if $X$ is regular, then so is $Y$.
+            \begin{proof}
+                Since $X$ is $T_1$, so is $Y$. Given $x\in Y$ with a neighborhood $U$ of $x$. For each $t\in p^{-1}(\set{x})$, there is a neighborhood $V_t$ of $t$ such that $\closure{V_t}\subset p^{-1}(U)$. Since $\set{V_t:t\in p^{-1}(\set{x})}$ form a open cover of the compact space $p^{-1}(\set{x})$, there is a finite subcover $\set{V_{t_n}}$ such that $\closure{\cup V_{t_n}}=\cup\closure{V_{t_n}}\subset p^{-1}(U)$. Therefore, $V=Y\setminus p(X\setminus(\cup V_{t_n}))$ is a neighborhood of $x$ such that $\closure{V}\subset U$.
+            \end{proof}
+            \item if $X$ is locally compact, then so is $Y$.
+            \begin{proof}
+                Given $y\in Y$. For each $x\in p^{-1}(\set{y})$, there is a compact space $U_x$ containing a neighborhood $V_x$ of $x$. Since $\set{V_x:x\in p^{-1}(\set{y})}$ is an open cover, it contains a finite subcover $\set{V_{x_n}}$. Let $V=\cup V_{x_n}\supset p^{-1}(\set{y})$ be open in $X$, $U=\cup U_{x_n}\supset V$ be compact. Therefore, $p(U)$ is a compact space containing a neighborhood $Y\setminus p(X\setminus V)$ of $y$.
+            \end{proof}
+            \item if $X$ is second-countable, then so is $Y$.
+            \begin{proof}
+                Let $\mathcal{B}$ be a countable basis for $X$. For each finite subset $J$ of $\mathcal{B}$, define $U_J=Y\setminus p(X\setminus(\cup_{V\in J}V))$, then $U=\set{U_J}$ is countable.
+                
+                For each $y\in Y$ and a neighborhood $W$ of $y$, $p^{-1}(W)$ is an open set containing $p^{-1}(\set{y})$. For each $x\in p^{-1}(\set{y})$, there is a basis element $B_x\subset p^{-1}(W)$ containing $x$, it follows that $\set{B_x:x\in p^{-1}(\set{y})}$ is an open cover, with finite subcover $J=\set{B_{x_n}}$, which is also a finite subset of $\mathcal{B}$. Therefore, $U_J$ is a neighborhood of $y$ contained in $W$, which implies that $U$ is a countable basis of $Y$.
+            \end{proof}
+        \end{itemize}
+    \end{ex}
+    \hfill
+
+    \begin{ex}\addelement{Group Action}\addelement{Orbit Space}
+        Let $X$ be a space; let $G$ be a topological group. An \textbf{\textit{action}} of $G$ on $X$ is a continuous map $\alpha:G\times X\to X$ such that, denoting $\alpha(g,x)$ by $g\cdot x$, one has
+        \begin{itemize}
+            \item $e\cdot x=x$ for all $x\in X$.
+            \item $g_1\cdot(g_2\cdot x)=(g_1\cdot g_2)\cdot x$ for all $x\in X$ and $g_1,g_2\in G$.
+        \end{itemize}
+        Define $x\sim g\cdot x$ for all $x,g$; the resulting quotient space is denoted $X/G$ and called an \textbf{\textit{orbit space}} of the action $\alpha$. Prove that:
+
+        Let $G$ be a compact topological group; let $X$ be a topological space; let $\alpha$ be an action of $G$ on $X$. If $X$ is Hausdorff, or regular, or normal, or locally compact, or second-countable, so is $X/G$.
+    \end{ex}
+    \begin{proof}
+        Let $p:X\to X/G$ be the quotient map. Then $p$ is continuous and surjective. For each orbit $G_x\in X/G$, notice $G\times\set{x}$ is homeomorphic to $G$, then $G\times\set{x}$ is compact; since $\alpha:(g,x)\mapsto g\cdot x$ is continuous, then $\alpha(G\times\set{x})=\set{gx:g\in G}=p^{-1}(G_x)$ is compact.
+
+        Let $A\subset X$ be closed. For all $t\in X\setminus (G\cdot A)$, since $\alpha$ is continuous, then $N=\alpha^{-1}(X\setminus A)$ is open containing $G\times \set{t}$. Then by tube lemma, $N$ contains $G\times W$ where $W$ is a neighborhood of $t$. It follows that $G\cdot A=p^{-1}(p(A))$ is closed. Hence $p(A)$ is closed, and thus $p$ is closed.
+
+        In conclusion, $p$ is a perfect map. Therefore, if $X$ is Hausdorff, or regular, or normal, or locally compact, or second-countable, so is $X/G$.
+    \end{proof}
+    \hfill
+
+    \subsection{Normal Spaces}
+    \begin{thm}
+        A closed subspace of a normal space is normal.
+    \end{thm}
+    \hfill
+    
+    \begin{thm}\label{4.3.2}
+        Every regular space with a countable basis is normal.
+    \end{thm}
+    \hfill
+
+    \begin{thm}
+        Every metrizable space is normal.
+    \end{thm}
+    \hfill
+
+    \begin{thm}
+        Every compact Hausdorff space is normal.
+    \end{thm}
+    \begin{remark}
+        Proved directly from \hyperref[3.4.15]{Exercise 3.4.15}.
+    \end{remark}
+    \hfill
+
+    \begin{thm}
+        Every well-ordered set $X$ is normal in the order topology.
+    \end{thm}
+    \begin{thm}
+        Every order topology is normal. 
+    \end{thm}
+    \hfill
+
+    \begin{eg}
+        The product space $S_\Omega\times\closure{S_\Omega}$ is not normal.
+    \end{eg}
+    \hfill
+
+    \begin{ex}
+        Show that if $\prod X_\alpha$ is Hausdorff, or regular, or normal, then so is $X_\alpha$.
+    \end{ex}
+    \begin{proof}
+        If $\prod X_\alpha$ is Hausdorff or regular. Then $X_\alpha$, which is homeomorphic to a subspace of $\prod X_\alpha$, is then Hausdorff or regular.
+
+        Assume now $\prod_{\alpha\in J} X_\alpha$ is normal, then is $T_1$. Therefore, for each $\beta\in J$, there is a singleton $\set{x_\beta}$ closed in $X_\beta$. Hence $X_\alpha\prod_{\beta\neq\alpha}\set{x_\beta}$, which is homeomorphic to $X_\alpha$, is closed in $\prod X_\alpha$, hence being normal.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Show that every locally compact Hausdorff space is regular.
+    \end{ex}
+    \begin{proof}
+        Since every locally compact Hausdorff space has a one-point compactification, which is normal then regular. Then one proves the theorem by noting that a subspace of regular space is also regular.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Show that every regular Lindel\"of space is normal.
+    \end{ex}
+    \begin{proof}
+        Let $X$ be a regular Lindel\"of space. Let $A$ and $B$ be disjoint closed subsets of $X$. For each $x\in A$, there exists a neighborhood $V_x$ of $x$ such that $\closure{V_x}\subset B^\complement$. For each $y\in B$, there exists a neighborhood $W_y$ of $y$ such that $\closure{W_y}\subset A^\complement$. Since $X$ is Lindel\"of, there exists a countable cover $\set{V_{x_n}:n\in\Z^+}$ of $A$, and a countable cover $\set{W_{y_n}:n\in\Z^+}$ of $B$. By defining
+        $$
+        V'_n=V_{x_n}-\cup_{i=1}^n\closure{W_{y_i}}\aand W'_n=W_{y_n}-\cup_{i=1}^n\closure{V_{x_i}}
+        $$
+        One can prove that $V=\cup V'_n$ and $W=\cup W'_n$ are disjoint neighborhoods of $A$ and $B$, respectively.
+    \end{proof}
+    \begin{remark}
+        The subtraction construction follows from \hyperref[4.3.2]{Theorem 4.3.2}.
+    \end{remark}
+    \hfill
+
+    \begin{ex}
+        Is $\R^\omega$ normal in the product topology? In the uniform topology?
+    \end{ex}
+    \begin{proof}
+        $\R$ is regular implying that $\R^\omega$ is regular in the product topology. $\R$ is second-countable implying that $\R^\omega$ is second-countable in the product topology. Therefore, $\R^\omega$ in the product topology is normal.
+
+        Since $\R^\omega$ in the uniform topology is metrizable with the uniform metric, it is then normal as well.
+    \end{proof}
+    \begin{remark}
+        A more direct method is to recall that $\R^\omega$ is metrizable in the product topology by \hyperlink{2.9.15}{Theorem 2.9.15}. In fact, any countable product of metrizable spaces is metrizable. 
+    \end{remark}
+    \hfill
+
+    \begin{ex}\addelement{Completely Normal}
+        A space $X$ is said to be \textbf{\textit{completely normal}} if every subspace of $X$ is normal. Show that $X$ is completely normal if and only if for every pair $A,B$ of separated sets in $X$ (that is, sets such that $\closure{A}\cap B=\emptyset$ and $A\cap\closure{B}=\emptyset$), there exists disjoint open sets containing them.
+    \end{ex}
+    \begin{proof}
+        $\implies:$ Suppose $X$ is completely normal. Let $A,B$ be separated sets in $X$. We know $Y=X-(\closure{A}\cap \closure{B})$ is normal. Since $\closure{A}\cap Y$ and $\closure{B}\cap Y$ are disjoint closed set in $Y$, there are disjoint neighborhoods $V$ and $W$ containing them. Since $Y$ is open in $X$, we know $V$ and $W$ open in $X$. Notice 
+        $$
+        A\cap\closure{B}=\emptyset\implies A\subset Y\implies A\subset V
+        $$
+        and similarly $B\subset W$. Them $V$ and $W$ are disjoint open sets containing $A$ and $B$, respectively.
+        \vspace{1em}
+
+        $\impliedby:$ To show $X$ is completely normal, let $A$ be a subspace of $X$, let $B,C$ be disjoint sets closed in $A$. Notice 
+        $$
+        \closure{B}\cap C=(\closure{B}\cap A\cap C)\cup(\closure{B}\cap A^\complement\cap C)=(B\cap A\cap C)\cup(\closure{B}\cap\emptyset)=\emptyset
+        $$
+        and $\closure{C}\cap B=\emptyset$ similarly. Therefore $B$ and $C$ are separated sets in $X$, thus having neighborhoods $V$ and $W$ containing them. It follows that $V\cap A$ and $W\cap A$ are disjoint neighborhoods of $B$ and $C$ in $A$, implying that $A$ is normal.
+    \end{proof}
+    \begin{remark}
+        The proof reveals that proving open subsets are normal can imply the space being completely normal.
+    \end{remark}
+    \hfill
+
+    \begin{ex}
+        Which of the following spaces are completely normal?
+        \begin{itemize}
+            \item A subspace of a completely normal space is completely normal. 
+            \begin{proof}
+                A subspace of a subspace of a completely normal space is a subspace of a completely normal space, thus being normal.
+            \end{proof}
+            \item An ordered set is completely normal.
+            \item A metrizable space is completely normal.
+            \begin{proof}
+                In a metrizable space, the subspace topology coincides with the metric topology.
+            \end{proof}
+            \item The space $\R_l$ is completely normal.
+            \begin{proof}
+                Let $A$ and $B$ be separate sets in $\R_l$. For each $a\in A$, there is a basis element $[a,x_a]$ not intersecting $\closure{B}$. For each $b\in B$, there is a basis element $[b,x_b]$ not intersecting $\closure{A}$. Therefore,
+                $$
+                U=\cup_{a\in A}[a,x_a)\aand V=\cup_{b\in B}[b,x_b)
+                $$
+                are disjoint neighborhoods of $A$ and $B$, respectively.
+            \end{proof}
+            \item The product of two completely normal spaces is not necessarily completely normal.
+            \begin{proof}
+                $\R_l$ is completely normal but $\R_l^2$ is not.
+            \end{proof}
+            \item A compact Hausdorff space is not necessarily completely normal.
+            \begin{proof}
+                $\bar{S_\Omega}\times\bar{S_\Omega}$ is compact Hausdorff, but $S_\Omega\times\bar{S}_\Omega$ is not normal.
+            \end{proof}
+            \item A regular space with a countable basis is completely normal.
+            \begin{proof}
+                A subspace of a regular space is regular. A subspace of a second-countable space is second-countable.
+            \end{proof}
+        \end{itemize}
+    \end{ex}
+    \hfill
+
+    \begin{ex}
+        The exercise proves the theorem: \textit{If $J$ is uncountable, then $R^J$ is not normal.}
+        Let $X=(\Z^+)^J$. It will suffice to show that $X$ is not normal, since $X$ is a closed subset of $\R^J$. We use a functional notation for the elements of $X$, so that typical element of $X$ is a function $x:J\to\Z^+$.
+        \begin{itemize}
+            \item If $x\in X$ and if $B$ is a finite subset of $J$, let $U(x,B)=\set{y\in X:y(\alpha)=x(\alpha)}$ for $\alpha\in B$. Show the sets $U(x,B)$ are a basis for $X$.
+            \begin{proof}
+                Since singletons are open in $\Z^+$, then $U(x,B)=\displaystyle\prod_{\alpha\in B}\set{x(\alpha)} \prod_{\beta\notin B}\Z^+$ is open in $X$. On the other hand, if $x\in X$ is contained in the basis element $\prod V_\alpha$ where $V_\alpha\neq\Z^+$ for finite $\alpha\in B$, then clearly $x\in U(x,B)\subset\prod V_\alpha$, which implies that $\set{U(x,B)}$ are a basis for $X$.
+            \end{proof}
+            \item Define $P_n$ to be the subset of $X$ consisting of those $x$ such that on the set $J-x^{-1}(n)$, the map $x$ is injective. Show that $P_1$ and $P_2$ are closed and disjoint.
+            \begin{proof}
+                If $x\in P_1$, then $x$ is injective in $J-x^{-1}(1)$, which implies that $J-x^{-1}(1)$ is at most countable. Similarly if $x\in P_2$, then $J-x^{-1}(2)$ is at most countable. Therefore, since $x\in P_1\cap P_2$ implies that $(J-x^{-1}(1))\cup(J-x^{-1}(2))=J$ is countable, we know $P_1\cap P_2=\emptyset4$.
+
+                Let $x\in P_1^\complement$. Then $x(\alpha)=x(\beta)\neq1$ for some $\alpha\neq\beta$. It is trivial that $U(x,\set{\alpha,\beta})$ is a neighborhood of $x$ contained in $P_1^\complement$. Hence $P_1$ is closed. $P_2$ is closed by similar argument.
+            \end{proof}
+            \item Suppose $U$ and $V$ are open sets containing $P_1$ and $P_2$, respectively. Given a sequence $\alpha_1,\alpha_2,\dots$ of distinct elements of $J$, and a sequence
+            $$
+            0=n_0<n_1<n_2<\cdots
+            $$
+            of integers, for each $i\geq 1$ set
+            $$
+            B_i=\set{\alpha_1,\dots,\alpha_{n_i}}
+            $$
+            and define $x_i\in X$ by the equations
+            $$
+            \begin{cases}
+                x_i(\alpha_j)=j & 1\leq j\leq n_{i-1}\\
+                x_i(\alpha)=1 & \alpha\in J\setminus B_{i-1}
+            \end{cases}
+            $$
+            Show that one can choose the sequence $\alpha_j$ and $n_j$ so that for each $i$, one has
+            $$
+            U(x_i,B_i)\subset U            
+            $$
+            \begin{proof}
+                $x_i\in P_1$ holds trivially. For $i=1$, $x_1(\alpha)=1$ for all $\alpha\in J$; since $U$ is a neighborhood of $x_1$, there is finite $B_1$ such that $x_1\in U(x_1,B_1)\subset U$; then $n_1=\abs{B_1}$ and $\set{\alpha_1,\dots,\alpha_{n_1}}=B_1$ are defined naturally.
+
+                Inductively, for $i=k$ after defining $n_i$ and $B_i$ for $i<k$, $x_k$ is known by the given equation. Since $U$ is a neighborhood of $x_k$, there is finite $C$ such that $x_k\in U(x_k,C)\subset U$. Let $B_k=B_{k-1}\cup C$, $n_k=\abs{B_k}$, $\set{\alpha_{n_{k-1}+1},\alpha_{n_k}}=B_k\setminus B_{k-1}$, it follows that
+                $$
+                x_k\in U(x_k,B_k)\subset U(x_k,C)\subset U
+                $$
+            \end{proof}
+            \item Let $A$ be the set $\set{\alpha_1,\alpha_2,\dots}$ constructed above. Define $y:J\to\Z^+$ by the equations
+            $$
+            \begin{cases}
+                y(\alpha_j)=j & \alpha_j\in A\\
+                y(\alpha)=2 & \alpha\in J\setminus A
+            \end{cases}
+            $$
+            Choose B such that $U(y,B)\subset V$. Then choose $i$ so that $B\cap A$ is contained in the set $B_i$. Show that 
+            $$
+            U(x_{i+1},B_{i+1})\cap U(y,B)\neq\emptyset
+            $$
+            \begin{proof}
+                Notice we have $B\cap A\subset B_i\subset A$. Define $z:J\to\Z^+$ by the equations
+                $$
+                \begin{cases}
+                    z(\alpha_j)=j & \alpha_j\in B_i\\
+                    z(\alpha)=2 & \alpha\in B\setminus A\\
+                    z(\alpha)=1 & \alpha\in B_{i+1}\setminus B_i\\
+                    z(\alpha)=3 & \alpha\in J\setminus(B\cup B_{i+1})
+                \end{cases}
+                $$
+                the definition is valid since domains are pairwise disjoint and has union $J$. Notice $z(\alpha)=y(\alpha)$ for $\alpha\in B$ and $z(\alpha)=x_{i+1}(\alpha)$ for $\alpha\in B_{i+1}$. We know their intersection is non-empty. That proves the theorem.  
+            \end{proof}
+        \end{itemize}
+    \end{ex}
+    \hfill
+
+    \subsection{The Urysohn Lemma}
+    \begin{lemma}
+        Let $X$ be a normal space; let $A$ and $B$ be disjoint closed subsets of $X$. Let $[a,b]\subset\R$ be a closed interval. Then there exists a continuous map
+        $$
+        f:X\to [a,b]
+        $$
+        such that $f(x)=a$ for every $x\in A$, and $f(x)=b$ for every $x\in B$.
+    \end{lemma}
+    \hfill
+
+    \begin{defi}{Separated by Continuous Function}
+        If $A$ and $B$ are two subsets of the topological space $X$, and if there is a continuous function $f:X\to [0,1]$ such that $f(A)=\set{0}$ and $f(B)=\set{1}$, we say that $A$ and $B$ can be separated by a continuous function.
+    \end{defi}
+    \begin{remark}
+        The Urysohn lemma says that \textit{if every pair of disjoint closed sets in $X$ can be separated by disjoint open set, then each pair of disjoint closed sets can be separated by a continuous function}.
+    \end{remark}
+    \hfill
+
+    \begin{defi}{Completely Regular}
+        A space $X$ is \textbf{\textit{completely regular}} if one-point sets are closed in $X$ and if for each point $x_0$ and each closed set $A$ not containing $x_0$, there is a continuous function $f:X\to [0,1]$ such that $f(x_0)=1$ and $f(A)=\set{0}$.
+    \end{defi}
+    \hfill
+
+    \begin{thm}
+        A subspace of a completely regular space is completely regular. A product of completely regular spaces is completely regular.
+    \end{thm}
+    \begin{cor}
+        In particular, $\R^2_l$ and $S_\Omega\times\closure{S}_\Omega$ are completely regular but not normal.
+    \end{cor}
+    
+    \printglossary
+\end{document}

@@ -1,0 +1,187 @@
+% package
+\usepackage{alltt}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{hyphenat}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{color}
+\usepackage[colorlinks]{hyperref}
+\usepackage{enumitem}
+\usepackage{etoolbox}
+\usepackage{fancyhdr}
+\usepackage{flafter}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{mathalfa}
+\usepackage{mathdots}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+% \usepackage{microtype}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{pdflscape}
+\usepackage{pgffor}
+\usepackage{pgfplots}
+\usepackage{siunitx}
+\usepackage{slashed}
+\usepackage{subfigure}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usepackage[normalem]{ulem}
+\usepackage{xcolor}
+\usepackage{xparse}
+\usepackage{xpatch}
+\usepackage[all]{xy}
+\usepackage{imakeidx}
+
+% layout
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\lhead{\emph{\nouppercase{\leftmark}}}
+\setlength{\headheight}{14.5pt}
+
+% enumeration
+\renewcommand{\theenumi}{\alph{enumi}}
+\renewcommand\labelenumi{(\theenumi)}
+
+% title
+\author{ioshift}
+\date{\today}
+\title{\Huge{\bf{\ntitle}}}
+
+% Others
+\pgfplotsset{compat=1.18}
+\setlength{\parindent}{0em}
+\setlist[itemize,2]{label=$\circ$}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% math %%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Theorems
+\numberwithin{equation}{subsection}
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}[subsection]
+\newtheorem{axiom}[thm]{Axiom}
+\newtheorem{conjecture}[thm]{Conjecture}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{eg}[thm]{Example}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lemma}[thm]{Lemma}
+% \newtheorem{prob}{Problem}[section]
+\newtheorem{ex}[thm]{Exercise}
+
+\newtheorem*{aim}{Aim}
+\newtheorem*{assumption}{Assumption}
+\newtheorem*{claim}{Claim}
+\newtheorem*{Defi}{Definition}
+\newtheorem*{fact}{Fact}
+\newtheorem*{law}{Law}
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+\newtheorem*{rrule}{Rule}
+\newtheorem*{Prop}{Proposition}
+\newtheorem*{question}{Question}
+\newtheorem*{warning}{Warning}
+
+\renewcommand{\proofname}{\textbf{Proof}}
+\newenvironment{sol}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{counter}{\begin{proof}[\textbf{Counterexample}]}{\end{proof}}
+
+% Special sets
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+
+\newcommand{\topo}{\mathcal{T}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\cont}{\mathcal{C}}
+\renewcommand{\S}{\mathcal{S}}
+% Symbols
+\newcommand{\noteq}{\not=}
+\newcommand{\re}{\mathrm{Re\,}}
+\newcommand{\im}{\mathrm{Im\,}}
+\newcommand{\nexist}{\not\!\exists\,}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\floor}[1]{\left\lfloor #1\right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1\right\rceil}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\closure}[2][3]{%
+{}\mkern#1mu\overline{\mkern-#1mu#2}}
+\newcommand{\interior}{\mathrm{Int\,}}
+\newcommand{\upint}{\mathchoice%
+    {\mkern13mu\overline{\vphantom{\intop}\mkern7mu}\mkern-20mu}%
+    {\mkern7mu\overline{\vphantom{\intop}\mkern7mu}\mkern-14mu}%
+    {\mkern7mu\overline{\vphantom{\intop}\mkern7mu}\mkern-14mu}%
+    {\mkern7mu\overline{\vphantom{\intop}\mkern7mu}\mkern-14mu}%
+  \int}
+\newcommand{\lowint}{\mkern3mu\underline{\vphantom{\intop}\mkern7mu}\mkern-10mu%
+\int}
+\newcommand{\aand}{\quad\text{and}\quad}
+\newcommand{\res}[1]{\!\mid_{#1}}
+\newcommand{\normal}{\unlhd}
+\renewcommand{\tt}[1]{\quad\text{#1}\quad}
+\renewcommand{\d}{\mathop{}\!\mathrm{d}} 
+\renewcommand{\emptyset}{\varnothing}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Bd}{Bd}
+\DeclareMathOperator{\card}{card}
+
+
+%%% Automaic Definition Glossary
+\newtheorem{definition}[thm]{Definition}
+\newtheorem{notations}[thm]{Notation}
+\newcounter{cnt}
+\newcommand{\newterm}[3]{%
+    \global\expandafter\unexpanded\expandafter{
+    \expandafter\gdef\csname term#1\endcsname}{#2}%
+    \global\expandafter\unexpanded\expandafter{
+    \expandafter\gdef\csname cat#1\endcsname}{#3}%
+}
+\newenvironment{defi}[1]{
+    \refstepcounter{cnt}\label{\thecnt}
+    \newterm{\arabic{cnt}}{#1}{0}
+    \begin{definition}\textbf{#1}
+    
+}{\end{definition}}
+\newenvironment{notation}[1]{
+    \refstepcounter{cnt}\label{\thecnt}
+    \newterm{\arabic{cnt}}{#1}{0}
+    \begin{notations}\textbf{#1}
+    
+}{\end{notations}}
+\newcommand{\addelement}[1]{
+    \refstepcounter{cnt}\label{\thecnt}%
+    \newterm{\arabic{cnt}}{#1}{0}%
+}
+\newcommand{\addclass}[1]{
+    \refstepcounter{cnt}\label{\thecnt}%
+    \newterm{\arabic{cnt}}{#1}{1}%
+}
+\newcommand{\printglossary}{
+    \newpage
+    \section{Glossary}
+    \foreach \x in {1,...,\arabic{cnt}} {
+        \ifnum\csname cat\x\endcsname=0
+            \hyperref[\x]{\csname term\x\endcsname}\par\addvspace{0.5em}
+        \else
+            \ifnum\x>1
+                \vspace{1em}
+            \fi
+            {\large\textbf{\csname term\x\endcsname}\par\addvspace{0.7em}}
+        \fi
+    }
+}
