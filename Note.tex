@@ -3104,6 +3104,59 @@
     \begin{cor}
         In particular, $\R^2_l$ and $S_\Omega\times\closure{S}_\Omega$ are completely regular but not normal.
     \end{cor}
-    
+    \hfill
+
+    \begin{ex}\label{4.4.6}
+        Show that a connected normal space having more than one point is uncountable.
+    \end{ex}
+    \begin{proof}
+        Let $X$ be a connected normal space having more than one point. Let $A$ and $B$ be disjoint closed sets in $X$ (there must exist since $\abs{X}>1$) separated by the function $f:X\to[0,1]$. If there is $r\in[0,1]$ such that $f^{-1}(r)=\emptyset$, then $f^{-1}([0,r))$ and $f^{-1}((r,1])$ form a separation of $X$, contradicting to the connectedness. Therefore, $f$ is surjective and thus $X$ is uncountable.
+    \end{proof}
+
+    \begin{ex}
+        Show that a connected regular space having more than one point is uncountable.
+    \end{ex}
+    \begin{proof}
+        If such set is countable, then it's trivially Lindel\"of. Since a regular Lindel\"of space is normal, then countradiction arises by \hyperref[4.4.6]{Exercise 4.4.6}.
+    \end{proof}
+    \hfill
+
+    \begin{ex}\addelement{$G_\delta$ Set}\addelement{Vanish Precisely}
+        Set $A$ is a \textbf{\textit{$G_\delta$ set}} in $X$ if $A$ is the intersection of a countable collection of open sets of $X$. Prove the following theorem:
+
+        Let $X$ be normal. There exists a continuous function $f:X\to [0,1]$ such that $f(x)=0$ for $x\in A$, and $f(x)>0$ for $x\notin A$, if and only if $A$ is a closed $G_\delta$ set in $X$.
+
+        A function satisfying the requirements of this theorem is said to \textbf{\textit{vanish precisely on}} $A$.
+    \end{ex}
+    \begin{proof}
+        $\impliedby:$ Let $A$ be a closed $G_\delta$ set in $X$. Let $A=\cap P_n$ where $P_n$ is open in $X$. We define $U_n$ for $n\in\Z^+$ as follows:
+        Define $U_1$ open in $X$ such that 
+        $$
+        A\subset U_1\subset\closure{U_1}\subset P_1
+        $$
+        
+        Define $U_n$ for $n>1$ inductively to be an open set satisfying
+        $$
+        A\subset U_n\subset\closure{U_n}\subset P_{n-1}\cap U_{n-1}
+        $$
+        
+        We define $V_r$ for $r\in\Q\cap(0,1]$ as follows:
+        Define $V_{1/n}=U_n$ for each $n\in\Z^+$. Arrange the elements in $\Q\cap(0,1]\setminus\set{1/n:n\in\Z^+}$ in an infinite sequence. Assume the first $n$ rational numbers in the sequence is defined; for the $n+1$th element $r_{n+1}$, there must be $p<r_{n+1}<q$ where $V_p,V_q$ has already been defined and if $V_x$ has been defined then $x<p$ or $x>q$. In this case, we define $V_{r_{n+1}}$ to be a open set containing the closure of $V_p$ whose closure is contained in $V_q$, which exists due to the property of normality. Therefore, we have define $V_r$ for all $r\in\Q\cap(0,1]$ such that $\closure{V_p}\subset V_q$ for all $p<q$. We extend the definition of $V_r$ to all rational numbers $p$ in $\R$ by defining
+        $$
+        \begin{cases}
+            V_r=\emptyset& r<0\\
+            V_r=X& r\geq1
+        \end{cases}
+        $$
+        
+        Finally we define $f(x)$ for all $x\in X$ by $f(x)=\inf\set{r\in\Q:x\in V_r}$.
+
+        By similar argument to the proof of the Urysohn lemma we know $f(x)$ is continuous. If $x\in A$, then $x\in V_{1/n}$ for all $n\in\Z^+$, implying that $f(x)=0$. If $x\notin A$, then $x\in U_n^\complement$ for some $n\in\Z^+$, hence $x\notin V_{1/n}$ and thus $f(x)>1/n>0$, as desired.
+        
+        $\implies:$ If such function exists, $A=f^{-1}(\set{0})$ implying that it is closed in $X$. Notice $A=f^{-1}(\set{0})=\cap_{n\in\Z^+}f^{-1}([0,1/n))$ is the intersection of countable open sets. Hence $A$ is a closed $G_\delta$ set.
+    \end{proof}
+    \begin{remark}
+        A more direct $\impliedby$ proof is to construct $f(x)=\sum_{n=1}^\infty \frac{1}{2^n}f_n(x)$ where $f_n(x)$ is the function separating $A$ and $P_n^\complement$.
+    \end{remark}
     \printglossary
 \end{document}
