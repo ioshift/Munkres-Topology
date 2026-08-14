@@ -2877,7 +2877,7 @@
     \end{thm}
     \hfill
 
-    \begin{thm}
+    \begin{thm}\label{4.3.3}
         Every metrizable space is normal.
     \end{thm}
     \hfill
@@ -3158,5 +3158,55 @@
     \begin{remark}
         A more direct $\impliedby$ proof is to construct $f(x)=\sum_{n=1}^\infty \frac{1}{2^n}f_n(x)$ where $f_n(x)$ is the function separating $A$ and $P_n^\complement$.
     \end{remark}
+    \hfill
+
+    \begin{ex}
+        Let $X$ be a normal space. There is a continuous function $f:X\to[0,1]$ such that $f(x)=0$ for $x\in A$, and $f(x)=1$ for $x\in B$, and $0<f(x)<1$ otherwise, if and only if $A$ and $B$ are disjoint closed $G_\delta$ sets in $X$.
+    \end{ex}
+    \begin{proof}
+        If such function exists, then $A=f^{-1}(\set{0}),B=f^{-1}(\set{1})$ are both closed in $X$. Moreover, $A=\cap_{n\in\Z^+} f^{-1}(\set{[0,1/n)})$ and $B=\cap_{n\in\Z^+} f^{-1}(\set{(1-1/n,1]})$ are intersections of countable open sets, implying that $A$ and $B$ are disjoint closed $G_\delta$ sets in $X$.
+        
+        Let $A$ and $B$ be disjoint closed $G_\delta$ sets in $X$. Then there are disjoint neighborhoods $U$ and $V$ of $A$ and $B$, respectively. Let $A=\cap U_n$ where $U_n$ is open for each $n\in\Z^+$. Define $V_n=U_n\cap U$. Since $A$ and $V_n^\complement$ are disjoint closed sets in $X$, there is a continuous function $f_n:X\to [0,1]$ where $f_n(A)=\set{0}$ and $f_n(V_n^\complement)=\set{1}$. Let $f=\sum_{n=1}^\infty\frac{1}{2^n}f_n$, then $f:X\to [0,1]$ is a continuous function in which $f^{-1}(\set{0})=A$. Notice $B\in V_n^{\complement}$ for each $n$, then $f_n(B)=\set{1}$ implying that $f(B)=1$. 
+
+        Similarly, there is a continuous function $g:X\to[0,1]$ such that $g^{-1}(\set{0})=B$ and $g(A)=1$. One can varify that $h=\frac{1}{2}(1+f-g)$ is the desired continuous function.
+    \end{proof}
+    \begin{remark}
+        This is the strong form of the Urysohn Lemma.
+    \end{remark}
+    \hfill
+
+    \begin{ex}
+        A space $X$ is said to be \textit{\textbf{perfectly normal}} if $X$ is normal and if every closed set in $X$ is a $G_\delta$ set in $X$.
+        \begin{itemize}
+            \item Show that every metrizable space is perfectly normal.
+            \begin{proof}
+                Let $X$ be metrizable and $A\subset X$ be closed. Let $U_n=\cup_{a\in A}\B(a,1/n)$ for each $n\in\Z^+$, then we have $A=\cap U_n$ and thus $A$ is a $G_\delta$ set. Since metrizable spaces are normal by \hyperref[4.3.3]{Theorem 4.3.3}, we then know $X$ is perfectly normal.
+            \end{proof}
+            \begin{remark}
+                In fact, $f(x,A)=1-\frac{1}{1+d(x,A)}$ is the desired function showing $A$ is $G_\delta$.
+            \end{remark}
+            \item Show that a perfectly normal space is completely normal.
+            \begin{proof}
+                Let $A$ and $B$ be separated sets in the perfecty normal space $X$. Let $f,g:X\to [0,1]$ be continuous functions that vanish precisely on $\closure{A}$ and $\closure{B}$, respectively. Let $h=f-g:X\to [-1,1]$ be continuous. For $a\in A$, $a\in\closure{A}\implies f(a)=0$ and $a\notin\closure{B}\implies g(a)>0$, hence $h(a)<0$. For $b\in B$, $b\in\closure{B}\implies g(b)=0$ and $b\notin\closure{A}\implies f(b)>0$, hence $h(b)>0$. Therefore, $h^{-1}([-1,0))$ and $h^{-1}((0,1])$ are disjoint open sets containing $A$ and $B$, respectively.
+            \end{proof}
+            \begin{remark}
+                For this reason the condition of perfectly normality is sometimes called the $T_6$ axiom.
+            \end{remark}
+            \item There is a familiar space that is completely normal but not perfectly normal. What is it?
+            \begin{proof}
+                $\closure{S}_\Omega$ is completely normal in the order set. 
+                
+                $\set{\Omega}$ is closed in $\closure{S}_\Omega$. Let $\set{U_n:n\in\Z^+}$ be a countable open set containing $\Omega$, each containing a basis element $(x_n,\Omega]$ for $x_n\in S_\Omega$. Since $S_\Omega$ is well-ordered, there is $x\in S_\Omega$ such that $x=\sup\set{x_n}$, then we have $\cap U_n\supset \cap (x_n,\Omega]=(x,\Omega]\supsetneq\set{\Omega}$, implying that $\set{\Omega}$ is not a $G_\delta$ set. Hence $\closure{S}_\Omega$ is not perfectly normal.
+            \end{proof}
+        \end{itemize}
+    \end{ex}
+    \hfill
+
+    \begin{ex}
+        Show that every locally compact Hausdorff space is completely regular.
+    \end{ex}
+    \begin{proof}
+        Let $X$ be locally compact and $Y=X\cup\set{a}$ be the one-point compactification of $X$. Let $x\in X$ and $A\in X$ be closed not containing $x$. We know $\set{x}$ and $A\cup\set{a}$ are disjoint closed sets in $Y$, hence there is continuous $f:Y\to[0,1]$ such that $f(x)=1$ and $f(A)=\set{0}$. It follows that $f|_X$ is the desired continuous function. Hence $X$ is completely regular.
+    \end{proof}
     \printglossary
 \end{document}
