@@ -3175,7 +3175,7 @@
     \end{remark}
     \hfill
 
-    \begin{ex}
+    \begin{ex}\addelement{Perfectly Normal}
         A space $X$ is said to be \textit{\textbf{perfectly normal}} if $X$ is normal and if every closed set in $X$ is a $G_\delta$ set in $X$.
         \begin{itemize}
             \item Show that every metrizable space is perfectly normal.
@@ -3207,6 +3207,56 @@
     \end{ex}
     \begin{proof}
         Let $X$ be locally compact and $Y=X\cup\set{a}$ be the one-point compactification of $X$. Let $x\in X$ and $A\in X$ be closed not containing $x$. We know $\set{x}$ and $A\cup\set{a}$ are disjoint closed sets in $Y$, hence there is continuous $f:Y\to[0,1]$ such that $f(x)=1$ and $f(A)=\set{0}$. It follows that $f|_X$ is the desired continuous function. Hence $X$ is completely regular.
+    \end{proof}
+    \hfill
+
+    \subsection{The Urysohn Metrization Theorem}
+    \begin{thm}
+        Every regular space $X$ with a countable basis is metrizable.
+    \end{thm}
+    \hfill
+
+    \begin{thm}
+        Let $X$ be $T_1$. Suppose that $\set{f_\alpha}_{\alpha\in J}$ is an indexed family of continuous functions $f_\alpha:X\to\R$ satisfying the requirement that for each point $x_0\in X$ and each neighborhood $U$ of $x_0$, there is an index $\alpha$ such that $f_\alpha$ is positive at $x_0$ and vanishes outside $U$. Then the function $F:X\to\R^J$ defined by
+        $$
+        F(x)=(f_\alpha(x))_{\alpha\in J}
+        $$
+        is an imbedding of $X$ in $\R^J$. If $f_\alpha$ maps $X$ into $[0,1]$ for each $\alpha$, then $F$ imbeds $X$ in $[0,1]^J$.
+    \end{thm}
+    \begin{cor}
+        A space $X$ is completely regular if and only if it is homeomorphic to a subspace of $[0,1]^J$ for some $J$.
+    \end{cor}
+    \hfill
+
+    \begin{ex}
+        Give an example showing that a Hausdorff space with a countable basis need not be metrizable.
+    \end{ex}
+    \begin{proof}
+        We know $\R_K$ is Hausdorff with a countable basis $\B=\set{(a,b):a,b\in\Q} \cup\set{(a,b)-K:a,b\in\Q}$. Since $\R_K$ is not regular, it is not metrizable, as desired.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Give an example showing that a space can be completely normal, and satisfy the first countablity axiom, the Lindel\"of condition, and have a countable dense subset, and still not be metrizable.
+    \end{ex}
+    \begin{proof}
+        We know $\R_l$ is completely normal, satisfying the first countablity axiom, the Lindel\"of condition, and have a countable dense subset, but is not second countable. Hence it is not metrizable since otherwise second-countablity is deduced from the Lindel\"of condition.
+    \end{proof}
+    \hfill
+
+    \begin{ex}\addelement{Locally Metrizable}
+        A space $X$ is \textbf{\textit{locally metrizable}} if each point $x\in X$ has a neighborhood that is metrizable in the subset topology. Show that a compact Hausdorff space $X$ is metrizable if it is locally metrizable.
+    \end{ex}
+    \begin{proof}
+        For $x\in X$, let $U_x$ be a metrizable neighborhood of $x$, then $X=\cup_{n=1}^N U_{x_n}$ for some $\set{x_n}$. For each $n\in\Z^+$, $\set{B(x,1/n)}$ covers $X$, where $B(x,1/n)$ is a subset of $U_{x_a}$ such that $a=\min\set{b:x\in U_{x_b}}$, hence there is a countable subcover $\set{B(x_{m,n},1/n):m\in\Z^+}$. It follows that $\set{B(x_{m,n},1/n):n,m\in\Z^+}$ is a countable basis of $X$. Since $X$ is compact Hausdorff then normal, we know $X$ is metrizable by the Urysohn Metrizable Theorem.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Show that a regular Lindel\"of space is metrizable if it is locally metrizable.
+    \end{ex}
+    \begin{proof}
+        Let $X$ be regular Lindel\"of, then it is covered by countable metrizable open sets $\set{U_n:n\in\Z^+}$. For each $x\in U_n$, since $X$ is regular, there is a neighborhood $V_x$ of $x$ such that $\closure{V_x}\subset U_n$. Since $\closure{V_x}$ is closed in $X$, it is Lindel\"of; since $\closure{V_x}$ is a subset of $U_n$, it is metrizable, thus being second countable. Since $V_x$ is a subspace of $\closure{V_x}$, it is also second-countable. Since $\cup_{n=1}^\infty\set{V_x:x\in U_n}$ covers $X$, it has a countable subcover, in which each element has a countable basis. Therefore, combining them we obtain a countable basis for $X$, implying $X$ is metrizable. 
     \end{proof}
     \printglossary
 \end{document}
