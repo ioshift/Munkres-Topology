@@ -747,7 +747,7 @@
     \end{thm}
     \hfill
 
-    \begin{thm}
+    \begin{thm}\label{2.8.10}
         Let $f:A\to\prod_{\alpha\in J}X_\alpha$ be given by the equation
         $$
         f(a)=(f_\alpha(a))_{\alpha\in J}
@@ -1207,7 +1207,7 @@
     \end{proof}
     \hfill
 
-    \begin{thm}\textbf{{Universal Property of Quotient Maps}}\hfill
+    \begin{thm}\textbf{{Universal Property of Quotient Maps}}\hfill\label{2.10.7}
     
         Let $p:X\to Y$ be a quotient map. Let $Z$ be a space and let $g:X\to Z$ be a map that is constant on each set $p^{-1}(\set{y})$ for $y\in Y$. Then $g$ induces a map $f:Y\to Z$ such that $f\circ p=g$. The induced map $f$ is continuous if and only if $g$ is continuous; $f$ is a quotient map if and only if $g$ is a quotient map.
     \end{thm}
@@ -3008,7 +3008,7 @@
     \hfill
 
     \begin{ex}
-        The exercise proves the theorem: \textit{If $J$ is uncountable, then $R^J$ is not normal.}
+        The exercise proves the theorem: \textit{If $J$ is uncountable, then $\R^J$ is not normal.}
         Let $X=(\Z^+)^J$. It will suffice to show that $X$ is not normal, since $X$ is a closed subset of $\R^J$. We use a functional notation for the elements of $X$, so that typical element of $X$ is a function $x:J\to\Z^+$.
         \begin{itemize}
             \item If $x\in X$ and if $B$ is a finite subset of $J$, let $U(x,B)=\set{y\in X:y(\alpha)=x(\alpha)}$ for $\alpha\in B$. Show the sets $U(x,B)$ are a basis for $X$.
@@ -3223,7 +3223,7 @@
         $$
         is an imbedding of $X$ in $\R^J$. If $f_\alpha$ maps $X$ into $[0,1]$ for each $\alpha$, then $F$ imbeds $X$ in $[0,1]^J$.
     \end{thm}
-    \begin{cor}
+    \begin{cor}\label{4.5.3}
         A space $X$ is completely regular if and only if it is homeomorphic to a subspace of $[0,1]^J$ for some $J$.
     \end{cor}
     \hfill
@@ -3257,6 +3257,109 @@
     \end{ex}
     \begin{proof}
         Let $X$ be regular Lindel\"of, then it is covered by countable metrizable open sets $\set{U_n:n\in\Z^+}$. For each $x\in U_n$, since $X$ is regular, there is a neighborhood $V_x$ of $x$ such that $\closure{V_x}\subset U_n$. Since $\closure{V_x}$ is closed in $X$, it is Lindel\"of; since $\closure{V_x}$ is a subset of $U_n$, it is metrizable, thus being second countable. Since $V_x$ is a subspace of $\closure{V_x}$, it is also second-countable. Since $\cup_{n=1}^\infty\set{V_x:x\in U_n}$ covers $X$, it has a countable subcover, in which each element has a countable basis. Therefore, combining them we obtain a countable basis for $X$, implying $X$ is metrizable. 
+    \end{proof}
+    \hfill
+
+    \subsection{The Tietze Extension Theorem}
+    \begin{thm}
+        Let $X$ be a normal space; let $A$ be a closed subspace of $X$.
+        \begin{itemize}
+            \item Any continuous map of $A$ into the closed interval $[a,b]\subset\R$ may be extended to a continuous map of all of $X$ into $[a,b]$.
+            \item Any continuous map of $A$ into $\R$ may be extended to continuous map of all of $X$ into $\R$.
+        \end{itemize}
+    \end{thm}
+    \begin{remark}
+        Conversely, if the extension exsits for every pair of closed subset $A\subset X$ and continuous function on $A$, then we know $X$ is normal.
+    \end{remark}
+    \hfill
+    
+    \begin{ex}
+        Show that the Tietze extension theorem implies the Urysohn Lemma.    
+    \end{ex}
+    \begin{proof}
+        Let $X$ be normal, $A$ and $B$ be disjoint closed subsets of $X$. Define $f:A\cup B\to [a,b]$ by $f(A)=\set{a}$ and $f(B)=\set{b}$, then $f$ is continuous. We can extend it to $g:X\to [a,b]$, as desired to prove the Urysohn Lemma.
+    \end{proof}
+    \hfill
+
+    \begin{ex}\addelement{Retract \& Retraction}
+        Let $Z$ be a topological space. If $Y$ is a subspace of $Z$, we say $Y$ is a \textbf{\textit{retract}} of $Z$ if there is a continuous map $r:Z\to Y$ such that $r(y)=y$ for each $y\in Y$. $r$ is called a \textbf{\textit{retraction}} from $Z$ to $Y$.
+        \begin{itemize}
+            \item Show that if $Z$ is Hausdorff and $Y$ is a retract of $Z$, then $Y$ is closed in $Z$.
+            \begin{proof}
+                Let $x\in Z\setminus Y$. Then $x\neq r(x)$. Then there are disjoint neighborhoods $U,V$ of $x,r(x)$, respectively. For $y\in Y\cap U$, $r(y)\notin V\implies y\notin r^{-1}(V)$. Hence $U\cap r^{-1}(V)$ is a neighborhood of $x$ not intersecting $Y$, implying that $Y$ is closed.
+            \end{proof}
+            \item Let $A$ be a two-point set in $\R^2$. Show that $A$ is not a retract of $\R^2$.
+            \begin{proof}
+                If $A=\set{a,b}$ is a retract of $\R^2$, then $r^{-1}(\set{a})$ and $r^{-1}(\set{b})$ form a separation of $\R^2$, contradicting to the connectness of $\R^2$.
+            \end{proof}
+            \item Let $S^1$ be the unit circle in $\R^2$. Show that $S^1$ is a retract of $\R^2-\set{0}$.
+            \begin{proof}
+                The function $f:\R^2-\set{0}\to S^1$ mapping $(x,y)$ to $(\frac{x}{\sqrt{x^2+y^2}},\frac{y}{\sqrt{x^2+y^2}})$ is a retraction, hence $S^1$ is a retract of $\R^2-\set{0}$.
+            \end{proof}
+        \end{itemize}
+    \end{ex}
+    \hfill
+
+    \begin{ex}\addelement{Universal Extension Property}
+        A space $Y$ is said to have the \textbf{\textit{universal extension property}} if for each triple $(X,A,f)$ where $X$ is normal, $A$ is closed in $X$, $f:A\to Y$ is continuous, there exists an extension of $f$ to a continuous map of $X$ into $Y$.
+        \begin{itemize}
+            \item Show that $\R^J$ has the universal extension property.
+            \begin{proof}
+                Let $f:A\to\R^J$ be continuous. Then for each $\alpha\in J$, $f_\alpha=\pi_\alpha\circ f$ is continuous, which can be extended to $g_\alpha:X\to\R$ by Tietze extension theorem. Therefore, $g=(g_\alpha)_{\alpha\in J}:X\to \R^J$ is an extension of $f$. The continuity of $g$ follows from \hyperref[2.8.10]{Theorem 2.8.10}.
+            \end{proof}
+            \item Show that if $Y$ is homeomorphic to a retract of $\R^J$, then $Y$ has the universal extension property.
+            \begin{proof}
+                Let $S$ be a retract of $\R^J$ with retraction $g$, which is homeomorphic to $Y$ with homeomorphism $h:Y\to S$. Let $X$ be normal and $A$ be closed in $X$, $f:A\to Y$ be continuous. Then $h\circ f$ is a continuous function from $A$ to $\R^J$; then there is an extension $r:X\to \R^J$ since $\R^J$ has the universal extension property. It follows that $h^{-1}\circ g\circ r$ is the extension of $f$. Hence $Y$ has the universal extension property.
+            \end{proof}
+            \begin{remark}
+                Using similar argument, one can prove a stronger statement: \textit{If $Y$ is homeomorphic to a retract of a space with the universal extension property, then $Y$ has the universal extension property.}
+            \end{remark}
+        \end{itemize}
+    \end{ex}
+    \hfill
+
+    \begin{ex}\addelement{Absolute Retract}
+        Let $Y$ be a normal space. Then $Y$ is said to be an \textbf{\textit{absolute retract}} if for every pair of spaces $(Y_0,Z)$ such that $Z$ is normal and $Y_0$ is a closed subspace of $Z$ homeomorphic to $Y$, the space $Y_0$ is a retract of $Z$.
+        \begin{itemize}
+            \item Show that if $Y$ has the universal extension property, then $Y$ is an absolute retract.
+            \begin{proof}
+                Let $Z$ be normal and $Y_0$ is a closed subspace of $Z$ homeomorphic to $Y$. Let $f:Y_0\to Y$ be the homeomorphism. Since $Y$ has the universal extension property, there is an extension $g:Z\to Y$ of $f$. It follows that $f^{-1}\circ g$ is a retraction from $Z$ to $Y_0$.
+            \end{proof}
+            \item Show that if $Y$ is an absolute retract and $Y$ is compact, then $Y$ has the universal extension property (Hint: Assume the Tychonoff Theorem so you know $[0,1]^J$ is normal).
+            \begin{proof}
+                Since $Y$ is normal, it is completely regular. Then by \hyperref[4.5.3]{Corollary 4.5.3}, $Y$ is homeomorphic to a subspace $A$ of $[0,1]^J$ for some $J$. We know $A$ is compact and thus closed in $[0,1]^J$. Since $Y$ is an absolute retract homeomorphic to the closed subset $A$ of the normal space $[0,1]^J$. We know $A$ is a retract of $[0,1]^J$.
+                
+                We know from the Tietze extension theorem and \hyperref[2.8.10]{Theoerm 2.8.10} that $[0,1]^J$ has the universal extension property. It follows that $Y$ has the universal extension property by previous exercise.
+            \end{proof}
+        \end{itemize}
+    \end{ex}
+    \hfill
+
+    \begin{ex}
+        Let $Y$ be a normal space. Then $Y$ is an absolute retract if and only if $Y$ has the universal extension property.
+    \end{ex}
+    \begin{proof}
+        $\impliedby$ is proved in the previous exercise.
+
+        $\implies:$ Let $Y$ be an absolute retract. Let $X$ be a normal space disjoint from $Y$, $A\subset X$ be closed in $X$, $f:A\to Y$ be a continuous map. Let $Z_f$ be the quotient space of $X\cup Y$ with quotient map $p$ defined by
+        $$
+        Z_f=\set{\set{t}\cup f^{-1}(\set{t}):t\in Y}\cup (X\setminus A)
+        $$
+        Let $Z=\set{\set{t}\cup f^{-1}(\set{t}):t\in Y}$, we want to show that $p|_Y$ is a homeomorphism of $Y$ with $Z$. Obviously $p|_Y$ is a continuous bijection from $Y$ to $Z$. Let $B\subset Y$ be closed in $Y$, then $f^{-1}(B)$ is closed in $A$ then closed in $X$; it follows that $p^{-1}(p(A))=A\cup B$ is closed in $X\cup Y$. Hence $Y$ is homeomorphic to $Z$. Notice $p^{-1}(Z)=A\cup Y$ is closed in $X\cup Y$, we know $Z$ is closed in $Z_f$.
+        
+        To prove $Z_f$ is normal. Let $C,D\subset Z_f$ be disjoint closed subsets. We know $C_Y=p^{-1}(C)\cap Y$ and $D_Y=p^{-1}(D)\cap Y$ are disjoint closed in $Y$; $C_X=p^{-1}(C)\cap X$ and $D_X=p^{-1}(D)\cap X$ are disjoint closed in $X$. By Urysohn Lemma we know there is continuous $h_Y:Y\to[0,1]$ such that $h_Y(C_Y)=\set{0}$ and $h_Y(D_Y)=\set{1}$. Define $h_A:A\to [0,1]$ by $h_A=h_Y\circ f$ we know $h_A$ is continuous. Then we define $h:h_A\cup C_X\cup D_X\to [0,1]$ by
+        $$
+        h(x)=\begin{cases}
+            h_A(x)&x\in A\\
+            0&x\in C_X\\
+            1&x\in D_X
+        \end{cases}
+        $$
+        Notice for $x\in C_X\cap A$, $p(x)\in C\implies p(f(x))\in C$, hence $h_A(x)=h_Y(f(x))\in h_Y(C_Y)=\set{0}$. Similarly $h_A(x)=1$ for $x\in D_X\cap A$. It follows that $h$ is well-defined and continuous by pasting lemma. We then extend $h$ to $g:X\to [0,1]$ by Tietze extension theorem.
+
+        Since for $z\in Z_f$, if $z\in Z$, then $p^{-1}|_Y(z)$ is a singleton, implying $g(p^{-1}|_X(z))=g_Y\circ f(p^{-1}|_Y(z))$ is constant; if $z\notin Z$, then $p^{-1}|_X(z)$ is a singleton, implying $g(p^{-1}|_X(z))$ is also constant. Then by \hyperref[2.10.7]{Universal Property of Quotient Maps}, we know the induced map $\phi:Z_f\to[0,1]$ such that $\phi\circ p|_X=h$ is continuous since $h$ is continuous. Trivially we have $\phi(C)=\set{0}$ and $\phi(D)=\set{1}$ then $Z_f$ is normal.
+
+        Since $Y$ is an absolute retract that is homeomorphic to the closed subset $Z$ of the normal space $Z_f$, we know $Z$ is a retract of $Z_f$ with retraction $r$. It follows that $p^{-1}|_Y\circ r\circ p|_X:X\to Y$ is an extension of $f:A\to Y$. Hence $Y$ has the universal extension property.
     \end{proof}
     \printglossary
 \end{document}
