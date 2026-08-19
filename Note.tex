@@ -3361,5 +3361,100 @@
 
         Since $Y$ is an absolute retract that is homeomorphic to the closed subset $Z$ of the normal space $Z_f$, we know $Z$ is a retract of $Z_f$ with retraction $r$. It follows that $p^{-1}|_Y\circ r\circ p|_X:X\to Y$ is an extension of $f:A\to Y$. Hence $Y$ has the universal extension property.
     \end{proof}
+    \begin{remark}\addelement{Adjunction Space}
+        $Z$ is called an \textbf{\textit{adjunction space}}.
+    \end{remark}
+    \hfill
+
+    \subsection{Imbeddings of Manifolds}
+    \begin{defi}{$m$-Manifold}
+        An \textbf{\textit{$m$-manifold}} is a Hausdorff space $X$ with a countable basis such that each point $x$ of $X$ has a neighborhood that is homeomorphic with an open set of $\R^m$.
+    \end{defi}
+    \begin{remark}
+        A $1$-manifold is often called a \textit{\textbf{curve}}, and a $2$-manifold is often called a \textbf{\textit{surface}}.
+    \end{remark}
+    \hfill
+
+    \begin{defi}{Support}\addelement{$\supp$}
+        If $\phi:X\to\R$, then the \textbf{\textit{support}} of $\phi$ is defined to be the closure of the set $\phi^{-1}(\R-\set{0})$, denoted by $\supp(\phi)$.
+    \end{defi}
+    \begin{remark}
+        It follows that, if $x$ lies outside $\supp(\phi)$, there is some neighborhood of $x$ on which $\phi$ vanishes.
+    \end{remark}
+    \hfill
+
+    \begin{defi}{Partition of Unity}
+        Let $\set{U_1,\dots,U_n}$ be a finite indexed open covering of the space $X$. An indexed family of continuous functions
+        $$
+        \phi_i:X\to[0,1]\quad\forall i\in[1,n]
+        $$
+        is said to be a \textbf{\textit{partition of unity}} dominated by $\set{U_i}$ if:
+        \begin{itemize}
+            \item $\supp(\phi_i)\subset U_i$ for each $i$.
+            \item $\sum_{i=1}^n\phi_i(x)=1$ for each $x$.
+        \end{itemize}
+    \end{defi}
+    \hfill
+
+    \begin{thm}
+        Let $\set{U_1,\dots,U_n}$ be a finite open covering of the normal space $X$. Then there exists a partition of unity dominated by $\set{U_i}$.
+    \end{thm}
+    \hfill
+
+    \begin{thm}
+        If $X$ is a compact $m$-manifold, then $X$ can be imbedded in $\R^N$ for some $N\in\Z^+$.
+    \end{thm}
+    \hfill
+
+    \begin{ex}
+        Prove every manifold is regular and hence metrizable.
+    \end{ex}
+    \begin{proof}
+        Let $X$ be an $m$-manifold. Let $x\in X$ with a neighborhood $U$ homeomorphic to an open set in $\R^m$. Let $A$ be an arbitary neighborhood of $X$. Let $A\cap U$ be homeomorphic to the open set $V\subset \R^m$ with homeomorphism $f:A\cap U\to V$.
+        
+        Since $A$ is a neighborhood of $f(x)$, there is a basis element $B(f(x),\varepsilon)$ of $f(x)$ contained in $A$, then $W=B(f(x),\frac{\varepsilon}{2})$ is a neighborhood of $f(x)$ whose closure in $\R^m$ is contained $A$. We know $\closure{W}$ is compact since it's closed and bounded in $\R^m$. It follows that $f^{-1}(\closure{W})$ is compact and thus closed in the Hausdorff space $X$. We then have $f^{-1}(W)$ is a neighborhood of $x$ such that
+        $$
+        x\in f^{-1}(W)\subset\closure{f^{-1}(W)}^{X}\subset f^{-1}(\closure{W})\subset A
+        $$
+        Therefore, $X$ is regular. Since $X$ is second-countable, it is metrizable by Urysohn Metrization Theorem.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Let $X$ be a compact Hausdorff space. Suppose that for each $x\in X$, there is a neighborhood $U$ of $x$ and a positive integer $k$ such that $U$ can be imbedded in $\R^k$. Show that $X$ can be imbedded in $\R^N$ for some positive integer $N$.
+    \end{ex}
+    \begin{proof}
+        Cover $X$ by finitely many open sets $\set{U_1,\dots,U_n}$, where $U_i$ is imbedded in $\R^{k_i}$, thus all imbedded in $\R^k$ where $k=\max\set{k_i}$. Choose imbeddings $g_i:U_i\to\R^k$ for each $i$. Since $X$ is normal, there exists a partition of unity $\phi_1,\dots,\phi_n$ dominated by $\set{U_i}$. Let $A_i=\supp\phi_i$. For each $i$, define $h_i:X\to \R^k$ by
+        $$
+        h_i(x)=\begin{cases}
+            \phi_i(x)g_i(x)&x\in U_i\\0&x\in X-A_i
+        \end{cases}
+        $$
+        Then the function $F:X\to (\R\times\cdots\R\times\R^k\times\cdots\times\R^k)=\R^{(k+1)n}$ defined by 
+        $$
+        F(x)=(\phi_1(x),\dots,\phi_n(x),h_1(x),\dots,h_n(x))
+        $$
+        is an imbedding.
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Let $X$ be a Hausdorff space such that each point of $X$ has a neighborhood that is homeomorphic with an open subset of $\R^m$. Show that if $X$ is compact, then $X$ is an $m$-manifold.
+    \end{ex}
+    \begin{proof}
+        Notice $X$ is a compact Hausdorff space that is locally metrizable, it follows that $X$ is metrizable and is second-countable since $X$ is Lindel\"of deduced by the compactness. Therefore, $X$ is an $m$-manifold. 
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        An indexed family $\set{A_\alpha}$ of subsets of $X$ is said to be a \textbf{\textit{point-finite index family}} if each $x\in X$ belongs to $A_\alpha$ for only finitely many values of $\alpha$. Prove the following lemma:
+        
+        \textbf{{The shrinking lemma.}} Let $X$ be a normal space; let $\set{U_1,U_2,\dots}$ be a point-finite open covering of $X$. Then there exists an indexed open covering $\set{V_1,V_2,\dots}$ of $X$ such that $\closure{V_n}\subset U_n$ for each $n$.
+    \end{ex}
+    \begin{proof}
+        Notice $W_1=X\setminus(U_2\cup U_3\cup\cdots)$ is closed in $X$ contained in $U_1$, then pick $V_1$ to be a neighborhood of $W_1$ whose closure is contained in $U_1$. Inductively, $W_n=X\setminus(V_1\cup\cdots\cup V_{n-1}\cup U_{n+1}\cup\cdots)$ is closed in $X$ contained in $U_n$, then we pick $V_n$ to be a neighborhood of $W_n$ whose closure is contained in $U_n$.
+        
+        For each $x\in X$, it belongs to $U_n$ for finitely many values of $n$, then let $N=\max\set{n:x\in U_n}$, we have $x\in V_n$ for some $n\leq N$, since if $x\notin V_n$ for all $n<N$, we have $x\notin V_1\cup\cdots\cup V_{N-1}\cup U_{N+1}\cup\cdots\implies x\in W_N\implies x\in V_N$. It follows that $\set{V_1,V_2,\dots}$ is an open covering of $X$.
+    \end{proof}
     \printglossary
 \end{document}
