@@ -53,15 +53,26 @@
         There exists a well-ordered set $A$ having the largest element $\Omega$, such that the section $S_\Omega$ of $A$ is uncountable but every other sections of $A$ is countable. We then call $S_\Omega$ a \textbf{\textit{minimal uncountable well-ordered set}}. We denote $A=S_\Omega\cup\set{\Omega}$ by $\bar{S_\Omega}$.
     \end{defi}
     \hfill
-    
-
-    
 
     \begin{thm}\textbf{The Maximum Principle}\hfill
     
         Let $A$ be a set and $\prec$ be a strict partial order on $A$. Then there exists a maximal simply ordered subset $B$ of A.
     \end{thm}
     \hfill
+
+    \begin{defi}{Inductive}
+        Let $J$ be a well-ordered set. A subset $J_0$ of $J$ is said to be \textit{\textbf{inductive}} if for every $\alpha\in J$
+        $$
+        S_\alpha\subset J_0\implies \alpha\in J_0
+        $$
+    \end{defi}
+    \begin{thm}\textbf{The principle of transfinite induction}
+
+        If $J$ is a well-ordered set and $J_0$ is an inductive subset of $J$, then $J_0=J$.
+    \end{thm}
+    \begin{proof}
+        Suppose $J\setminus J_0=X\neq\emptyset$, then $X\subset J$ has the least element $x$. For each $y<x$, $y\notin X\implies y\in J_0$. It follows that $S_x\subset J_0\implies x\in J_0$, contradicting to $x\in X$. Hence $J=J_0$.
+    \end{proof}
     
     \begin{lemma}\textbf{Zorn's Lemma}\hfill
     
@@ -389,7 +400,7 @@
         Let $X$ be a topological space. Then the following conditions hold:
         \begin{itemize}
             \item $\emptyset$ and $X$ are closed.
-            \item Arbitarary intersections of closed sets are closed.
+            \item Arbitrary intersections of closed sets are closed.
             \item Finite unions of closed sets are closed.
         \end{itemize}
     \end{thm}
@@ -1785,7 +1796,7 @@
     \hfill
 
     \begin{defi}{Finite Intersection Property}
-        A collection $\mathcal{C}$ of subsets of $X$ is said to have the \textbf{finite intersection property} if for every finite subcollection
+        A collection $\mathcal{C}$ of subsets of $X$ is said to have the \textbf{\textit{finite intersection property}} if for every finite subcollection
         $$
         \set{C_1,\dots,C_n}
         $$
@@ -1885,7 +1896,7 @@
     \end{proof}
     \hfill
 
-    \begin{ex}
+    \begin{ex}\label{3.4.19}
         Let $X$ be a compact Hausdorff space. Let $\mathcal{A}$ be a collection of closed connected subsets of $X$ that is simply ordered by proper inclusion. Then
         $$
         Y=\cap_{A\in\mathcal{A}}A
@@ -3410,7 +3421,7 @@
         Prove every manifold is regular and hence metrizable.
     \end{ex}
     \begin{proof}
-        Let $X$ be an $m$-manifold. Let $x\in X$ with a neighborhood $U$ homeomorphic to an open set in $\R^m$. Let $A$ be an arbitary neighborhood of $X$. Let $A\cap U$ be homeomorphic to the open set $V\subset \R^m$ with homeomorphism $f:A\cap U\to V$.
+        Let $X$ be an $m$-manifold. Let $x\in X$ with a neighborhood $U$ homeomorphic to an open set in $\R^m$. Let $A$ be an arbitrary neighborhood of $X$. Let $A\cap U$ be homeomorphic to the open set $V\subset \R^m$ with homeomorphism $f:A\cap U\to V$.
         
         Since $A$ is a neighborhood of $f(x)$, there is a basis element $B(f(x),\varepsilon)$ of $f(x)$ contained in $A$, then $W=B(f(x),\frac{\varepsilon}{2})$ is a neighborhood of $f(x)$ whose closure in $\R^m$ is contained $A$. We know $\closure{W}$ is compact since it's closed and bounded in $\R^m$. It follows that $f^{-1}(\closure{W})$ is compact and thus closed in the Hausdorff space $X$. We then have $f^{-1}(W)$ is a neighborhood of $x$ such that
         $$
@@ -3456,5 +3467,148 @@
         
         For each $x\in X$, it belongs to $U_n$ for finitely many values of $n$, then let $N=\max\set{n:x\in U_n}$, we have $x\in V_n$ for some $n\leq N$, since if $x\notin V_n$ for all $n<N$, we have $x\notin V_1\cup\cdots\cup V_{N-1}\cup U_{N+1}\cup\cdots\implies x\in W_N\implies x\in V_N$. It follows that $\set{V_1,V_2,\dots}$ is an open covering of $X$.
     \end{proof}
+    \hfill
+
+    \subsection{The Tychonoff Theorem}
+    \begin{lemma}
+        Let $X$ be a set; let $\mathcal{A}$ be a collection of subsets of $X$ having the finite intersection property. Then there is a collection $\mathcal{D}$ of subsets of $X$ such that $\mathcal{D}$ contains $\mathcal{A}$, and $\mathcal{D}$ has the finite intersection property, and no collection of subsets of $X$ that properly contains $\mathcal{D}$ has this property.
+    \end{lemma}
+    \hfill
+
+    \begin{lemma}\label{4.8.2}
+        Let $X$ be a set; let $\mathcal{D}$ be a collection of subsets of $X$ that is maximal with respect to the finite intersection property. Then:
+        \begin{itemize}
+            \item Any finite intersection of elements of $\mathcal{D}$ is an element of $\mathcal{D}$
+            \item If $A$ is a subset of $X$ that intersects every element of $\mathcal{D}$, then $A$ is an element of $\mathcal{D}$.
+        \end{itemize}
+    \end{lemma}
+    \hfill
+
+    \begin{thm}
+        An arbitrary product of compact spaces is compact in the product topology.
+    \end{thm}
+    \hfill
+
+    \begin{ex}
+        Let $X$ be a space. Let $\mathcal{D}$ be a collection of subsets of $X$ that is maximal with respect to the finite intersection property.
+        \begin{itemize}
+            \item Show that $x\in\closure{D}$ for every $D\in \mathcal{D}$ if and only if every neighborhood of $x$ belongs to $\mathcal{D}$.
+            \begin{proof}
+                $\impliedby:$ Due to the finite intersection property of $\mathcal{D}$, for all $D\in\mathcal{D}$, every neighborhood of $x$ intersects $D$ thus $x\in\closure{D}$.
+
+                $\implies:$ For each neighborhood $U$ of $x$, $U$ intersects every element of $\mathcal{D}$, hence $U\in\mathcal{D}$ by \hyperref[4.8.2]{Lemma 4.8.2}.
+            \end{proof}
+            \item Let $D\in\mathcal{D}$. Show that if $A\supset D$, then $A\in\mathcal{D}$.
+            \begin{proof}
+                We know $D$ intersects every element of $\mathcal{D}$, thus $A\supset D$ intersects every element of $\mathcal{D}$. Therefore $A\in\mathcal{D}$.
+            \end{proof}
+            \item Show that if $X$ is Hausdorff, there is at most one point belonging to $\cap_{D\in\mathcal{D}}\closure{D}$.
+            \begin{proof}
+                Let $\set{x,y}\subset\cap_{D\in\mathcal{D}}\closure{D}$. There are disjoint neighborhoods $U,V$ of $x,y$, respectively. Since $U$ intersects $D$ for all $D\in\closure{D}$, we know $U\in\mathcal{D}$. It follows that
+                $$
+                \cap_{D\in\mathcal{D}}\closure{D}\subset \closure{U}\subset\closure{V^\complement}\subset V^\complement
+                $$
+                which does not contain $y$, leading to a contradiction. Hence the statement holds.
+            \end{proof}
+            \begin{remark}
+                In the textbook, Munkres false stated the question by assuming $X$ is $T_1$. There is a counterexample of that statement:
+
+                Let $X$ be an infinite set with finite complement topology. Let $\topo$ be the collection of open sets in $X$. Then let $\mathcal{D}$ be the maximal collection of subsets of $X$ containing $\topo\setminus\emptyset$ with respect to the finite intersection property. One can prove that every element in $\mathcal{D}$ is infinite whose closure is $X$. It follows that the conclusion does not hold.
+            \end{remark}
+        \end{itemize}
+    \end{ex}
+    \hfill
+
+    \begin{ex}
+        A collection $\mathcal{A}$ of subsets of $X$ has the \textbf{\textit{countable intersection property}} if every countable intersection of elements of $\mathcal{A}$ is nonempty. Show that $X$ is a Lindel\"of space if and only if every collection $\mathcal{A}$ of subsets of $X$ having the countable intersection property,
+        $$
+        \cap_{A\in\mathcal{A}}\closure{A}
+        $$
+        is nonempty.
+    \end{ex}
+    \begin{proof}
+        $\implies:$ Let $X$ be Lindel\"of. If there is $\mathcal{A}$ with the countable intersection property such that $\cap_{A\in\mathcal{A}}\closure{A}=\emptyset$, then $\set{\closure{A}^\complement:A\in\mathcal{A}}$ is an open cover of $X$. Let $\set{\closure{A_n}^\complement:n\in\Z^+}$ be a countable cover of $X$. It follows that
+        $$
+        \cap_{n\in\Z^+}A_n\subset\cap_{n\in\Z^+}\closure{A_n}=(\cup_{n\in\Z^+}\closure{A_n}^\complement)^\complement=\emptyset
+        $$
+        which contradicts to the countable intersection property. Hence such $\mathcal{A}$ does not exist.
+        
+        $\impliedby:$ Given an open cover $\mathcal{A}$ of $X$. If there is not a countable subcover of $\mathcal{A}$. Then the collection $\set{A^\complement:A\in\mathcal{A}}$ has the countable intersection property, implying that
+        $$
+        \cap_{A\in\mathcal{A}}\closure{A^\complement}=\cap_{A\in\mathcal{A}}A^\complement=(\cup_{A\in\mathcal{A}}A)^\complement
+        $$
+        is nonempty, which contradicts to $\mathcal{A}$ being a cover of $X$. Hence $\mathcal{A}$ has a countable subcover and thus $X$ is Lindel\"of.
+    \end{proof}
+    \hfill
+
+    \begin{ex}\addelement{Quasicomponent}
+        Here is another theorem whose proof uses Zorn's lemma. If $A$ is a space and $x,y\in A$, we say that $x,y$ belong to the same \textbf{\textit{quasicomponent}} of $A$ if there is no separation $A=C\cup D$ of $A$ into two disjoint open sets in $A$ such that $x\in C$ and $y\in D$. Prove the following theorem:
+        
+        Let $X$ be a compact Hausdorff space. Then $x$ and $y$ belong to the same quasicomponent of $X$ if and only if they belong to the same component of $X$.
+    \end{ex}
+    \begin{proof}
+        $\impliedby:$ Assume $X=C\cup D$ where $C,D$ are disjoint open sets in $A$ such that $x\in C$ and $y\in D$. However, $x,y$ belong to the same component of $X$, implying that there is a connected subspace $Y$ of $X$ containing both $x,y$. However, $C\cap Y$ and $D\cap Y$ form a separation of $Y$ which leads to a contradiction. It follows that $x$ and $y$ belong to the same quasicomponent. 
+
+        $\implies:$ Let $\mathcal{A}$ be the collection of all closed subspaces $A$ of $X$ such that $x$ and $y$ lie in the same quasicomponent of $A$. 
+        Let $A$ be a set partially ordered by reverse proper inclusion. Let $\mathcal{B}$ be a simply ordered subcollection of $\mathcal{A}$. We want to show that $x,y$ belong to the same quasicomponent of  $C=\cap_{B\in\mathcal{B}}B$, which is an upper bound of $B$. So we have $C\in\mathcal{A}$, and it follows that $A$ has a maximal element.
+
+        Assume $C=D\cup E$ where $D$ and $E$ are disjoint open sets in $C$ such that $x\in D$ and $y\in E$. $D,E$ are closed in $C$ thus closed in $X$. Since $X$ is compact Hausdorff thus normal, we know there are disjoint neighborhoods $U,V$ of $D,E$, respectively. For each $B\in\mathcal{B}$, since $x\in B\cap U$ and $y\in B\cap V$, it follows that $B\setminus(U\cup V)$ is non-empty closed in $X$. Then $\set{B\setminus(U\cup V):B\in\mathcal{B}}$ is a collection of closed subsets having the finite intersection property and
+        $$
+        \cap_{B\in\mathcal{B}}(B\setminus(U\cup V))=\emptyset
+        $$
+        which contradicts to $X$ being compact. Hence $x,y$ belong to the same quasicomponent of $C$.
+
+        Let $D$ be the maximal element of $A$. If $D=M\cup N$ is disconnected, then let $x,y\in M$ WLOG, implying that $M\in \mathcal{A}$ is a proper subset of $D$, contradicting to $D$ being the maximal element. Hence $D$ is connected, implying $x,y$ belong to the same component.        
+    \end{proof}
+    \hfill
+
+    \begin{ex}
+        Here is a proof of the Tychonoff theorem that relies on the well-ordering theorem rather than on the Zorn's lemma.
+        \begin{itemize}
+            \item Prove the following version of the tube lemma: Let $\mathcal{A}$ be a collection of basis elements for the topology of the product space $X\times Y$, such that no finite subcollection of $\mathcal{A}$ covers $X\times Y$. If $X$ is compact, there is a point $x\in X$ such that no finite subcollection of $\mathcal{A}$ covers the slice $\set{x}\times Y$.
+            \begin{proof}
+                Prove by contradiction. Let $\mathcal{A}_x$ be the finite subcollection of $\mathcal{A}$ covering $\set{x}\times Y$. Then $W_x=\cap_{x\in A\in\mathcal{A}_x}\pi_X(A)$ is a neighborhood of $x$. The cover $\set{W_x}$ of $X$ has a finite subcover $\set{W_{x_n}}$. It follows that $\set{\mathcal{A}_{x_n}}$ is a subcollection of $\mathcal{A}$ covering $X\times Y$, contradiction. 
+            \end{proof}
+            Now we prove the Tychonoff theorem: Let $\set{X_\alpha}_{\alpha\in J}$ be an indexed family of compact space; let
+            $$
+            X=\prod_{\alpha\in J}X_\alpha
+            $$
+            Well-order $J$ in such a way that $J$ has a largest element. (This is possible since we can pick an element $j\in J$, well-order $J\setminus\set{j}$, and then let $j>x$ for all $x\in J\setminus\set{j}$).
+            
+            \item Let $\beta\in J$. Suppose points $p_i\in X_i$ are given, for all $i<\beta$. For any $\alpha<\beta$, let $Y_\alpha$ denote the subspace of $X$ defined by the equation
+            $$
+            Y_\alpha=\set{x:\pi_i(x)=p_i,\forall i\leq\alpha}
+            $$
+            Note that if $\alpha<\alpha'$, then $Y_\alpha\supset Y_{\alpha'}$. Show that if $\mathcal{A}$ is a finite collection of basis elements for $X$ that covers the space
+            $$
+            Z_\beta=\cap_{\alpha<\beta}Y_\alpha=\set{x:\pi_i(x)=p_i,\forall i<\beta}
+            $$
+            then $\mathcal{A}$ actually covers $Y_\alpha$ for some $\alpha<\beta$.
+            \begin{proof}
+                If $\beta$ has an immediate predecessor $\alpha$ in $J$. Then $Y_\alpha=Z_\beta$ is covered by $\mathcal{A}$.
+                
+                Otherwise, let $J_A=\set{i<\beta:\pi_i(A)\neq X_i}$. We know $J_A$ is finite due to the product topology, then $\cup_{A\in\mathcal{A}}J_A$ is finite with largest element $\alpha$. For all $x\in Y_\alpha$, there is $y\in Z_\beta$ such that $\pi_i(x)=\pi_i(y)$ for all $i\leq\alpha$ and $i\geq\beta$, we know $y\in A$ for some $A\in\mathcal{A}$, then one can prove that $x\in A$ as well. It follows that $Y_\alpha$ is covered by $\mathcal{A}$.
+            \end{proof}
+            \begin{remark}
+                In fact, it is not necessary to split the case when $\beta$ has an immediate predecessor.
+            \end{remark}
+
+            \item Assume $\mathcal{A}$ is a covering of $X$ by basis elements such that no finite subcollection of $\mathcal{A}$ covers $X$. Show that one can choose points $p_i\in X_i$ for all $i$, such that for each $\alpha$, the space $Y_\alpha$ defined previously cannot be finitely covered by $\mathcal{A}$. When $\alpha$ is the largest element of $J$, one has a contradiction.
+            \begin{proof}
+                Prove by transfinite induction. 
+                
+                Let $\alpha$ be the least element in $J$. Notice $\mathcal{A}$ is a collection of basis elements for the topology of the product space $X_\alpha\times(\prod_{\beta\neq\alpha}X_\beta)$ without a finite subcollection. The previous version of the tube lemma tells that there is a point $p_\alpha\in X_\alpha$ such that $\set{p_\alpha}\times(\prod_{\beta\neq\alpha}X_\beta)=Y_\alpha$ cannot be finitely covered by $\mathcal{A}$. 
+
+                If $p_i$ is defined for all $i<\beta$, and $Y_i$ cannot be finitely covered by $\mathcal{A}$ for all $i<\beta$. The previous question tells that $Z_\beta$ cannot be finitely covered by $\mathcal{A}$, for otherwise there is $Y_i$ finitely covered by $\mathcal{A}$ for some $i<\beta$. Therefore, $Z_\beta=\prod_{\alpha<\beta}\set{p_\alpha}\prod_{\alpha\geq\beta}X_\alpha=X_\beta\times(\prod_{\alpha<\beta}\set{p_\alpha}\prod_{\alpha>\beta}X_\alpha)$ cannot be finitely covered by $\mathcal{A}$, implying the existence of $p_\beta$ such that $\set{p_\beta}\times(\prod_{\alpha<\beta}\set{p_\alpha}\prod_{\alpha>\beta}X_\alpha)=Y_\beta$ cannot be finitely covered by $\mathcal{A}$. 
+
+                That proves the Tychonoff theorem.
+            \end{proof}
+        \end{itemize}
+    \end{ex}
+    
+
+    
+
+    
     \printglossary
 \end{document}
