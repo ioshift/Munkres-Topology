@@ -69,6 +69,13 @@
 \numberwithin{equation}{subsection}
 \theoremstyle{definition}
 \newtheorem{thm}{Theorem}[subsection]
+\renewcommand{\thethm}{%
+  \ifnum\value{subsection}=0
+    \thesection.\arabic{thm}%
+  \else
+    \thesubsection.\arabic{thm}%
+  \fi
+}
 \newtheorem{axiom}[thm]{Axiom}
 \newtheorem{conjecture}[thm]{Conjecture}
 \newtheorem{cor}[thm]{Corollary}
