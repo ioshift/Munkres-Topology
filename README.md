@@ -3,7 +3,7 @@
 Personal reading notes by **Steven Shi**, based on selected material
 from Part I of James R. Munkres’ *Topology* (2nd edition).
 
-- [Notes](notes.pdf)
+- [Note](note.pdf)
 
 ## Topics covered
 
